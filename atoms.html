@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
+  <title>Atoms & Molecules Quiz</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #121212;
+      color: #e0e0e0;
+      transition: background 0.3s, color 0.3s;
+      padding-top: 70px; /* prevent overlap with fixed bar */
+    }
+    #title-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #1e1e1e;
+      color: #fff;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+    #title-bar h2 { margin: 0; font-size: 20px; }
+
+    /* Center button group inside title bar */
+    .menu-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex: 1; /* take available space */
+    }
+    .menu-buttons button {
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      background: #4dabf7;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .menu-buttons button:hover { background: #1c7ed6; }
+
+    #theme-toggle {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      background: #4dabf7;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #theme-toggle:hover { background: #1c7ed6; }
+
+    #quiz-container {
+      background: #1e1e1e;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 800px;
+      margin: 40px auto;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+      animation: fadeIn 1s ease;
+      transition: background 0.3s, color 0.3s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 { text-align: center; color: #4dabf7; margin-bottom: 20px; }
+
+    .question {
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      background: #2a2a2a;
+      transition: background 0.3s;
+    }
+    .question:hover { background: #333; }
+    .question p { font-weight: bold; margin-bottom: 10px; color: #ffffff; }
+    .options label {
+      display: block;
+      padding: 6px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .options label:hover { background: #3a3a3a; }
+    input[type="radio"] { margin-right: 8px; }
+
+    #result {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #ffffff;
+    }
+    .correct { color: #51cf66; font-weight: bold; }
+    .wrong { color: #ff6b6b; font-weight: bold; }
+    .feedback { margin-top: 8px; }
+
+    /* Light theme overrides */
+    body.light { background: #f0f0f0; color: #333; }
+    body.light #title-bar { background: #ffffff; color: #333; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+    body.light #quiz-container { background: #ffffff; color: #333; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    body.light .question { background: #f9f9f9; }
+    body.light .question:hover { background: #eef6ff; }
+    body.light .question p { color: #000; }
+    body.light .options label:hover { background: #e0f0ff; }
+    body.light #result { color: #000; }
+  </style>
+</head>
+<body>
+  <div id="title-bar">
+    <h2>Atoms & Molecules Quiz</h2>
+   
+    <div class="menu-buttons">
+         <a href="chemistry.html">
+        <button class="nav-button">Back</button>
+      </a>
+      <button id="submit">Submit</button>
+      <button onclick="scrollToTop()">⬆ Top</button>
+      <button onclick="scrollToQuiz()">🎯 Quiz</button>
+      <button onclick="scrollToBottom()">⬇ Down</button>
+    </div>
+    <button id="theme-toggle">Switch Theme</button>
+  </div>
+
+  <div id="quiz-container">
+    <h1>Atoms and Molecules</h1>
+    <div id="quiz"></div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    // Track last answered question
+    let lastAnswered = null;
+    document.addEventListener("change", (e) => {
+      if (e.target.type === "radio") {
+        const qDiv = e.target.closest(".question");
+        if (qDiv) lastAnswered = qDiv;
+      }
+    });
+
+    // Scroll functions
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function scrollToQuiz() {
+      if (lastAnswered) {
+        lastAnswered.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        document.getElementById("quiz-container").scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    function scrollToBottom() {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    // Quiz logic
+    const questions = [
+      { q: "Q1. Who proposed the atomic theory?", options: ["J.J. Thomson","John Dalton","Rutherford","Neils Bohr"], answer: 1 },
+  { q: "Q2. Which of the following is the smallest particle of an element that retains its chemical properties?", options: ["Molecule","Atom","Ion","Compound"], answer: 1 },
+  { q: "Q3. The chemical formula of water is:", options: ["H₂O","HO₂","H₂O₂","OH"], answer: 0 },
+  { q: "Q4. The atomicity of oxygen (O₂) is:", options: ["1","2","3","4"], answer: 1 },
+  { q: "Q5. The molecular mass of CO₂ is:", options: ["28 u","32 u","44 u","46 u"], answer: 2 },
+  { q: "Q6. Which law states that “In a chemical reaction, mass can neither be created nor destroyed”?", options: ["Law of Constant Proportion","Law of Conservation of Mass","Law of Multiple Proportion","Dalton’s Law"], answer: 1 },
+  { q: "Q7. The formula of ammonium ion is:", options: ["NH₃⁺","NH₄⁺","NH₂⁻","NH₄⁻"], answer: 1 },
+  { q: "Q8. The valency of carbon in methane (CH₄) is:", options: ["1","2","3","4"], answer: 3 },
+  { q: "Q9. The SI unit of amount of substance is:", options: ["Mole","Gram","Kilogram","Liter"], answer: 0 },
+  { q: "Q10. Which of the following is a triatomic molecule?", options: ["O₂","N₂","H₂O","He"], answer: 2 },
+  { q: "Q11. The molecular formula of glucose is:", options: ["C₆H₁₂O₆","C₆H₆","C₁₂H₂₂O₁₁","CH₄"], answer: 0 },
+  { q: "Q12. The atomic mass of hydrogen is approximately:", options: ["1 u","2 u","4 u","6 u"], answer: 0 },
+  { q: "Q13. The molecular mass of H₂SO₄ is:", options: ["98 u","96 u","100 u","92 u"], answer: 0 },
+  { q: "Q14. The formula of sodium chloride is:", options: ["NaCl","Na₂Cl","NaCl₂","Na₂Cl₂"], answer: 0 },
+  { q: "Q15. The atomicity of phosphorus (P₄) is:", options: ["2","3","4","5"], answer: 2 },
+  { q: "Q16. The molecular mass of methane (CH₄) is:", options: ["14 u","16 u","18 u","20 u"], answer: 1 },
+  { q: "Q17. Which of the following is a polyatomic ion?", options: ["Cl⁻","SO₄²⁻","Na⁺","K⁺"], answer: 1 },
+  { q: "Q18. The formula of calcium carbonate is:", options: ["CaCO₃","CaC₂","CaO","CaCl₂"], answer: 0 },
+  { q: "Q19. The molecular mass of nitrogen gas (N₂) is:", options: ["14 u","28 u","32 u","30 u"], answer: 1 },
+  { q: "Q20. The formula of sulphuric acid is:", options: ["H₂SO₃","H₂SO₄","H₂S","H₂SO₂"], answer: 1 },
+  { q: "Q21. The formula of aluminium oxide is:", options: ["AlO","Al₂O₃","AlO₂","Al₂O"], answer: 1 },
+  { q: "Q22. The molecular mass of NaOH is:", options: ["40 u","42 u","44 u","46 u"], answer: 0 },
+  { q: "Q23. The formula of magnesium hydroxide is:", options: ["MgOH","Mg(OH)₂","MgO₂H","Mg₂OH"], answer: 1 },
+  { q: "Q24. The molecular mass of HCl is:", options: ["34.5 u","36.5 u","38.5 u","40.5 u"], answer: 1 },
+  { q: "Q25. The formula of potassium nitrate is:", options: ["KNO₂","KNO₃","K₂NO₃","K₂N₂O₃"], answer: 1 },
+  { q: "Q26. The molecular mass of NH₃ is:", options: ["15 u","16 u","17 u","18 u"], answer: 2 },
+  { q: "Q27. The formula of calcium hydroxide is:", options: ["CaOH","Ca(OH)₂","CaO₂H","Ca₂OH"], answer: 1 },
+  { q: "Q28. The molecular mass of O₂ is:", options: ["16 u","32 u","28 u","30 u"], answer: 1 },
+  { q: "Q29. The formula of zinc chloride is:", options: ["ZnCl","ZnCl₂","Zn₂Cl","Zn₂Cl₂"], answer: 1 },
+  { q: "Q30. The molecular mass of CO is:", options: ["28 u","30 u","32 u","34 u"], answer: 0 },
+  { q: "Q31. The formula of sodium carbonate is:", options: ["NaCO₃","Na₂CO₃","Na₂C₂O₃","NaCO₂"], answer: 1 },
+  { q: "Q32. The molecular mass of Na₂CO₃ is:", options: ["106 u","108 u","110 u","112 u"], answer: 0 },
+  { q: "Q33. The formula of potassium hydroxide is:", options: ["KOH","K₂OH","K(OH)₂","KO₂H"], answer: 0 },
+  { q: "Q34. The molecular mass of KOH is:", options: ["54 u","56 u","58 u","60 u"], answer: 1 },
+  { q: "Q35. The formula of nitric acid is:", options: ["HNO₂","HNO₃","H₂NO₃","H₂NO₂"], answer: 1 },
+  { q: "Q36. The molecular mass of HNO₃ is:", options: ["62 u","64 u","66 u","68 u"], answer: 0 },
+  { q: "Q37. The formula of calcium sulphate is:", options: ["CaSO₄","CaSO₃","Ca₂SO₄","Ca₂SO₃"], answer: 0 },
+  { q: "Q38. The molecular mass of CaSO₄ is:", options: ["132 u","136 u","138 u","140 u"], answer: 1 },
+  { q: "Q39. The formula of sodium hydroxide is:", options: ["NaOH","Na₂OH","NaO₂H","Na₂O₂H"], answer: 0 },
+  { q: "Q40. The molecular mass of NaOH is:", options: ["38 u","40 u","42 u","44 u"], answer: 1 },
+  { q: "Q41. The formula of sulphur dioxide is:", options: ["SO₂","SO₃","S₂O₂","S₂O₃"], answer: 0 },
+  { q: "Q42. The molecular mass of SO₂ is:", options: ["62 u","64 u","66 u","68 u"], answer: 0 },
+  { q: "Q43. The formula of sulphur trioxide is:", options: ["SO₂","SO₃","S₂O₃","S₃O₂"], answer: 1 },
+  { q: "Q44. The molecular mass of SO₃ is:", options: ["78 u","80 u","82 u","84 u"], answer: 1 },
+  { q: "Q45. The formula of calcium chloride is:", options: ["CaCl","CaCl₂","Ca₂Cl","Ca₂Cl₂"], answer: 1 },
+  { q: "Q46. The molecular mass of CaCl₂ is:", options: ["108 u","110 u","111 u","112 u"], answer: 2 },
+  { q: "Q47. The formula of hydrogen sulphide is:", options: ["H₂S","HS","H₂SO₄","H₂SO₃"], answer: 0 },
+  { q: "Q48. The molecular mass of H₂S is:", options: ["32 u","34 u","36 u","38 u"], answer: 1 },
+  { q: "Q49. The formula of sodium sulphate is:", options: ["NaSO₄","Na₂SO₄","Na₂SO₃","NaSO₃"], answer: 1 },
+  { q: "Q50. The molecular mass of Na₂SO₄ is:", options: ["140 u","142 u","144 u","146 u"], answer: 1 },
+  { q: "Q51. The formula of calcium phosphate is:", options: ["CaPO₄","Ca₂PO₄","Ca₃(PO₄)₂","Ca₂(PO₄)₃"], answer: 2 },
+  { q: "Q52. The molecular mass of Ca₃(PO₄)₂ is:", options: ["310 u","312 u","314 u","316 u"], answer: 1 },
+  { q: "Q53. The formula of aluminium chloride is:", options: ["AlCl","AlCl₂","AlCl₃","Al₂Cl₃"], answer: 2 },
+  { q: "Q54. The molecular mass of AlCl₃ is:", options: ["132 u","133 u","134 u","135 u"], answer: 1 },
+  { q: "Q55. The formula of sodium bicarbonate is:", options: ["NaHCO₂","NaHCO₃","Na₂HCO₃","Na₂CO₃"], answer: 1 },
+  { q: "Q56. The molecular mass of NaHCO₃ is:", options: ["82 u","84 u","86 u","88 u"], answer: 1 },
+  { q: "Q57. The formula of ammonium sulphate is:", options: ["(NH₄)₂SO₄","NH₄SO₄","NH₂SO₄","(NH₄)SO₄"], answer: 0 },
+  { q: "Q58. The molecular mass of (NH₄)₂SO₄ is:", options: ["132 u","134 u","136 u","138 u"], answer: 1 },
+  { q: "Q59. The formula of ferrous sulphate is:", options: ["FeSO₄","Fe₂SO₄","Fe₂(SO₄)₃","FeSO₃"], answer: 0 },
+  { q: "Q60. The molecular mass of FeSO₄ is:", options: ["150 u","152 u","154 u","156 u"], answer: 1 },
+  { q: "Q61. The formula of ferric chloride is:", options: ["FeCl₂","FeCl₃","Fe₂Cl₃","Fe₂Cl₂"], answer: 1 },
+  { q: "Q62. The molecular mass of FeCl₃ is:", options: ["160 u","162 u","164 u","166 u"], answer: 1 },
+  { q: "Q63. The formula of sodium sulphite is:", options: ["NaSO₃","Na₂SO₃","Na₂SO₄","NaSO₄"], answer: 1 },
+  { q: "Q64. The molecular mass of Na₂SO₃ is:", options: ["124 u","126 u","128 u","130 u"], answer: 1 },
+  { q: "Q65. The formula of potassium permanganate is:", options: ["KMnO₄","K₂MnO₄","KMnO₃","K₂MnO₃"], answer: 0 },
+  { q: "Q66. The molecular mass of KMnO₄ is:", options: ["158 u","160 u","162 u","164 u"], answer: 0 },
+  { q: "Q67. The formula of sodium nitrite is:", options: ["NaNO₂","NaNO₃","Na₂NO₂","Na₂NO₃"], answer: 0 },
+  { q: "Q68. The molecular mass of NaNO₂ is:", options: ["68 u","70 u","72 u","74 u"], answer: 1 },
+  { q: "Q69. The formula of sodium nitrate is:", options: ["NaNO₂","NaNO₃","Na₂NO₂","Na₂NO₃"], answer: 1 },
+  { q: "Q70. The molecular mass of NaNO₃ is:", options: ["84 u","86 u","88 u","90 u"], answer: 2 },
+  { q: "Q71. The formula of calcium nitrate is:", options: ["CaNO₃","Ca(NO₃)₂","Ca₂NO₃","Ca₂(NO₃)₂"], answer: 1 },
+  { q: "Q72. The molecular mass of Ca(NO₃)₂ is:", options: ["162 u","164 u","166 u","168 u"], answer: 1 },
+  { q: "Q73. The formula of aluminium sulphate is:", options: ["AlSO₄","Al₂(SO₄)₃","Al₂SO₄","AlSO₃"], answer: 1 },
+  { q: "Q74. The molecular mass of Al₂(SO₄)₃ is:", options: ["342 u","344 u","346 u","348 u"], answer: 0 },
+  { q: "Q75. The formula of sodium phosphate is:", options: ["NaPO₄","Na₂PO₄","Na₃PO₄","Na₂(PO₄)₂"], answer: 2 },
+  { q: "Q76. The molecular mass of Na₃PO₄ is:", options: ["162 u","164 u","166 u","168 u"], answer: 1 },
+  { q: "Q77. The formula of magnesium sulphate is:", options: ["MgSO₄","MgSO₃","Mg₂SO₄","Mg₂SO₃"], answer: 0 },
+  { q: "Q78. The molecular mass of MgSO₄ is:", options: ["118 u","120 u","122 u","124 u"], answer: 1 },
+  { q: "Q79. The formula of barium chloride is:", options: ["BaCl","BaCl₂","Ba₂Cl","Ba₂Cl₂"], answer: 1 },
+  { q: "Q80. The molecular mass of BaCl₂ is:", options: ["206 u","208 u","210 u","212 u"], answer: 1 },
+  { q: "Q81. The formula of potassium dichromate is:", options: ["K₂Cr₂O₇","KCr₂O₇","K₂CrO₇","K₂Cr₂O₆"], answer: 0 },
+  { q: "Q82. The molecular mass of K₂Cr₂O₇ is:", options: ["292 u","294 u","296 u","298 u"], answer: 1 },
+  { q: "Q83. The formula of calcium oxide is:", options: ["CaO","CaO₂","Ca₂O","Ca₂O₂"], answer: 0 },
+  { q: "Q84. The molecular mass of CaO is:", options: ["54 u","56 u","58 u","60 u"], answer: 1 },
+  { q: "Q85. The formula of sodium oxide is:", options: ["NaO","Na₂O","Na₂O₂","NaO₂"], answer: 1 },
+  { q: "Q86. The molecular mass of Na₂O is:", options: ["60 u","62 u","64 u","66 u"], answer: 1 },
+  { q: "Q87. The formula of aluminium oxide is:", options: ["AlO","Al₂O₃","AlO₂","Al₂O"], answer: 1 },
+  { q: "Q88. The molecular mass of Al₂O₃ is:", options: ["100 u","102 u","104 u","106 u"], answer: 1 },
+  { q: "Q89. The formula of ferrous oxide is:", options: ["FeO","Fe₂O₃","Fe₂O","Fe₃O₄"], answer: 0 },
+  { q: "Q90. The molecular mass of FeO is:", options: ["70 u","72 u","74 u","76 u"], answer: 1 },
+  { q: "Q91. The formula of ferric oxide is:", options: ["FeO","Fe₂O₃","Fe₃O₄","Fe₂O"], answer: 1 },
+  { q: "Q92. The molecular mass of Fe₂O₃ is:", options: ["158 u","160 u","162 u","164 u"], answer: 1 },
+  { q: "Q93. The formula of zinc oxide is:", options: ["ZnO","Zn₂O","ZnO₂","Zn₂O₂"], answer: 0 },
+  { q: "Q94. The molecular mass of ZnO is:", options: ["80 u","81 u","82 u","83 u"], answer: 1 },
+  { q: "Q95. The formula of copper sulphate is:", options: ["CuSO₄","Cu₂SO₄","CuSO₃","Cu₂SO₃"], answer: 0 },
+  { q: "Q96. The molecular mass of CuSO₄ is:", options: ["158 u","160 u","162 u","164 u"], answer: 1 },
+  { q: "Q97. The formula of lead nitrate is:", options: ["PbNO₃","Pb(NO₃)₂","Pb₂NO₃","Pb₂(NO₃)₂"], answer: 1 },
+  { q: "Q98. The molecular mass of Pb(NO₃)₂ is:", options: ["330 u","332 u","334 u","336 u"], answer: 1 },
+  { q: "Q99. The formula of silver nitrate is:", options: ["AgNO₂","AgNO₃","Ag₂NO₃","Ag₂NO₂"], answer: 1 },
+  { q: "Q100. The molecular mass of AgNO₃ is:", options: ["168 u","170 u","172 u","174 u"], answer: 1 }
+    ];
+
+    const quizDiv = document.getElementById("quiz");
+    questions.forEach((qObj, idx) => {
+      const qDiv = document.createElement("div");
+      qDiv.className = "question";
+      qDiv.innerHTML = `<p>${qObj.q}</p>`;
+      const optsDiv = document.createElement("div");
+      optsDiv.className = "options";
+      qObj.options.forEach((opt, i) => {
+        const id = `q${idx}_opt${i}`;
+        optsDiv.innerHTML += `
+          <label><input type="radio" name="q${idx}" value="${i}" id="${id}"> ${opt}</label>
+        `;
+      });
+      qDiv.appendChild(optsDiv);
+      quizDiv.appendChild(qDiv);
+    });
+
+    document.getElementById("submit").addEventListener("click", () => {
+      let score = 0;
+      questions.forEach((qObj, idx) => {
+        const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+        const qDiv = document.querySelectorAll(".question")[idx];
+        const oldFeedback = qDiv.querySelector(".feedback");
+        if (oldFeedback) oldFeedback.remove();
+
+        const feedback = document.createElement("div");
+        feedback.className = "feedback";
+
+        if (selected) {
+          if (parseInt(selected.value) === qObj.answer) {
+            score++;
+            feedback.innerHTML = `<span class="correct">✔ Correct</span>`;
+          } else {
+            feedback.innerHTML = `<span class="wrong">✘ Wrong</span> (Correct: ${qObj.options[qObj.answer]})`;
+          }
+        } else {
+          feedback.innerHTML = `<span class="wrong">✘ Not answered</span> (Correct: ${qObj.options[qObj.answer]})`;
+        }
+        qDiv.appendChild(feedback);
+      });
+      document.getElementById("result").innerText =
+        `You scored ${score} out of ${questions.length}`;
+    });
+
+    // --- Theme toggle ---
+    const toggleBtn = document.getElementById("theme-toggle");
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+      toggleBtn.innerText = document.body.classList.contains("light") 
+        ? "Switch to Dark" 
+        : "Switch to Light";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
+  <title>Physics MCQs Challenge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      transition: background-color 0.3s, color 0.3s;
+      position: relative;
+      min-height: 100vh;
+    }
+    body.light {
+      background-color: #f5f7ff; /* pale cosmic blue */
+      color: #000000;
+    }
+    body.dark {
+      background-color: #0b0c2a; /* deep space navy */
+      color: #e0e0ff;
+    }
+
+    /* Top navigation bar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #1e3a8a; /* strong physics blue */
+      color: white;
+      flex-wrap: wrap;
+    }
+    .navbar h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    /* Navigation button */
+    .nav-button {
+      padding: 6px 12px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+      background-color: #ffffff;
+      color: #1e3a8a;
+    }
+
+    /* Center button container */
+    .center-button {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* Button groups inside navbar */
+    .navbar-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .navbar-controls button {
+      padding: 6px 12px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+    }
+    .cosmicblue { background-color: #1e3a8a; }
+    .purple { background-color: #6a0dad; }
+    .silver { background-color: #c0c0c0; color: black; }
+    .gold { background-color: #ffd700; color: black; }
+    .red { background-color: #ff0000; }
+
+    /* Theme toggle button */
+    .theme-toggle {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.light .theme-toggle {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    body.dark .theme-toggle {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    /* Heading style */
+    .main-heading {
+      margin: 20px;
+      font-size: 50px;
+      font-weight: bold;
+      font-style: italic;
+      color: #ffd700; /* golden energy */
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+      letter-spacing: 2px;
+    }
+
+    /* Watermark */
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 120px;
+      font-weight: bold;
+      font-style: italic;
+      color: rgba(255, 215, 0, 0.15); /* golden tint */
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 0;
+      width: 100vw;
+      text-align: center;
+    }
+
+    /* Section styles */
+    .section {
+      margin: 40px 20px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .section h2 {
+      font-size: 32px;
+      color: #6a0dad; /* cosmic purple accent */
+      margin-bottom: 10px;
+    }
+    .section p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .section a {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #00bfff; /* electric blue link */
+      text-decoration: none;
+    }
+    .section a:hover {
+      text-decoration: underline;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body class="dark">
+  <!-- Top Menu Bar -->
+  <div class="navbar" id="navbar">
+    <h1>Physics Menu</h1>
+
+    <!-- Centered Back + Change Theme Buttons -->
+    <div class="center-button">
+      <a href="index.html">
+        <button class="nav-button">Back</button>
+      </a>
+      <button class="theme-toggle" onclick="toggleTheme()">Change Theme</button>
+    </div>
+
+    <!-- Color change buttons -->
+    <div class="navbar-controls">
+      <button class="cosmicblue" onclick="changeNavbarColor('#1e3a8a')">Cosmic Blue</button>
+      <button class="purple" onclick="changeNavbarColor('#6a0dad')">Purple</button>
+      <button class="silver" onclick="changeNavbarColor('#c0c0c0')">Silver</button>
+      <button class="gold" onclick="changeNavbarColor('#ffd700')">Gold</button>
+      <button class="red" onclick="changeNavbarColor('#ff0000')">Red</button>
+    </div>
+  </div>
+
+  <!-- Watermark -->
+  <div class="watermark">MOHAMMAD SULTAN</div>
+
+  <!-- Main Heading -->
+  <div class="content">
+    <h2 class="main-heading">Physics MCQs Challenge</h2>
+
+    <!-- Physics Content Sections -->
+    <div class="section">
+      <h2>Motion</h2>
+      <p>Study questions on speed, velocity, acceleration, and equations of motion.</p>
+      <a href="motion.html" target="_blank">Go to MCQs</a>
+    </div>
+
+    <div class="section">
+      <h2>Force and Laws of Motion</h2>
+      <p>Practice MCQs on Newton’s laws, inertia, and applications of force.</p>
+      <a href="force.html" target="_blank">Go to MCQs</a>
+    </div>
+
+    <div class="section">
+      <h2>Gravitation</h2>
+      <p>Explore questions on universal law of gravitation, free fall, and satellites.</p>
+      <a href="gravitation.html" target="_blank">Go to MCQs</a>
+    </div>
+
+    <div class="section">
+      <h2>Work and Energy</h2>
+      <p>Test your knowledge of work, power, kinetic and potential energy, and conservation of energy.</p>
+      <a href="work-energy.html" target="_blank">Go to MCQs</a>
+    </div>
+
+    <div class="section">
+      <h2>Sound</h2>
+      <p>Challenge yourself with questions on production, propagation, and properties of sound waves.</p>
+      <a href="sound.html" target="_blank">Go to MCQs</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+    }
+
+    function changeNavbarColor(color) {
+      document.getElementById('navbar').style.backgroundColor = color;
+    }
+  </script>
+</body>
+</html>

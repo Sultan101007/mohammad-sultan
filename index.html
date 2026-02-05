@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
+  <title>Class 9th 100 MCQs Challenge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      transition: background-color 0.3s, color 0.3s;
+      position: relative;
+      min-height: 100vh;
+    }
+    body.light {
+      background-color: #ffffff;
+      color: #000000;
+    }
+    body.dark {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    /* Top navigation bar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #8B0000; /* Default Dark Red */
+      color: white;
+    }
+    .navbar h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    /* Center button container */
+    .center-button {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Button groups inside navbar */
+    .navbar-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .navbar-controls button {
+      padding: 6px 12px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+    }
+    .darkblue { background-color: #00008B; }
+    .skyblue { background-color: #87CEEB; color: black; }
+    .red { background-color: #FF0000; }
+    .green { background-color: #008000; }
+    .default { background-color: #8B0000; }
+
+    /* Theme toggle button */
+    .theme-toggle {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.light .theme-toggle {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    body.dark .theme-toggle {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    /* Heading style */
+    .main-heading {
+      margin: 20px;
+      font-size: 50px;
+      font-weight: bold;
+      font-style: italic;
+      color: #ffb6c1; /* very light pink */
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+      letter-spacing: 2px;
+    }
+
+    /* Watermark */
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 120px;
+      font-weight: bold;
+      font-style: italic;
+      color: rgba(200, 200, 200, 0.15);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 0;
+      width: 100vw;
+      text-align: center;
+    }
+
+    /* Section styles */
+    .section {
+      margin: 40px 20px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .section h2 {
+      font-size: 32px;
+      color: #ffd1dc; /* soft pink */
+      margin-bottom: 10px;
+    }
+    .section a {
+      font-size: 18px;
+      color: #00bfff; /* bright link color */
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .section a:hover {
+      text-decoration: underline;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body class="dark"> <!-- Start with dark theme -->
+  <!-- Top Menu Bar -->
+  <div class="navbar" id="navbar">
+    <h1>Menu</h1>
+
+    <!-- Centered Change Theme Button -->
+    <div class="center-button">
+      <button class="theme-toggle" onclick="toggleTheme()">Change Theme</button>
+    </div>
+
+    <!-- Color change buttons -->
+    <div class="navbar-controls">
+      <button class="darkblue" onclick="changeNavbarColor('#00008B')">Dark Blue</button>
+      <button class="skyblue" onclick="changeNavbarColor('#87CEEB')">Sky Blue</button>
+      <button class="red" onclick="changeNavbarColor('#FF0000')">Red</button>
+      <button class="green" onclick="changeNavbarColor('#008000')">Green</button>
+      <button class="default" onclick="changeNavbarColor('#8B0000')">Default</button>
+    </div>
+  </div>
+
+  <!-- Watermark -->
+  <div class="watermark">MOHAMMAD SULTAN</div>
+
+  <!-- Main Heading -->
+  <div class="content">
+    <h2 class="main-heading">Class 9th 100 MCQs Challenge</h2>
+
+    <!-- Physics Section -->
+    <div class="section">
+      <h2>Physics</h2>
+      <a href="https://drive.google.com/file/d/126h0U4hXejmY8Hf3aDbuqoZu4AHtmO1-/view?usp=drive_link" >Go to Physics MCQs Page</a>
+    </div>
+
+    <!-- Chemistry Section -->
+    <div class="section">
+      <h2>Chemistry</h2>
+      <a href="chemistry.html" >Go to Chemistry MCQs Page</a>
+    </div>
+
+    <!-- Biology Section -->
+    <div class="section">
+      <h2>Biology</h2>
+      <a href="biology.html" >Go to Biology MCQs Page</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+    }
+
+    function changeNavbarColor(color) {
+      document.getElementById('navbar').style.backgroundColor = color;
+    }
+  </script>
+</body>
+</html>

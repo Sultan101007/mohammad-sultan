@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
+  <title>Biology MCQs Challenge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      transition: background-color 0.3s, color 0.3s;
+      position: relative;
+      min-height: 100vh;
+    }
+    body.light {
+      background-color: #ffffff;
+      color: #000000;
+    }
+    body.dark {
+      background-color: #0b3d0b; /* deep green */
+      color: #ffffff;
+    }
+
+    /* Top navigation bar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #228B22; /* Forest Green for Biology */
+      color: white;
+      flex-wrap: wrap;
+    }
+    .navbar h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    /* Navigation button */
+    .nav-button {
+      padding: 6px 12px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+      background-color: #ffffff;
+      color: #228B22;
+    }
+
+    /* Center button container */
+    .center-button {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* Button groups inside navbar */
+    .navbar-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .navbar-controls button {
+      padding: 6px 12px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
+      color: white;
+    }
+    .forestgreen { background-color: #228B22; }
+    .seagreen { background-color: #2e8b57; }
+    .blue { background-color: #1e90ff; }
+    .brown { background-color: #8b4513; }
+    .default { background-color: #8B0000; }
+
+    /* Theme toggle button */
+    .theme-toggle {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.light .theme-toggle {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    body.dark .theme-toggle {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    /* Heading style */
+    .main-heading {
+      margin: 20px;
+      font-size: 50px;
+      font-weight: bold;
+      font-style: italic;
+      color: #98fb98; /* pale green */
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+      letter-spacing: 2px;
+    }
+
+    /* Watermark */
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 120px;
+      font-weight: bold;
+      font-style: italic;
+      color: rgba(200, 200, 200, 0.15);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 0;
+      width: 100vw;
+      text-align: center;
+    }
+
+    /* Section styles */
+    .section {
+      margin: 40px 20px;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    .section h2 {
+      font-size: 32px;
+      color: #adff2f; /* green-yellow */
+      margin-bottom: 10px;
+    }
+    .section p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    .section a {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #00bfff;
+      text-decoration: none;
+    }
+    .section a:hover {
+      text-decoration: underline;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+<body class="dark">
+  <!-- Top Menu Bar -->
+  <div class="navbar" id="navbar">
+    <h1>Biology Menu</h1>
+
+    <!-- Centered Back + Change Theme Buttons -->
+    <div class="center-button">
+      <a href="index.html">
+        <button class="nav-button">Back</button>
+      </a>
+      <button class="theme-toggle" onclick="toggleTheme()">Change Theme</button>
+    </div>
+
+    <!-- Color change buttons -->
+    <div class="navbar-controls">
+      <button class="forestgreen" onclick="changeNavbarColor('#228B22')">Forest Green</button>
+      <button class="seagreen" onclick="changeNavbarColor('#2e8b57')">Sea Green</button>
+      <button class="blue" onclick="changeNavbarColor('#1e90ff')">Blue</button>
+      <button class="brown" onclick="changeNavbarColor('#8b4513')">Brown</button>
+      <button class="default" onclick="changeNavbarColor('#8B0000')">Default</button>
+    </div>
+  </div>
+
+  <!-- Watermark -->
+  <div class="watermark">MOHAMMAD SULTAN</div>
+
+  <!-- Main Heading -->
+  <div class="content">
+    <h2 class="main-heading">Biology MCQs Challenge</h2>
+
+    <!-- Biology Content Sections -->
+    <div class="section">
+      <h2>The Fundamental Unit of Life (Cell)</h2>
+      <p>Study questions on cell structure, organelles, and functions of the basic unit of life.</p>
+      <a href="cell.html" target="_blank">Go to MCQs</a>
+    </div>
+
+    <div class="section">
+      <h2>Tissues</h2>
+      <p>Practice MCQs on plant and animal tissues, their types, and specialized functions.</p>
+      <a href="tissues.html" target="_blank">Go to MCQs</a>
+    </div>
+
+    <div class="section">
+      <h2>Improvement in Food Resources</h2>
+      <p>Explore questions on crop production, animal husbandry, and sustainable food practices.</p>
+      <a href="food.html" target="_blank">Go to MCQs</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      document.body.classList.toggle('light');
+    }
+
+    function changeNavbarColor(color) {
+      document.getElementById('navbar').style.backgroundColor = color;
+    }
+  </script>
+</body>
+</html>
