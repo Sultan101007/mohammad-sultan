@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content= "initial-scale=0.2">
-  <title>Chemistry MCQs Challenge</title>
+  <title>Physics MCQs Challenge</title>
   <style>
     body {
       font-family: 'Orbitron', sans-serif;
@@ -93,8 +93,8 @@
       font-size: 48px;
       font-weight: bold;
       font-style: italic;
-      color: #00ffff;
-      text-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff;
+      color: #ffd700;
+      text-shadow: 0 0 20px #ffd700, 0 0 40px #ff00ff;
       letter-spacing: 3px;
       text-align: center;
     }
@@ -161,29 +161,30 @@
 </head>
 <body class="dark">
   <div class="navbar" id="navbar">
-    <h1>Chemistry Menu</h1>
+    <h1>Physics Menu</h1>
     <div class="center-button">
       <a href="index.html"><button class="theme-toggle">Back</button></a>
       <button class="theme-toggle" onclick="toggleTheme()">Change Theme</button>
     </div>
     <div class="navbar-controls">
-      <button onclick="changeNavbarColor('#008080')" class="theme-toggle">Teal</button>
-      <button onclick="changeNavbarColor('#40e0d0')" class="theme-toggle">Turquoise</button>
-      <button onclick="changeNavbarColor('#32cd32')" class="theme-toggle">Lime</button>
-      <button onclick="changeNavbarColor('#ff6600')" class="theme-toggle">Orange</button>
-      <button onclick="changeNavbarColor('#800080')" class="theme-toggle">Purple</button>
+      <button onclick="changeNavbarColor('#1e3a8a')" class="theme-toggle">Cosmic Blue</button>
+      <button onclick="changeNavbarColor('#6a0dad')" class="theme-toggle">Purple</button>
+      <button onclick="changeNavbarColor('#c0c0c0')" class="theme-toggle">Silver</button>
+      <button onclick="changeNavbarColor('#ffd700')" class="theme-toggle">Gold</button>
+      <button onclick="changeNavbarColor('#ff0000')" class="theme-toggle">Red</button>
     </div>
   </div>
 
   <div class="watermark">MOHAMMAD SULTAN</div>
 
   <div class="content">
-    <h2 class="main-heading">Chemistry MCQs Challenge</h2>
+    <h2 class="main-heading">Physics MCQs Challenge</h2>
 
-    <a href="matter.html" class="section-link"><h2>Matter in Our Surroundings</h2></a>
-    <a href="pure.html" class="section-link"><h2>Is Matter Around Us Pure?</h2></a>
-    <a href="atoms.html" class="section-link"><h2>Atoms and Molecules</h2></a>
-    <a href="structure.html" class="section-link"><h2>Structure of the Atom</h2></a>
+    <a href="motion.html" class="section-link"><h2>Motion</h2></a>
+    <a href="force.html" class="section-link"><h2>Force and Laws of Motion</h2></a>
+    <a href="gravitation.html" class="section-link"><h2>Gravitation</h2></a>
+    <a href="work-energy.html" class="section-link"><h2>Work and Energy</h2></a>
+    <a href="sound.html" class="section-link"><h2>Sound</h2></a>
   </div>
 
   <script>
@@ -213,26 +214,36 @@
       );
 
       // Apply animations depending on which section is clicked
-      if (index === 0) { // Matter in Our Surroundings
+      if (index === 0) { // Motion
         this.classList.add('move-front');
         document.querySelector('.section-link:nth-of-type(2)').classList.add('move-left');
         document.querySelector('.section-link:nth-of-type(3)').classList.add('move-back');
         document.querySelector('.section-link:nth-of-type(4)').classList.add('move-down');
-      } else if (index === 1) { // Is Matter Around Us Pure?
+        document.querySelector('.section-link:nth-of-type(5)').classList.add('move-left');
+      } else if (index === 1) { // Force and Laws of Motion
         this.classList.add('move-front');
         document.querySelector('.section-link:nth-of-type(1)').classList.add('move-down');
         document.querySelector('.section-link:nth-of-type(3)').classList.add('move-left');
         document.querySelector('.section-link:nth-of-type(4)').classList.add('move-back');
-      } else if (index === 2) { // Atoms and Molecules
+        document.querySelector('.section-link:nth-of-type(5)').classList.add('move-down');
+      } else if (index === 2) { // Gravitation
         this.classList.add('move-front');
         document.querySelector('.section-link:nth-of-type(1)').classList.add('move-left');
         document.querySelector('.section-link:nth-of-type(2)').classList.add('move-down');
         document.querySelector('.section-link:nth-of-type(4)').classList.add('move-back');
-      } else if (index === 3) { // Structure of the Atom
+        document.querySelector('.section-link:nth-of-type(5)').classList.add('move-left');
+      } else if (index === 3) { // Work and Energy
         this.classList.add('move-front');
         document.querySelector('.section-link:nth-of-type(1)').classList.add('move-back');
         document.querySelector('.section-link:nth-of-type(2)').classList.add('move-left');
         document.querySelector('.section-link:nth-of-type(3)').classList.add('move-down');
+        document.querySelector('.section-link:nth-of-type(5)').classList.add('move-back');
+      } else if (index === 4) { // Sound
+        this.classList.add('move-front');
+        document.querySelector('.section-link:nth-of-type(1)').classList.add('move-left');
+        document.querySelector('.section-link:nth-of-type(2)').classList.add('move-back');
+        document.querySelector('.section-link:nth-of-type(3)').classList.add('move-down');
+        document.querySelector('.section-link:nth-of-type(4)').classList.add('move-left');
       }
 
       // Delay navigation so animation plays first
