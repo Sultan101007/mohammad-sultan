@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content= "initial-scale=0.51">
+  <meta name="viewport" content="width=device-width, initial-scale=0.51">
   <title>Atoms & Molecules Quiz</title>
   <style>
     body {
@@ -188,7 +188,7 @@
   /* Compact Question Navigator Grid */
   #question-nav {
     position: fixed;
-    top: 100px;
+    top: 400px;
     right: 20px;
     width: 160px; /* smaller width */
     background: rgba(20,20,40,0.85);
@@ -384,7 +384,118 @@
   body::-webkit-scrollbar {
     display: none;            /* Chrome, Safari */
   }
-</style>
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #121212;
+    color: #e0e0e0;
+    transition: background 0.3s, color 0.3s;
+    padding-top: 70px;
+  }
+
+  /* Quiz container */
+  #quiz-container {
+    background: #1e1e1e;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  }
+
+  .question {
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background: #2a2a2a;
+  }
+
+  /* Question Navigator */
+  #question-nav {
+    position: fixed;
+    top: 1100;
+    right: 60;
+    height: 100vh;
+    width: 160px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: rgba(20,20,40,0.85);
+    border-left: 2px solid #00ffff;
+    box-shadow: -2px 0 15px #00ffff;
+    padding: 10px;
+    z-index: 999;
+  }
+  #question-nav::-webkit-scrollbar { display: none; }
+  #question-nav { -ms-overflow-style: none; scrollbar-width: none; }
+
+  #nav-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  #nav-list button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(30,30,60,0.8);
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  #nav-list button.answered { background: #28a745; }
+  #nav-list button.wrong { background: #dc3545; }
+
+  /* --- Responsive Design --- */
+  @media (max-width: 768px) {
+    body { padding-top: 60px; }
+
+    #quiz-container {
+      width: 95%;
+      margin: 10px auto;
+      padding: 15px;
+    }
+
+    .question { font-size: 14px; }
+
+    #question-nav {
+      position: static;   /* move below quiz on mobile */
+      width: 100%;
+      height: auto;
+      margin-top: 15px;
+      border-left: none;
+      border-top: 2px solid #00ffff;
+      box-shadow: 0 -2px 15px #00ffff;
+    }
+
+    #nav-list {
+      grid-template-columns: repeat(8, 1fr); /* more per row on mobile */
+      justify-items: center;
+    }
+
+    #nav-list button {
+      width: 32px;
+      height: 32px;
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #nav-list {
+      grid-template-columns: repeat(5, 1fr); /* 5 per row on very small screens */
+    }
+    #nav-list button {
+      width: 30px;
+      height: 30px;
+      font-size: 12px;
+    }
+  }
+
   </style>
 </head>
 <body class="dark">
@@ -640,4 +751,3 @@
 </script>
 </body>
 </html>
-
