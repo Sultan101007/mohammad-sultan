@@ -2,53 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=0.5">
+  <meta name="viewport" content= "initial-scale=0.2">
   <title>Biology MCQs Challenge</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Orbitron', sans-serif;
       margin: 0;
       transition: background-color 0.3s, color 0.3s;
       position: relative;
       min-height: 100vh;
+      overflow-x: hidden;
     }
     body.light {
-      background-color: #ffffff;
+      background: linear-gradient(135deg, #e0e0e0, #ffffff);
       color: #000000;
     }
     body.dark {
-      background-color: #0b3d0b; /* deep green */
-      color: #ffffff;
+      background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
+      color: #e0e0e0;
     }
 
-    /* Top navigation bar */
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
-      background-color: #228B22; /* Forest Green for Biology */
-      color: white;
-      flex-wrap: wrap;
+      padding: 12px 20px;
+      background: rgba(20,20,40,0.85);
+      backdrop-filter: blur(6px);
+      border-bottom: 2px solid #00ffff;
+      color: #00ffff;
+      box-shadow: 0 0 15px #00ffff;
     }
     .navbar h1 {
       margin: 0;
-      font-size: 20px;
+      font-size: 22px;
+      letter-spacing: 2px;
     }
 
-    /* Navigation button */
-    .nav-button {
-      padding: 6px 12px;
-      cursor: pointer;
-      border: none;
-      border-radius: 5px;
-      font-size: 12px;
-      font-weight: bold;
-      background-color: #ffffff;
-      color: #228B22;
-    }
-
-    /* Center button container */
     .center-button {
       flex: 1;
       display: flex;
@@ -56,7 +46,6 @@
       gap: 10px;
     }
 
-    /* Button groups inside navbar */
     .navbar-controls {
       display: flex;
       gap: 10px;
@@ -69,15 +58,15 @@
       border-radius: 5px;
       font-size: 12px;
       font-weight: bold;
-      color: white;
+      color: #fff;
+      background: rgba(30,30,60,0.8);
+      box-shadow: 0 0 10px #00ffff;
+      transition: box-shadow 0.3s;
     }
-    .forestgreen { background-color: #228B22; }
-    .seagreen { background-color: #2e8b57; }
-    .blue { background-color: #1e90ff; }
-    .brown { background-color: #8b4513; }
-    .default { background-color: #8B0000; }
+    .navbar-controls button:hover {
+      box-shadow: 0 0 20px #ff00ff;
+    }
 
-    /* Theme toggle button */
     .theme-toggle {
       padding: 8px 16px;
       border: none;
@@ -85,6 +74,9 @@
       font-size: 14px;
       font-weight: bold;
       cursor: pointer;
+      background: #00ffff;
+      color: #000;
+      box-shadow: 0 0 15px #00ffff;
       transition: background-color 0.3s, color 0.3s;
     }
     body.light .theme-toggle {
@@ -96,18 +88,17 @@
       color: #000000;
     }
 
-    /* Heading style */
     .main-heading {
-      margin: 20px;
-      font-size: 50px;
+      margin: 30px;
+      font-size: 48px;
       font-weight: bold;
       font-style: italic;
-      color: #98fb98; /* pale green */
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
-      letter-spacing: 2px;
+      color: #98fb98;
+      text-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff;
+      letter-spacing: 3px;
+      text-align: center;
     }
 
-    /* Watermark */
     .watermark {
       position: fixed;
       top: 50%;
@@ -116,108 +107,132 @@
       font-size: 120px;
       font-weight: bold;
       font-style: italic;
-      color: rgba(200, 200, 200, 0.15);
-      white-space: nowrap;
+      background: linear-gradient(90deg, #00ffff, #ff00ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.1;
       pointer-events: none;
       z-index: 0;
       width: 100vw;
       text-align: center;
     }
 
-    /* Section styles */
-    .section {
+    .section-link {
+      display: block;
       margin: 40px 20px;
       padding: 20px;
-      border-radius: 10px;
-      background-color: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-    .section h2 {
-      font-size: 32px;
-      color: #adff2f; /* green-yellow */
-      margin-bottom: 10px;
-    }
-    .section p {
-      font-size: 18px;
-      line-height: 1.6;
-    }
-    .section a {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 16px;
-      font-weight: bold;
-      color: #00bfff;
+      border-radius: 12px;
+      background: rgba(30,30,60,0.6);
+      box-shadow: 0 0 20px #00ffff;
       text-decoration: none;
+      transition: box-shadow 0.3s;
     }
-    .section a:hover {
-      text-decoration: underline;
+    .section-link:hover {
+      box-shadow: 0 0 30px #ff00ff;
+    }
+    .section-link h2 {
+      font-size: 28px;
+      color: #adff2f;
+      margin: 0;
+      text-shadow: 0 0 10px #adff2f;
     }
 
     .content {
       position: relative;
       z-index: 1;
     }
+
+    /* Animations */
+    @keyframes up { to { transform: translateY(-100%); opacity: 0; } }
+    @keyframes right { to { transform: translateX(100%); opacity: 0; } }
+    @keyframes down { to { transform: translateY(100%); opacity: 0; } }
+    @keyframes left { to { transform: translateX(-100%); opacity: 0; } }
+    @keyframes back { to { transform: scale(0.1); opacity: 0; } }
+    @keyframes front { to { transform: scale(5); opacity: 1; } }
+
+    .move-up { animation: up 1s forwards; }
+    .move-right { animation: right 1s forwards; }
+    .move-down { animation: down 1s forwards; }
+    .move-left { animation: left 1s forwards; }
+    .move-back { animation: back 1s forwards; }
+    .move-front { animation: front 1s forwards; z-index: 9999; position: relative; }
   </style>
 </head>
 <body class="dark">
-  <!-- Top Menu Bar -->
   <div class="navbar" id="navbar">
     <h1>Biology Menu</h1>
-
-    <!-- Centered Back + Change Theme Buttons -->
     <div class="center-button">
-      <a href="index.html">
-        <button class="nav-button">Back</button>
-      </a>
+      <a href="index.html"><button class="theme-toggle">Back</button></a>
       <button class="theme-toggle" onclick="toggleTheme()">Change Theme</button>
     </div>
-
-    <!-- Color change buttons -->
     <div class="navbar-controls">
-      <button class="forestgreen" onclick="changeNavbarColor('#228B22')">Forest Green</button>
-      <button class="seagreen" onclick="changeNavbarColor('#2e8b57')">Sea Green</button>
-      <button class="blue" onclick="changeNavbarColor('#1e90ff')">Blue</button>
-      <button class="brown" onclick="changeNavbarColor('#8b4513')">Brown</button>
-      <button class="default" onclick="changeNavbarColor('#8B0000')">Default</button>
+      <button onclick="changeNavbarColor('#228B22')" class="theme-toggle">Forest Green</button>
+      <button onclick="changeNavbarColor('#2e8b57')" class="theme-toggle">Sea Green</button>
+      <button onclick="changeNavbarColor('#1e90ff')" class="theme-toggle">Blue</button>
+      <button onclick="changeNavbarColor('#8b4513')" class="theme-toggle">Brown</button>
+      <button onclick="changeNavbarColor('#8B0000')" class="theme-toggle">Default</button>
     </div>
   </div>
 
-  <!-- Watermark -->
   <div class="watermark">MOHAMMAD SULTAN</div>
 
-  <!-- Main Heading -->
   <div class="content">
     <h2 class="main-heading">Biology MCQs Challenge</h2>
 
-    <!-- Biology Content Sections -->
-    <div class="section">
-      <h2>The Fundamental Unit of Life (Cell)</h2>
-      <p>Study questions on cell structure, organelles, and functions of the basic unit of life.</p>
-      <a href="cell.html" target="_blank">Go to MCQs</a>
-    </div>
-
-    <div class="section">
-      <h2>Tissues</h2>
-      <p>Practice MCQs on plant and animal tissues, their types, and specialized functions.</p>
-      <a href="tissues.html" target="_blank">Go to MCQs</a>
-    </div>
-
-    <div class="section">
-      <h2>Improvement in Food Resources</h2>
-      <p>Explore questions on crop production, animal husbandry, and sustainable food practices.</p>
-      <a href="food.html" target="_blank">Go to MCQs</a>
-    </div>
+    <a href="cell.html" class="section-link"><h2>The Fundamental Unit of Life (Cell)</h2></a>
+    <a href="tissues.html" class="section-link"><h2>Tissues</h2></a>
+    <a href="food.html" class="section-link"><h2>Improvement in Food Resources</h2></a>
   </div>
 
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle('dark');
-      document.body.classList.toggle('light');
-    }
+ <script>
+  function toggleTheme() {
+    document.body.classList.toggle('dark');
+    document.body.classList.toggle('light');
+  }
 
-    function changeNavbarColor(color) {
-      document.getElementById('navbar').style.backgroundColor = color;
-    }
-  </script>
+  function changeNavbarColor(color) {
+    document.getElementById('navbar').style.backgroundColor = color;
+  }
+
+  // Transition effect for section links
+  const links = document.querySelectorAll('.section a');
+  links.forEach((link, index) => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = this.getAttribute('href');
+
+      // Animate navbar + heading
+      document.querySelector('.navbar').classList.add('move-up');
+      document.querySelector('.main-heading').classList.add('move-right');
+
+      // Reset all sections
+      document.querySelectorAll('.section').forEach(sec =>
+        sec.classList.remove('move-front','move-left','move-down','move-back')
+      );
+
+      // Apply animations depending on which section is clicked
+      if (index === 0) { // Cell
+        this.parentElement.classList.add('move-front');
+        document.querySelector('.section:nth-of-type(2)').classList.add('move-left');
+        document.querySelector('.section:nth-of-type(3)').classList.add('move-back');
+      } else if (index === 1) { // Tissues
+        this.parentElement.classList.add('move-front');
+        document.querySelector('.section:nth-of-type(1)').classList.add('move-down');
+        document.querySelector('.section:nth-of-type(3)').classList.add('move-back');
+      } else if (index === 2) { // Food Resources
+        this.parentElement.classList.add('move-front');
+        document.querySelector('.section:nth-of-type(1)').classList.add('move-left');
+        document.querySelector('.section:nth-of-type(2)').classList.add('move-down');
+      }
+
+      // Delay navigation so animation plays first
+      setTimeout(() => {
+        window.location.href = target;
+      }, 1000);
+    });
+  });
+</script>
+
 </body>
 </html>
