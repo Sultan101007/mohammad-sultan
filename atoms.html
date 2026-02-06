@@ -2,87 +2,153 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=0.5">
+  <meta name="viewport" content= "initial-scale=0.2">
   <title>Atoms & Molecules Quiz</title>
   <style>
     body {
+      font-family: 'Orbitron', sans-serif;
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: #121212;
-      color: #e0e0e0;
-      transition: background 0.3s, color 0.3s;
-      padding-top: 70px; /* prevent overlap with fixed bar */
+      transition: background-color 0.3s, color 0.3s;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-top: 80px;
     }
-    #title-bar {
+    body.light {
+      background: linear-gradient(135deg, #e0e0e0, #ffffff);
+      color: #000000;
+    }
+    body.dark {
+      background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
+      color: #e0e0e0;
+    }
+
+    .navbar {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      background: #1e1e1e;
-      color: #fff;
-      padding: 12px 20px;
+      width: 98%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      padding: 12px 20px;
+      background: rgba(20,20,40,0.85);
+      backdrop-filter: blur(6px);
+      border-bottom: 2px solid #00ffff;
+      color: #00ffff;
+      box-shadow: 0 0 15px #00ffff;
       z-index: 1000;
     }
-    #title-bar h2 { margin: 0; font-size: 20px; }
-
-    /* Center button group inside title bar */
-    .menu-buttons {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex: 1; /* take available space */
+    .navbar h1 {
+      margin: 0;
+      font-size: 22px;
+      letter-spacing: 2px;
     }
-    .menu-buttons button {
-      padding: 8px 14px;
+
+    .center-button {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .navbar-controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .navbar-controls button {
+      padding: 6px 12px;
+      cursor: pointer;
       border: none;
-      border-radius: 6px;
-      background: #4dabf7;
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: bold;
       color: #fff;
+      background: rgba(30,30,60,0.8);
+      box-shadow: 0 0 10px #00ffff;
+      transition: box-shadow 0.3s;
+    }
+    .navbar-controls button:hover {
+      box-shadow: 0 0 20px #ff00ff;
+    }
+
+    .theme-toggle {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 5px;
+      font-size: 14px;
       font-weight: bold;
       cursor: pointer;
-      transition: background 0.3s;
+      background: #00ffff;
+      color: #000;
+      box-shadow: 0 0 15px #00ffff;
+      transition: background-color 0.3s, color 0.3s;
     }
-    .menu-buttons button:hover { background: #1c7ed6; }
+    body.light .theme-toggle {
+      background-color: #000000;
+      color: #ffffff;
+    }
+    body.dark .theme-toggle {
+      background-color: #ffffff;
+      color: #000000;
+    }
 
-    #theme-toggle {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 6px;
-      background: #4dabf7;
-      color: #fff;
-      cursor: pointer;
-      transition: background 0.3s;
+    .main-heading {
+      margin: 30px;
+      font-size: 48px;
+      font-weight: bold;
+      font-style: italic;
+      color: #4dabf7;
+      text-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff;
+      letter-spacing: 3px;
+      text-align: center;
     }
-    #theme-toggle:hover { background: #1c7ed6; }
+
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-30deg);
+      font-size: 120px;
+      font-weight: bold;
+      font-style: italic;
+      background: linear-gradient(90deg, #00ffff, #ff00ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.1;
+      pointer-events: none;
+      z-index: 0;
+      width: 100vw;
+      text-align: center;
+    }
 
     #quiz-container {
-      background: #1e1e1e;
+      background: rgba(30,30,60,0.6);
       padding: 30px;
       border-radius: 12px;
       max-width: 800px;
       margin: 40px auto;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+      box-shadow: 0 0 20px #00ffff;
       animation: fadeIn 1s ease;
       transition: background 0.3s, color 0.3s;
+      position: relative;
+      z-index: 1;
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    h1 { text-align: center; color: #4dabf7; margin-bottom: 20px; }
 
     .question {
       margin-bottom: 20px;
       padding: 15px;
       border-radius: 8px;
-      background: #2a2a2a;
+      background: rgba(20,20,40,0.8);
       transition: background 0.3s;
     }
-    .question:hover { background: #333; }
+    .question:hover { background: rgba(40,40,80,0.9); }
     .question p { font-weight: bold; margin-bottom: 10px; color: #ffffff; }
     .options label {
       display: block;
@@ -91,7 +157,7 @@
       cursor: pointer;
       transition: background 0.2s;
     }
-    .options label:hover { background: #3a3a3a; }
+    .options label:hover { background: rgba(60,60,100,0.9); }
     input[type="radio"] { margin-right: 8px; }
 
     #result {
@@ -105,76 +171,311 @@
     .wrong { color: #ff6b6b; font-weight: bold; }
     .feedback { margin-top: 8px; }
 
-    /* Light theme overrides */
-    body.light { background: #f0f0f0; color: #333; }
-    body.light #title-bar { background: #ffffff; color: #333; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
-    body.light #quiz-container { background: #ffffff; color: #333; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-    body.light .question { background: #f9f9f9; }
-    body.light .question:hover { background: #eef6ff; }
-    body.light .question p { color: #000; }
-    body.light .options label:hover { background: #e0f0ff; }
-    body.light #result { color: #000; }
+    /* Animations */
+    @keyframes up { to { transform: translateY(-100%); opacity: 0; } }
+    @keyframes right { to { transform: translateX(100%); opacity: 0; } }
+    @keyframes down { to { transform: translateY(100%); opacity: 0; } }
+    @keyframes left { to { transform: translateX(-100%); opacity: 0; } }
+    @keyframes back { to { transform: scale(0.1); opacity: 0; } }
+    @keyframes front { to { transform: scale(1.2); opacity: 1; } }
+
+    .move-up { animation: up 1s forwards; }
+    .move-right { animation: right 1s forwards; }
+    .move-down { animation: down 1s forwards; }
+    .move-left { animation: left 1s forwards; }
+    .move-back { animation: back 1s forwards; }
+    .move-front { animation: front 1s forwards; z-index: 9999; position: relative; }
+  /* Compact Question Navigator Grid */
+  #question-nav {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    width: 160px; /* smaller width */
+    background: rgba(20,20,40,0.85);
+    border: 2px solid #00ffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #00ffff;
+    padding: 10px;
+    z-index: 999;
+  }
+  #question-nav h3 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    text-align: center;
+    color: #00ffff;
+  }
+  #nav-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 per row */
+    gap: 6px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  #nav-list button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(30,30,60,0.8);
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 6px #00ffff;
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+  #nav-list button:hover {
+    background: #00ffff;
+    color: #000;
+    box-shadow: 0 0 10px #ff00ff;
+  }
+  #nav-list button.answered {
+    background: #28a745; /* green when answered */
+    color: #fff;
+    box-shadow: 0 0 10px #28a745;
+  }
+  
+  /* Compact Question Navigator Grid with Scrollbar */
+  #question-nav {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    width: 160px;
+    max-height: 300px; /* limit height */
+    overflow-y: auto;  /* enable vertical scroll */
+    background: rgba(20,20,40,0.85);
+    border: 2px solid #00ffff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px #00ffff;
+    padding: 10px;
+    z-index: 999;
+  }
+  #question-nav h3 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    text-align: center;
+    color: #00ffff;
+  }
+  #nav-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 per row */
+    gap: 6px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  #nav-list button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(30,30,60,0.8);
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 6px #00ffff;
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+  #nav-list button:hover {
+    background: #00ffff;
+    color: #000;
+    box-shadow: 0 0 10px #ff00ff;
+  }
+  #nav-list button.answered {
+    background: #28a745; /* green when answered */
+    color: #fff;
+    box-shadow: 0 0 10px #28a745;
+  }
+
+  /* Optional: style scrollbar */
+  #question-nav::-webkit-scrollbar {
+    width: 8px;
+  }
+  #question-nav::-webkit-scrollbar-track {
+    background: rgba(20,20,40,0.5);
+    border-radius: 10px;
+  }
+  #question-nav::-webkit-scrollbar-thumb {
+    background: #00ffff;
+    border-radius: 10px;
+  }
+  #question-nav::-webkit-scrollbar-thumb:hover {
+    background: #ff00ff;
+  }
+
+  /* Compact Question Navigator Grid with hidden scrollbars */
+  #question-nav {
+    position: fixed;
+    top: 100px;              /* start at top */
+    right: 100px;            /* fixed to right edge */
+    height: 100vh;       /* fit full screen height */
+    width: 160px;        /* compact width */
+    overflow-y: scroll;  /* allow vertical scroll */
+    overflow-x: hidden;  /* no horizontal scroll */
+    background: rgba(20,20,40,0.85);
+    border-left: 2px solid #00ffff;
+    box-shadow: -2px 0 15px #00ffff;
+    padding: 10px;
+    z-index: 999;
+  }
+
+  #question-nav h3 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    text-align: center;
+    color: #00ffff;
+  }
+
+  #nav-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 per row */
+    gap: 6px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  #nav-list button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(30,30,60,0.8);
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 6px #00ffff;
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+  #nav-list button:hover {
+    background: #00ffff;
+    color: #000;
+    box-shadow: 0 0 10px #ff00ff;
+  }
+  #nav-list button.answered {
+    background: #28a745; /* green when answered */
+    color: #fff;
+    box-shadow: 0 0 10px #28a745;
+  }
+
+  /* Hide scrollbars but keep scroll functionality */
+  #question-nav::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+  #question-nav {
+    -ms-overflow-style: none;  /* IE/Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+  #nav-list button.wrong {
+    background: #dc3545; /* red */
+    color: #fff;
+    box-shadow: 0 0 10px #dc3545;
+  }
+  /* Hide scrollbars globally but keep scroll functionality */
+  html, body {
+    overflow: auto;          /* allow scrolling */
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;    /* Firefox */
+  }
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;            /* Chrome, Safari */
+  }
+</style>
   </style>
 </head>
-<body>
-  <div id="title-bar">
-    <h2>Atoms & Molecules Quiz</h2>
-   
-    <div class="menu-buttons">
-         <a href="chemistry.html">
-        <button class="nav-button">Back</button>
-      </a>
-      <button id="submit">Submit</button>
-      <button onclick="scrollToTop()">⬆ Top</button>
-      <button onclick="scrollToQuiz()">🎯 Quiz</button>
-      <button onclick="scrollToBottom()">⬇ Down</button>
+<body class="dark">
+  <div class="navbar" id="navbar">
+    <h1>Atoms & Molecules Quiz</h1>
+    <div class="center-button">
+      <a href="chemistry.html"><button class="theme-toggle">Back</button></a>
+      <button id="submit" class="theme-toggle">Submit</button>
+      <button onclick="scrollToTop()" class="theme-toggle">⬆ Top</button>
+      <button onclick="scrollToQuiz()" class="theme-toggle">🎯 Quiz</button>
+      <button onclick="scrollToBottom()" class="theme-toggle">⬇ Down</button>
     </div>
-    <button id="theme-toggle">Switch Theme</button>
+    <button class="theme-toggle" id="theme-toggle">Switch Theme</button>
   </div>
 
+  <div class="watermark">MOHAMMAD SULTAN</div>
+
   <div id="quiz-container">
-    <h1>Atoms and Molecules</h1>
+    <h2 class="main-heading">Atoms and Molecules</h2>
     <div id="quiz"></div>
     <div id="result"></div>
   </div>
 
-  <script>
-    // Track last answered question
-    let lastAnswered = null;
-    document.addEventListener("change", (e) => {
-      if (e.target.type === "radio") {
-        const qDiv = e.target.closest(".question");
-        if (qDiv) lastAnswered = qDiv;
-      }
-    });
+<!-- Question Navigator Box -->
+<div id="question-nav">
+  <h3>Questions</h3>
+  <ul id="nav-list"></ul>
+</div>
 
-    // Scroll functions
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+<script>
+  // --- Theme Toggle ---
+  const toggleBtn = document.getElementById("theme-toggle");
+  function toggleTheme() {
+    if (document.body.classList.contains("dark")) {
+      document.body.classList.remove("dark");
+      document.body.classList.add("light");
+      toggleBtn.innerText = "Switch to Dark";
+    } else {
+      document.body.classList.remove("light");
+      document.body.classList.add("dark");
+      toggleBtn.innerText = "Switch to Light";
     }
-    function scrollToQuiz() {
-      if (lastAnswered) {
-        lastAnswered.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      } else {
-        document.getElementById("quiz-container").scrollIntoView({ behavior: 'smooth' });
+  }
+  toggleBtn.addEventListener("click", toggleTheme);
+
+  // --- Navbar Color Change ---
+  function changeNavbarColor(color) {
+    document.getElementById("navbar").style.backgroundColor = color;
+  }
+
+  // --- Scroll Functions ---
+  let lastAnswered = null;
+  document.addEventListener("change", (e) => {
+    if (e.target.type === "radio") {
+      const qDiv = e.target.closest(".question");
+      if (qDiv) {
+        lastAnswered = qDiv;
+        // Mark corresponding nav button green when answered
+        const qIndex = Array.from(document.querySelectorAll(".question")).indexOf(qDiv);
+        const navBtn = document.querySelector(`#nav-list button[data-q="${qIndex}"]`);
+        if (navBtn) navBtn.classList.add("answered");
       }
     }
-    function scrollToBottom() {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
+  });
 
-    // Quiz logic
-    const questions = [
-      { q: "Q1. Who proposed the atomic theory?", options: ["J.J. Thomson","John Dalton","Rutherford","Neils Bohr"], answer: 1 },
-  { q: "Q2. Which of the following is the smallest particle of an element that retains its chemical properties?", options: ["Molecule","Atom","Ion","Compound"], answer: 1 },
-  { q: "Q3. The chemical formula of water is:", options: ["H₂O","HO₂","H₂O₂","OH"], answer: 0 },
-  { q: "Q4. The atomicity of oxygen (O₂) is:", options: ["1","2","3","4"], answer: 1 },
-  { q: "Q5. The molecular mass of CO₂ is:", options: ["28 u","32 u","44 u","46 u"], answer: 2 },
-  { q: "Q6. Which law states that “In a chemical reaction, mass can neither be created nor destroyed”?", options: ["Law of Constant Proportion","Law of Conservation of Mass","Law of Multiple Proportion","Dalton’s Law"], answer: 1 },
-  { q: "Q7. The formula of ammonium ion is:", options: ["NH₃⁺","NH₄⁺","NH₂⁻","NH₄⁻"], answer: 1 },
-  { q: "Q8. The valency of carbon in methane (CH₄) is:", options: ["1","2","3","4"], answer: 3 },
-  { q: "Q9. The SI unit of amount of substance is:", options: ["Mole","Gram","Kilogram","Liter"], answer: 0 },
-  { q: "Q10. Which of the following is a triatomic molecule?", options: ["O₂","N₂","H₂O","He"], answer: 2 },
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  function scrollToQuiz() {
+    if (lastAnswered) {
+      lastAnswered.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      document.getElementById("quiz-container").scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+  function scrollToBottom() {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
+
+  // --- Quiz Logic ---
+  const questions = [
+    { q: "Q1. Who proposed the atomic theory?", options: ["J.J. Thomson","John Dalton","Rutherford","Neils Bohr"], answer: 1 },
+    { q: "Q2. Which of the following is the smallest particle of an element that retains its chemical properties?", options: ["Molecule","Atom","Ion","Compound"], answer: 1 },
+    { q: "Q3. The chemical formula of water is:", options: ["H₂O","HO₂","H₂O₂","OH"], answer: 0 },
+    { q: "Q4. The atomicity of oxygen (O₂) is:", options: ["1","2","3","4"], answer: 1 },
+    { q: "Q5. The molecular mass of CO₂ is:", options: ["28 u","32 u","44 u","46 u"], answer: 2 },
+    { q: "Q6. Which law states that “In a chemical reaction, mass can neither be created nor destroyed”?", options: ["Law of Constant Proportion","Law of Conservation of Mass","Law of Multiple Proportion","Dalton’s Law"], answer: 1 },
+    { q: "Q7. The formula of ammonium ion is:", options: ["NH₃⁺","NH₄⁺","NH₂⁻","NH₄⁻"], answer: 1 },
+    { q: "Q8. The valency of carbon in methane (CH₄) is:", options: ["1","2","3","4"], answer: 3 },
+    { q: "Q9. The SI unit of amount of substance is:", options: ["Mole","Gram","Kilogram","Liter"], answer: 0 },
+    { q: "Q10. Which of the following is a triatomic molecule?", options: ["O₂","N₂","H₂O","He"], answer: 2 },
   { q: "Q11. The molecular formula of glucose is:", options: ["C₆H₁₂O₆","C₆H₆","C₁₂H₂₂O₁₁","CH₄"], answer: 0 },
   { q: "Q12. The atomic mass of hydrogen is approximately:", options: ["1 u","2 u","4 u","6 u"], answer: 0 },
   { q: "Q13. The molecular mass of H₂SO₄ is:", options: ["98 u","96 u","100 u","92 u"], answer: 0 },
@@ -265,60 +566,77 @@
   { q: "Q98. The molecular mass of Pb(NO₃)₂ is:", options: ["330 u","332 u","334 u","336 u"], answer: 1 },
   { q: "Q99. The formula of silver nitrate is:", options: ["AgNO₂","AgNO₃","Ag₂NO₃","Ag₂NO₂"], answer: 1 },
   { q: "Q100. The molecular mass of AgNO₃ is:", options: ["168 u","170 u","172 u","174 u"], answer: 1 }
-    ];
+  ];
 
-    const quizDiv = document.getElementById("quiz");
-    questions.forEach((qObj, idx) => {
-      const qDiv = document.createElement("div");
-      qDiv.className = "question";
-      qDiv.innerHTML = `<p>${qObj.q}</p>`;
-      const optsDiv = document.createElement("div");
-      optsDiv.className = "options";
-      qObj.options.forEach((opt, i) => {
-        const id = `q${idx}_opt${i}`;
-        optsDiv.innerHTML += `
-          <label><input type="radio" name="q${idx}" value="${i}" id="${id}"> ${opt}</label>
-        `;
-      });
-      qDiv.appendChild(optsDiv);
-      quizDiv.appendChild(qDiv);
+  const quizDiv = document.getElementById("quiz");
+  const navList = document.getElementById("nav-list");
+
+  questions.forEach((qObj, idx) => {
+    const qDiv = document.createElement("div");
+    qDiv.className = "question";
+    qDiv.id = `question-${idx+1}`;
+    qDiv.innerHTML = `<p>${qObj.q}</p>`;
+    const optsDiv = document.createElement("div");
+    optsDiv.className = "options";
+    qObj.options.forEach((opt, i) => {
+      const id = `q${idx}_opt${i}`;
+      optsDiv.innerHTML += `
+        <label><input type="radio" name="q${idx}" value="${i}" id="${id}"> ${opt}</label>
+      `;
     });
+    qDiv.appendChild(optsDiv);
+    quizDiv.appendChild(qDiv);
 
-    document.getElementById("submit").addEventListener("click", () => {
-      let score = 0;
-      questions.forEach((qObj, idx) => {
-        const selected = document.querySelector(`input[name="q${idx}"]:checked`);
-        const qDiv = document.querySelectorAll(".question")[idx];
-        const oldFeedback = qDiv.querySelector(".feedback");
-        if (oldFeedback) oldFeedback.remove();
+    // Add to navigator
+    const navItem = document.createElement("li");
+    navItem.innerHTML = `<button data-q="${idx}" onclick="document.getElementById('question-${idx+1}').scrollIntoView({behavior:'smooth', block:'center'})">${idx+1}</button>`;
+    navList.appendChild(navItem);
+  });
 
-        const feedback = document.createElement("div");
-        feedback.className = "feedback";
+  document.getElementById("submit").addEventListener("click", () => {
+    let score = 0;
+    questions.forEach((qObj, idx) => {
+      const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+      const qDiv = document.querySelectorAll(".question")[idx];
+      const oldFeedback = qDiv.querySelector(".feedback");
+      if (oldFeedback) oldFeedback.remove();
 
-        if (selected) {
-          if (parseInt(selected.value) === qObj.answer) {
-            score++;
-            feedback.innerHTML = `<span class="correct">✔ Correct</span>`;
-          } else {
-            feedback.innerHTML = `<span class="wrong">✘ Wrong</span> (Correct: ${qObj.options[qObj.answer]})`;
+      const feedback = document.createElement("div");
+      feedback.className = "feedback";
+
+      const navBtn = document.querySelector(`#nav-list button[data-q="${idx}"]`);
+
+      if (selected) {
+        if (parseInt(selected.value) === qObj.answer) {
+          score++;
+          feedback.innerHTML = `<span class="correct">✔ Correct</span>`;
+          if (navBtn) {
+            navBtn.classList.remove("wrong");
+            navBtn.classList.add("answered");
           }
         } else {
-          feedback.innerHTML = `<span class="wrong">✘ Not answered</span> (Correct: ${qObj.options[qObj.answer]})`;
+          feedback.innerHTML = `<span class="wrong">✘ Wrong</span> (Correct: ${qObj.options[qObj.answer]})`;
+          if (navBtn) {
+            navBtn.classList.remove("answered");
+            navBtn.classList.add("wrong"); // mark red
+          }
         }
-        qDiv.appendChild(feedback);
-      });
-      document.getElementById("result").innerText =
-        `You scored ${score} out of ${questions.length}`;
+      } else {
+        feedback.innerHTML = `<span class="wrong">✘ Not answered</span> (Correct: ${qObj.options[qObj.answer]})`;
+        if (navBtn) {
+          navBtn.classList.remove("answered");
+          navBtn.classList.add("wrong"); // mark red
+        }
+      }
+      qDiv.appendChild(feedback);
     });
 
-    // --- Theme toggle ---
-    const toggleBtn = document.getElementById("theme-toggle");
-    toggleBtn.addEventListener("click", () => {
-      document.body.classList.toggle("light");
-      toggleBtn.innerText = document.body.classList.contains("light") 
-        ? "Switch to Dark" 
-        : "Switch to Light";
-    });
-  </script>
+    document.getElementById("result").innerText =
+      `You scored ${score} out of ${questions.length}`;
+
+    // Scroll directly to bottom after showing result
+    scrollToBottom();
+  });
+</script>
 </body>
 </html>
