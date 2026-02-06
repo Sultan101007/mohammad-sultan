@@ -2,47 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=0.5">
+  <meta name="viewport" content= "initial-scale=0.2">
   <title>Class 9th 100 MCQs Challenge</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Orbitron', sans-serif;
       margin: 0;
       transition: background-color 0.3s, color 0.3s;
       position: relative;
       min-height: 100vh;
+      overflow-x: hidden; /* prevent horizontal scroll */
     }
     body.light {
-      background-color: #ffffff;
+      background: linear-gradient(135deg, #e0e0e0, #ffffff);
       color: #000000;
     }
     body.dark {
-      background-color: #121212;
-      color: #ffffff;
+      background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
+      color: #e0e0e0;
     }
 
-    /* Top navigation bar */
     .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 20px;
-      background-color: #8B0000; /* Default Dark Red */
-      color: white;
+      padding: 12px 20px;
+      background: rgba(20,20,40,0.85);
+      backdrop-filter: blur(6px);
+      border-bottom: 2px solid #00ffff;
+      color: #00ffff;
+      box-shadow: 0 0 15px #00ffff;
     }
     .navbar h1 {
       margin: 0;
-      font-size: 20px;
+      font-size: 22px;
+      letter-spacing: 2px;
     }
 
-    /* Center button container */
     .center-button {
       flex: 1;
       display: flex;
       justify-content: center;
     }
 
-    /* Button groups inside navbar */
     .navbar-controls {
       display: flex;
       gap: 10px;
@@ -55,15 +57,15 @@
       border-radius: 5px;
       font-size: 12px;
       font-weight: bold;
-      color: white;
+      color: #fff;
+      background: rgba(30,30,60,0.8);
+      box-shadow: 0 0 10px #00ffff;
+      transition: box-shadow 0.3s;
     }
-    .darkblue { background-color: #00008B; }
-    .skyblue { background-color: #87CEEB; color: black; }
-    .red { background-color: #FF0000; }
-    .green { background-color: #008000; }
-    .default { background-color: #8B0000; }
+    .navbar-controls button:hover {
+      box-shadow: 0 0 20px #ff00ff;
+    }
 
-    /* Theme toggle button */
     .theme-toggle {
       padding: 8px 16px;
       border: none;
@@ -71,6 +73,9 @@
       font-size: 14px;
       font-weight: bold;
       cursor: pointer;
+      background: #00ffff;
+      color: #000;
+      box-shadow: 0 0 15px #00ffff;
       transition: background-color 0.3s, color 0.3s;
     }
     body.light .theme-toggle {
@@ -82,18 +87,17 @@
       color: #000000;
     }
 
-    /* Heading style */
     .main-heading {
-      margin: 20px;
-      font-size: 50px;
+      margin: 30px;
+      font-size: 48px;
       font-weight: bold;
       font-style: italic;
-      color: #ffb6c1; /* very light pink */
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.3);
-      letter-spacing: 2px;
+      color: #00ffff;
+      text-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff;
+      letter-spacing: 3px;
+      text-align: center;
     }
 
-    /* Watermark */
     .watermark {
       position: fixed;
       top: 50%;
@@ -102,87 +106,69 @@
       font-size: 120px;
       font-weight: bold;
       font-style: italic;
-      color: rgba(200, 200, 200, 0.15);
-      white-space: nowrap;
+      background: linear-gradient(90deg, #00ffff, #ff00ff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.1;
       pointer-events: none;
       z-index: 0;
       width: 100vw;
       text-align: center;
     }
 
-    /* Section styles */
-    .section {
+    .section-link {
+      display: block;
       margin: 40px 20px;
       padding: 20px;
-      border-radius: 10px;
-      background-color: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-    .section h2 {
-      font-size: 32px;
-      color: #ffd1dc; /* soft pink */
-      margin-bottom: 10px;
-    }
-    .section a {
-      font-size: 18px;
-      color: #00bfff; /* bright link color */
+      border-radius: 12px;
+      background: rgba(30,30,60,0.6);
+      box-shadow: 0 0 20px #00ffff;
       text-decoration: none;
-      font-weight: bold;
+      transition: box-shadow 0.3s;
     }
-    .section a:hover {
-      text-decoration: underline;
+    .section-link:hover {
+      box-shadow: 0 0 30px #ff00ff;
+    }
+    .section-link h2 {
+      font-size: 28px;
+      color: #ff00ff;
+      margin: 0;
+      text-shadow: 0 0 10px #ff00ff;
     }
 
     .content {
       position: relative;
       z-index: 1;
     }
+    /* Page transition animation */
+
   </style>
 </head>
-<body class="dark"> <!-- Start with dark theme -->
-  <!-- Top Menu Bar -->
+
+<body class="dark">
   <div class="navbar" id="navbar">
     <h1>Menu</h1>
-
-    <!-- Centered Change Theme Button -->
     <div class="center-button">
       <button class="theme-toggle" onclick="toggleTheme()">Change Theme</button>
     </div>
-
-    <!-- Color change buttons -->
     <div class="navbar-controls">
-      <button class="darkblue" onclick="changeNavbarColor('#00008B')">Dark Blue</button>
-      <button class="skyblue" onclick="changeNavbarColor('#87CEEB')">Sky Blue</button>
-      <button class="red" onclick="changeNavbarColor('#FF0000')">Red</button>
-      <button class="green" onclick="changeNavbarColor('#008000')">Green</button>
-      <button class="default" onclick="changeNavbarColor('#8B0000')">Default</button>
+      <button onclick="changeNavbarColor('#00008B')">Dark Blue</button>
+      <button onclick="changeNavbarColor('#87CEEB')">Sky Blue</button>
+      <button onclick="changeNavbarColor('#FF0000')">Red</button>
+      <button onclick="changeNavbarColor('#008000')">Green</button>
+      <button onclick="changeNavbarColor('#8B0000')">Default</button>
     </div>
   </div>
 
-  <!-- Watermark -->
   <div class="watermark">MOHAMMAD SULTAN</div>
 
-  <!-- Main Heading -->
   <div class="content">
     <h2 class="main-heading">Class 9th 100 MCQs Challenge</h2>
 
-    <!-- Physics Section -->
-    <div class="section">
-      <h2>Physics</h2>
-      <a href="https://drive.google.com/file/d/126h0U4hXejmY8Hf3aDbuqoZu4AHtmO1-/view?usp=drive_link" >Go to Physics MCQs Page</a>
-    </div>
-
-    <!-- Chemistry Section -->
-    <div class="section">
-      <h2>Chemistry</h2>
-      <a href="chemistry.html" >Go to Chemistry MCQs Page</a>
-    </div>
-
-    <!-- Biology Section -->
-    <div class="section">
-      <h2>Biology</h2>
-      <a href="biology.html" >Go to Biology MCQs Page</a>
-    </div>
+    <a href="physics.html" class="section-link"><h2>Physics</h2></a>
+    <a href="chemistry.html" class="section-link"><h2>Chemistry</h2></a>
+    <a href="biology.html" class="section-link"><h2>Biology</h2></a>
   </div>
 
   <script>
@@ -190,10 +176,74 @@
       document.body.classList.toggle('dark');
       document.body.classList.toggle('light');
     }
-
     function changeNavbarColor(color) {
       document.getElementById('navbar').style.backgroundColor = color;
     }
+
+    // Transition effect
+    const links = document.querySelectorAll('.section-link');
+    links.forEach((link, index) => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = this.getAttribute('href');
+
+        // Menu + heading always animate
+        document.querySelector('.navbar').classList.add('move-up');
+        document.querySelector('.main-heading').classList.add('move-right');
+
+        // Reset all sections
+        document.querySelectorAll('.section-link').forEach(sec => sec.classList.remove('move-front','move-left','move-down','move-back'));
+
+        // Apply animations depending on which was clicked
+        if (index === 0) { // Physics clicked
+          this.classList.add('move-front');
+          document.querySelector('.section-link:nth-of-type(2)').classList.add('move-left'); // Chemistry
+          document.querySelector('.section-link:nth-of-type(3)').classList.add('move-back'); // Biology
+        }
+        else if (index === 1) { // Chemistry clicked
+          this.classList.add('move-front');
+          document.querySelector('.section-link:nth-of-type(1)').classList.add('move-down'); // Physics
+          document.querySelector('.section-link:nth-of-type(3)').classList.add('move-back'); // Biology
+        }
+        else if (index === 2) { // Biology clicked
+          this.classList.add('move-front');
+          document.querySelector('.section-link:nth-of-type(1)').classList.add('move-down'); // Physics
+          document.querySelector('.section-link:nth-of-type(2)').classList.add('move-left'); // Chemistry
+        }
+
+        // Navigate immediately (no delay)
+        window.location.href = target;
+      });
+    });
   </script>
+
+  <style>
+    /* Animations */
+    @keyframes up {
+      to { transform: translateY(-100%); opacity: 0; }
+    }
+    @keyframes right {
+      to { transform: translateX(100%); opacity: 0; }
+    }
+    @keyframes down {
+      to { transform: translateY(100%); opacity: 0; }
+    }
+    @keyframes left {
+      to { transform: translateX(-100%); opacity: 0; }
+    }
+    @keyframes back {
+      to { transform: scale(0.1); opacity: 0; }
+    }
+    @keyframes front {
+      to { transform: scale(5); opacity: 1; }
+    }
+
+    .move-up { animation: up 3s forwards; }
+    .move-right { animation: right 3s forwards; }
+    .move-down { animation: down 3s forwards; }
+    .move-left { animation: left 3s forwards; }
+    .move-back { animation: back 3s forwards; }
+    .move-front { animation: front 3s forwards; z-index: 9999; position: relative; }
+  </style>
 </body>
 </html>
