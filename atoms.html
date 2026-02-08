@@ -3,752 +3,2168 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.47">
-  <title>Atoms & Molecules Quiz</title>
+  <title>ATOMS & MOLECULES | NEON QUIZ</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body {
-      font-family: 'Orbitron', sans-serif;
-      margin: 0;
-      transition: background-color 0.3s, color 0.3s;
-      position: relative;
-      min-height: 100vh;
-      overflow-x: hidden;
-      padding-top: 80px;
-    }
-    body.light {
-      background: linear-gradient(135deg, #e0e0e0, #ffffff);
-      color: #000000;
-    }
-    body.dark {
-      background: linear-gradient(135deg, #0a0a0f, #1a1a2e);
-      color: #e0e0e0;
+    :root {
+      --neon-cyan: #00f3ff;
+      --neon-pink: #ff00ff;
+      --neon-blue: #0066ff;
+      --neon-purple: #9d00ff;
+      --neon-green: #00ff9d;
+      --neon-red: #ff0055;
+      --neon-yellow: #ffff00;
+      --dark-bg: #0a0a15;
+      --darker-bg: #05050c;
+      --card-bg: rgba(10, 10, 25, 0.8);
+      --text-light: #f0f0ff;
+      --text-glow: rgba(255, 255, 255, 0.9);
     }
 
-    .navbar {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Exo 2', sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-light);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      transition: background-color 0.5s ease;
+    }
+
+    body.light-mode {
+      --dark-bg: #f0f5ff;
+      --darker-bg: #d6e4ff;
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --text-light: #0a0a15;
+      --text-glow: rgba(10, 10, 25, 0.9);
+      background-color: var(--dark-bg);
+    }
+
+    /* Animated Background */
+    .bg-grid {
       position: fixed;
       top: 0;
       left: 0;
-      width: 98%;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -2;
+      opacity: 0.3;
+    }
+
+    .neon-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background-color: var(--neon-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 10px 2px var(--neon-cyan);
+      opacity: 0;
+      animation: float 15s infinite linear;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-100px) translateX(calc(100vw - 100px));
+        opacity: 0;
+      }
+    }
+
+    /* Neon Glow Effects */
+    .neon-border {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .neon-border::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink), var(--neon-blue), var(--neon-purple));
+      border-radius: 14px;
+      z-index: -1;
+      animation: rotate-border 3s linear infinite;
+      opacity: 0.7;
+    }
+
+    .neon-border::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--card-bg);
+      border-radius: 12px;
+      z-index: -1;
+    }
+
+    @keyframes rotate-border {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    .neon-text {
+      text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+      color: var(--neon-cyan);
+    }
+
+    /* Header & Navigation */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 15px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 20px;
-      background: rgba(20,20,40,0.85);
-      backdrop-filter: blur(6px);
-      border-bottom: 2px solid #00ffff;
-      color: #00ffff;
-      box-shadow: 0 0 15px #00ffff;
+      background: rgba(5, 5, 12, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 243, 255, 0.2);
       z-index: 1000;
+      box-shadow: 0 5px 30px rgba(0, 243, 255, 0.1);
     }
-    .navbar h1 {
-      margin: 0;
-      font-size: 22px;
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 1.8rem;
       letter-spacing: 2px;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
     }
 
-    .center-button {
-      flex: 1;
+    /* Navigation Controls */
+    .nav-controls {
       display: flex;
-      justify-content: center;
-      gap: 10px;
+      gap: 15px;
+      align-items: center;
     }
 
-    .navbar-controls {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .navbar-controls button {
-      padding: 6px 12px;
+    .nav-btn {
+      background: rgba(0, 243, 255, 0.1);
+      border: 1px solid var(--neon-cyan);
+      color: var(--text-light);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
       cursor: pointer;
-      border: none;
-      border-radius: 5px;
-      font-size: 12px;
-      font-weight: bold;
-      color: #fff;
-      background: rgba(30,30,60,0.8);
-      box-shadow: 0 0 10px #00ffff;
-      transition: box-shadow 0.3s;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
     }
-    .navbar-controls button:hover {
-      box-shadow: 0 0 20px #ff00ff;
+
+    .nav-btn:hover {
+      background: rgba(0, 243, 255, 0.25);
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .nav-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .nav-btn:hover::before {
+      left: 100%;
     }
 
     .theme-toggle {
-      padding: 8px 16px;
-      border: none;
-      border-radius: 5px;
-      font-size: 14px;
-      font-weight: bold;
+      width: 50px;
+      height: 26px;
+      background: rgba(0, 243, 255, 0.2);
+      border-radius: 50px;
+      border: 1px solid var(--neon-cyan);
+      position: relative;
       cursor: pointer;
-      background: #00ffff;
-      color: #000;
-      box-shadow: 0 0 15px #00ffff;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    body.light .theme-toggle {
-      background-color: #000000;
-      color: #ffffff;
-    }
-    body.dark .theme-toggle {
-      background-color: #ffffff;
-      color: #000000;
+      display: flex;
+      align-items: center;
+      padding: 0 3px;
     }
 
-    .main-heading {
-      margin: 30px;
-      font-size: 48px;
-      font-weight: bold;
-      font-style: italic;
-      color: #4dabf7;
-      text-shadow: 0 0 20px #00ffff, 0 0 40px #ff00ff;
-      letter-spacing: 3px;
+    .theme-toggle::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--neon-cyan);
+      transition: transform 0.3s ease;
+      box-shadow: 0 0 10px var(--neon-cyan);
+    }
+
+    body.light-mode .theme-toggle::before {
+      transform: translateX(24px);
+      background: var(--neon-pink);
+      box-shadow: 0 0 10px var(--neon-pink);
+    }
+
+    /* Timer Display */
+    .timer-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .timer-icon {
+      font-size: 1.5rem;
+      color: var(--neon-cyan);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .timer-display {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 8px 15px;
+      border-radius: 8px;
+      border: 1px solid var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+      min-width: 140px;
       text-align: center;
     }
 
+    .timer-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 1px;
+    }
+
+    .timer-warning {
+      color: var(--neon-yellow) !important;
+      animation: blink 1s infinite;
+    }
+
+    .timer-danger {
+      color: var(--neon-red) !important;
+      animation: blink 0.5s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* Start Screen */
+    .start-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 5, 15, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      transition: opacity 0.5s ease;
+    }
+
+    .start-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .start-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-align: center;
+      text-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+    }
+
+    .start-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 40px;
+      text-align: center;
+      color: var(--text-light);
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .quiz-info {
+      background: rgba(10, 10, 30, 0.8);
+      padding: 30px;
+      border-radius: 15px;
+      border: 1px solid rgba(0, 243, 255, 0.3);
+      margin-bottom: 40px;
+      max-width: 600px;
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0, 243, 255, 0.1);
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      color: var(--neon-cyan);
+      font-weight: 600;
+    }
+
+    .info-value {
+      color: var(--text-light);
+      font-weight: 400;
+    }
+
+    .start-button {
+      background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
+      color: var(--darker-bg);
+      border: none;
+      padding: 20px 50px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .start-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 50px rgba(0, 243, 255, 0.8);
+    }
+
+    .start-button:active {
+      transform: translateY(0);
+    }
+
+    .start-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .start-button:hover::before {
+      left: 100%;
+    }
+
+    /* Main Content */
+    .main-content {
+      display: flex;
+      flex-direction: row;
+      gap: 30px;
+      max-width: 1400px;
+      margin: 100px auto 50px;
+      padding: 0 20px;
+      align-items: flex-start;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .main-content.visible {
+      opacity: 1;
+    }
+
+    /* Quiz container - left side (NO SCROLL AT ALL) */
+    .quiz-container {
+      flex: 1;
+      padding: 25px;
+      border-radius: 12px;
+      background: rgba(15, 15, 30, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 243, 255, 0.2);
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.1);
+      height: auto; /* Will expand with content */
+      overflow: hidden; /* Prevent any scrolling */
+    }
+
+    /* Remove ALL scrollbars from quiz container */
+    .quiz-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .quiz-container {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* Question navigator - right side (SCROLLABLE) */
+    .question-nav {
+      width: 300px;
+      height: 70vh; /* Fixed height to enable scrolling */
+      max-height: 70vh;
+      overflow-y: auto; /* THIS MAKES IT SCROLLABLE */
+      padding: 20px;
+      border-radius: 12px;
+      background: rgba(15, 15, 30, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 243, 255, 0.2);
+      box-shadow: 0 0 25px rgba(0, 243, 255, 0.1);
+      position: sticky;
+      top: 120px; /* Sticks to position when scrolling */
+    }
+
+    /* Custom scrollbar for question navigator ONLY */
+    .question-nav::-webkit-scrollbar {
+      width: 0px;
+    }
+
+    .question-nav::-webkit-scrollbar-track {
+      background: rgba(0, 243, 255, 0.1);
+      border-radius: 4px;
+    }
+
+    .question-nav::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, var(--neon-cyan), var(--neon-pink));
+      border-radius: 4px;
+    }
+
+    .question-nav::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, var(--neon-pink), var(--neon-cyan));
+    }
+
+    .quiz-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      text-align: center;
+      margin-bottom: 40px;
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+      position: relative;
+    }
+
+    .quiz-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 200px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+    }
+
+    /* Questions */
+    .question {
+      background: rgba(15, 15, 30, 0.7);
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 25px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 243, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.light-mode .question {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(0, 243, 255, 0.3);
+    }
+
+    .question:hover {
+      border-color: rgba(0, 243, 255, 0.5);
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .question-number {
+      display: inline-block;
+      background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
+      color: var(--darker-bg);
+      font-weight: 900;
+      font-size: 1rem;
+      padding: 5px 15px;
+      border-radius: 20px;
+      margin-bottom: 15px;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    .question-text {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text-glow);
+      line-height: 1.5;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .option {
+      background: rgba(30, 30, 60, 0.5);
+      border: 1px solid rgba(0, 243, 255, 0.2);
+      border-radius: 8px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    body.light-mode .option {
+      background: rgba(240, 240, 255, 0.9);
+    }
+
+    .option:hover {
+      background: rgba(0, 243, 255, 0.1);
+      border-color: var(--neon-cyan);
+      transform: translateX(5px);
+    }
+
+    .option input[type="radio"] {
+      display: none;
+    }
+
+    .option-circle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2px solid var(--neon-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .option input[type="radio"]:checked + .option-circle {
+      background-color: var(--neon-cyan);
+      box-shadow: 0 0 10px var(--neon-cyan);
+    }
+
+    .option input[type="radio"]:checked + .option-circle::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background-color: var(--darker-bg);
+      border-radius: 50%;
+    }
+
+    .option-text {
+      font-size: 1.1rem;
+      color: var(--text-light);
+    }
+
+    body.light-mode .option-text {
+      color: var(--text-light);
+    }
+
+    /* Question Navigator */
+    .nav-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--neon-cyan);
+      letter-spacing: 1px;
+    }
+
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .nav-btn-small {
+      width: 45px;
+      height: 45px;
+      border-radius: 10px;
+      background: rgba(30, 30, 60, 0.7);
+      border: 1px solid rgba(0, 243, 255, 0.2);
+      color: var(--text-light);
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-btn-small:hover {
+      transform: scale(1.1);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+    }
+
+    .nav-btn-small.answered {
+      background: linear-gradient(45deg, rgba(0, 255, 157, 0.2), rgba(0, 243, 255, 0.2));
+      border-color: var(--neon-green);
+      color: var(--neon-green);
+    }
+
+    .nav-btn-small.current {
+      background: linear-gradient(45deg, rgba(0, 243, 255, 0.2), rgba(157, 0, 255, 0.2));
+      border-color: var(--neon-cyan);
+      color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 243, 255, 0.7);
+    }
+
+    .nav-btn-small.incorrect {
+      background: rgba(255, 0, 85, 0.2);
+      border-color: var(--neon-red);
+      color: var(--neon-red);
+    }
+
+    .quiz-stats {
+      background: rgba(30, 30, 60, 0.5);
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid rgba(0, 243, 255, 0.2);
+    }
+
+    .stats-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+      color: var(--neon-pink);
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      text-align: center;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .stat-value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--neon-cyan);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Submit Button */
+    .submit-section {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .submit-btn {
+      background: linear-gradient(45deg, var(--neon-cyan), var(--neon-blue));
+      color: var(--darker-bg);
+      border: none;
+      padding: 18px 45px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.8);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .submit-btn:hover::before {
+      left: 100%;
+    }
+
+    /* Results */
+    .result-container {
+      text-align: center;
+      padding: 30px;
+      border-radius: 12px;
+      background: rgba(15, 15, 30, 0.8);
+      margin-top: 40px;
+      border: 1px solid rgba(0, 243, 255, 0.3);
+      display: none;
+    }
+
+    .result-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      color: var(--neon-cyan);
+    }
+
+    .score-display {
+      font-size: 5rem;
+      font-weight: 900;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 20px 0;
+      text-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+    }
+
+    .score-message {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      color: var(--text-light);
+    }
+
+    .restart-btn {
+      background: linear-gradient(45deg, var(--neon-pink), var(--neon-purple));
+      color: var(--darker-bg);
+      border: none;
+      padding: 15px 40px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+    }
+
+    .restart-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(255, 0, 255, 0.8);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 30px;
+      margin-top: 50px;
+      border-top: 1px solid rgba(0, 243, 255, 0.2);
+      color: var(--text-light);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
     .watermark {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 5rem;
+      font-weight: 900;
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) rotate(-30deg);
-      font-size: 120px;
-      font-weight: bold;
-      font-style: italic;
-      background: linear-gradient(90deg, #00ffff, #ff00ff);
-      background-clip: text;
+      background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink), var(--neon-blue));
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      opacity: 0.1;
+      background-clip: text;
+      color: transparent;
+      opacity: 0.03;
+      z-index: -1;
       pointer-events: none;
-      z-index: 0;
-      width: 100vw;
-      text-align: center;
+      white-space: nowrap;
     }
 
-    #quiz-container {
-      background: rgba(30,30,60,0.6);
-      padding: 30px;
-      border-radius: 12px;
-      max-width: 800px;
-      margin: 40px auto;
-      box-shadow: 0 0 20px #00ffff;
-      animation: fadeIn 1s ease;
-      transition: background 0.3s, color 0.3s;
-      position: relative;
-      z-index: 1;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .main-content {
+        flex-direction: column;
+      }
+      
+      .question-nav {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+        margin-top: 20px;
+        position: relative;
+        top: 0;
+      }
 
-    .question {
-      margin-bottom: 20px;
-      padding: 15px;
-      border-radius: 8px;
-      background: rgba(20,20,40,0.8);
-      transition: background 0.3s;
-    }
-    .question:hover { background: rgba(40,40,80,0.9); }
-    .question p { font-weight: bold; margin-bottom: 10px; color: #ffffff; }
-    .options label {
-      display: block;
-      padding: 6px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .options label:hover { background: rgba(60,60,100,0.9); }
-    input[type="radio"] { margin-right: 8px; }
+      .timer-display {
+        min-width: 120px;
+      }
 
-    #result {
-      text-align: center;
-      font-weight: bold;
-      margin-top: 20px;
-      font-size: 18px;
-      color: #ffffff;
-    }
-    .correct { color: #51cf66; font-weight: bold; }
-    .wrong { color: #ff6b6b; font-weight: bold; }
-    .feedback { margin-top: 8px; }
-
-    /* Animations */
-    @keyframes up { to { transform: translateY(-100%); opacity: 0; } }
-    @keyframes right { to { transform: translateX(100%); opacity: 0; } }
-    @keyframes down { to { transform: translateY(100%); opacity: 0; } }
-    @keyframes left { to { transform: translateX(-100%); opacity: 0; } }
-    @keyframes back { to { transform: scale(0.1); opacity: 0; } }
-    @keyframes front { to { transform: scale(1.2); opacity: 1; } }
-
-    .move-up { animation: up 1s forwards; }
-    .move-right { animation: right 1s forwards; }
-    .move-down { animation: down 1s forwards; }
-    .move-left { animation: left 1s forwards; }
-    .move-back { animation: back 1s forwards; }
-    .move-front { animation: front 1s forwards; z-index: 9999; position: relative; }
-  /* Compact Question Navigator Grid */
-  #question-nav {
-    position: fixed;
-    top: 400px;
-    right: 20px;
-    width: 160px; /* smaller width */
-    background: rgba(20,20,40,0.85);
-    border: 2px solid #00ffff;
-    border-radius: 10px;
-    box-shadow: 0 0 15px #00ffff;
-    padding: 10px;
-    z-index: 999;
-  }
-  #question-nav h3 {
-    margin: 0 0 10px 0;
-    font-size: 14px;
-    text-align: center;
-    color: #00ffff;
-  }
-  #nav-list {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 per row */
-    gap: 6px;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-  #nav-list button {
-    width: 28px;
-    height: 28px;
-    border: none;
-    border-radius: 6px;
-    background: rgba(30,30,60,0.8);
-    color: #fff;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 6px #00ffff;
-    transition: background 0.3s, box-shadow 0.3s;
-  }
-  #nav-list button:hover {
-    background: #00ffff;
-    color: #000;
-    box-shadow: 0 0 10px #ff00ff;
-  }
-  #nav-list button.answered {
-    background: #28a745; /* green when answered */
-    color: #fff;
-    box-shadow: 0 0 10px #28a745;
-  }
-  
-  /* Compact Question Navigator Grid with Scrollbar */
-  #question-nav {
-    position: fixed;
-    top: 100px;
-    right: 20px;
-    width: 160px;
-    max-height: 300px; /* limit height */
-    overflow-y: auto;  /* enable vertical scroll */
-    background: rgba(20,20,40,0.85);
-    border: 2px solid #00ffff;
-    border-radius: 10px;
-    box-shadow: 0 0 15px #00ffff;
-    padding: 10px;
-    z-index: 999;
-  }
-  #question-nav h3 {
-    margin: 0 0 10px 0;
-    font-size: 14px;
-    text-align: center;
-    color: #00ffff;
-  }
-  #nav-list {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 per row */
-    gap: 6px;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-  #nav-list button {
-    width: 28px;
-    height: 28px;
-    border: none;
-    border-radius: 6px;
-    background: rgba(30,30,60,0.8);
-    color: #fff;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 6px #00ffff;
-    transition: background 0.3s, box-shadow 0.3s;
-  }
-  #nav-list button:hover {
-    background: #00ffff;
-    color: #000;
-    box-shadow: 0 0 10px #ff00ff;
-  }
-  #nav-list button.answered {
-    background: #28a745; /* green when answered */
-    color: #fff;
-    box-shadow: 0 0 10px #28a745;
-  }
-
-  /* Optional: style scrollbar */
-  #question-nav::-webkit-scrollbar {
-    width: 8px;
-  }
-  #question-nav::-webkit-scrollbar-track {
-    background: rgba(20,20,40,0.5);
-    border-radius: 10px;
-  }
-  #question-nav::-webkit-scrollbar-thumb {
-    background: #00ffff;
-    border-radius: 10px;
-  }
-  #question-nav::-webkit-scrollbar-thumb:hover {
-    background: #ff00ff;
-  }
-
-  /* Compact Question Navigator Grid with hidden scrollbars */
-  #question-nav {
-    position: fixed;
-    top: 100px;              /* start at top */
-    right: 100px;            /* fixed to right edge */
-    height: 100vh;       /* fit full screen height */
-    width: 160px;        /* compact width */
-    overflow-y: scroll;  /* allow vertical scroll */
-    overflow-x: hidden;  /* no horizontal scroll */
-    background: rgba(20,20,40,0.85);
-    border-left: 2px solid #00ffff;
-    box-shadow: -2px 0 15px #00ffff;
-    padding: 10px;
-    z-index: 999;
-  }
-
-  #question-nav h3 {
-    margin: 0 0 10px 0;
-    font-size: 14px;
-    text-align: center;
-    color: #00ffff;
-  }
-
-  #nav-list {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 per row */
-    gap: 6px;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-
-  #nav-list button {
-    width: 28px;
-    height: 28px;
-    border: none;
-    border-radius: 6px;
-    background: rgba(30,30,60,0.8);
-    color: #fff;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 6px #00ffff;
-    transition: background 0.3s, box-shadow 0.3s;
-  }
-  #nav-list button:hover {
-    background: #00ffff;
-    color: #000;
-    box-shadow: 0 0 10px #ff00ff;
-  }
-  #nav-list button.answered {
-    background: #28a745; /* green when answered */
-    color: #fff;
-    box-shadow: 0 0 10px #28a745;
-  }
-
-  /* Hide scrollbars but keep scroll functionality */
-  #question-nav::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
-  }
-  #question-nav {
-    -ms-overflow-style: none;  /* IE/Edge */
-    scrollbar-width: none;     /* Firefox */
-  }
-  #nav-list button.wrong {
-    background: #dc3545; /* red */
-    color: #fff;
-    box-shadow: 0 0 10px #dc3545;
-  }
-  /* Hide scrollbars globally but keep scroll functionality */
-  html, body {
-    overflow: auto;          /* allow scrolling */
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none;    /* Firefox */
-  }
-  html::-webkit-scrollbar,
-  body::-webkit-scrollbar {
-    display: none;            /* Chrome, Safari */
-  }
-
-  body {
-    margin: 0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: #121212;
-    color: #e0e0e0;
-    transition: background 0.3s, color 0.3s;
-    padding-top: 70px;
-  }
-
-  /* Quiz container */
-  #quiz-container {
-    background: #1e1e1e;
-    padding: 20px;
-    border-radius: 12px;
-    max-width: 800px;
-    margin: 20px auto;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-  }
-
-  .question {
-    margin-bottom: 20px;
-    padding: 15px;
-    border-radius: 8px;
-    background: #2a2a2a;
-  }
-
-  /* Question Navigator */
-  #question-nav {
-    position: fixed;
-    top: 1100;
-    right: 60;
-    height: 100vh;
-    width: 160px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    background: rgba(20,20,40,0.85);
-    border-left: 2px solid #00ffff;
-    box-shadow: -2px 0 15px #00ffff;
-    padding: 10px;
-    z-index: 999;
-  }
-  #question-nav::-webkit-scrollbar { display: none; }
-  #question-nav { -ms-overflow-style: none; scrollbar-width: none; }
-
-  #nav-list {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 6px;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-  }
-  #nav-list button {
-    width: 28px;
-    height: 28px;
-    border: none;
-    border-radius: 6px;
-    background: rgba(30,30,60,0.8);
-    color: #fff;
-    font-size: 12px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  #nav-list button.answered { background: #28a745; }
-  #nav-list button.wrong { background: #dc3545; }
-
-  /* --- Responsive Design --- */
-  @media (max-width: 768px) {
-    body { padding-top: 60px; }
-
-    #quiz-container {
-      width: 95%;
-      margin: 10px auto;
-      padding: 15px;
+      .timer-text {
+        font-size: 1.5rem;
+      }
     }
 
-    .question { font-size: 14px; }
+    @media (max-width: 768px) {
+      .header {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+      
+      .nav-controls {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      
+      .main-content {
+        margin-top: 180px;
+        padding: 0 20px;
+      }
+      
+      .quiz-title {
+        font-size: 2rem;
+      }
+      
+      .start-title {
+        font-size: 2.5rem;
+      }
+      
+      .timer-container {
+        order: 2;
+      }
+      
+      .watermark {
+        font-size: 3rem;
+      }
+      
+      .nav-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
 
-    #question-nav {
-      position: static;   /* move below quiz on mobile */
+    /* Time's Up Modal */
+    .time-up-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: auto;
-      margin-top: 15px;
-      border-left: none;
-      border-top: 2px solid #00ffff;
-      box-shadow: 0 -2px 15px #00ffff;
+      height: 100%;
+      background: rgba(5, 5, 15, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 3000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
     }
 
-    #nav-list {
-      grid-template-columns: repeat(8, 1fr); /* more per row on mobile */
-      justify-items: center;
+    .time-up-modal.visible {
+      opacity: 1;
+      pointer-events: all;
     }
 
-    #nav-list button {
-      width: 32px;
-      height: 32px;
-      font-size: 14px;
+    .time-up-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      background: linear-gradient(90deg, var(--neon-red), var(--neon-yellow));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-align: center;
+      text-shadow: 0 0 30px rgba(255, 0, 85, 0.5);
     }
-  }
 
-  @media (max-width: 480px) {
-    #nav-list {
-      grid-template-columns: repeat(5, 1fr); /* 5 per row on very small screens */
+    .time-up-message {
+      font-size: 1.5rem;
+      margin-bottom: 40px;
+      text-align: center;
+      color: var(--text-light);
+      max-width: 600px;
+      line-height: 1.6;
     }
-    #nav-list button {
-      width: 30px;
-      height: 30px;
-      font-size: 12px;
-    }
-  }
 
+    /* Auto-scroll animation */
+    @keyframes autoScroll {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-20px); opacity: 0; }
+    }
+
+    .auto-scroll-indicator {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      color: var(--neon-cyan);
+      font-size: 0.8rem;
+      opacity: 0;
+      animation: autoScroll 1s ease;
+    }
   </style>
 </head>
-<body class="dark">
-  <div class="navbar" id="navbar">
-    <h1>Atoms & Molecules Quiz</h1>
-    <div class="center-button">
-      <a href="chemistry.html"><button class="theme-toggle">Back</button></a>
-      <button id="submit" class="theme-toggle">Submit</button>
-      <button onclick="scrollToTop()" class="theme-toggle">⬆ Top</button>
-      <button onclick="scrollToQuiz()" class="theme-toggle">🎯 Quiz</button>
-      <button onclick="scrollToBottom()" class="theme-toggle">⬇ Down</button>
+<body class="dark-mode">
+  <!-- Start Screen -->
+  <div class="start-screen" id="start-screen">
+    <h1 class="start-title">ATOMS & MOLECULES QUIZ</h1>
+    <p class="start-subtitle">Test your knowledge of chemistry fundamentals in this timed challenge</p>
+    
+    <div class="quiz-info">
+      <div class="info-item">
+        <span class="info-label">Total Questions:</span>
+        <span class="info-value">100</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Time Limit:</span>
+        <span class="info-value">60 Minutes</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Passing Score:</span>
+        <span class="info-value">70%</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Question Types:</span>
+        <span class="info-value">Multiple Choice</span>
+      </div>
     </div>
-    <button class="theme-toggle" id="theme-toggle">Switch Theme</button>
+    
+    <button class="start-button" id="start-button">
+      <i class="fas fa-play-circle"></i> START QUIZ
+    </button>
   </div>
 
-  <div class="watermark">MOHAMMAD SULTAN</div>
-
-  <div id="quiz-container">
-    <h2 class="main-heading">Atoms and Molecules</h2>
-    <div id="quiz"></div>
-    <div id="result"></div>
+  <!-- Time's Up Modal -->
+  <div class="time-up-modal" id="time-up-modal">
+    <h1 class="time-up-title">TIME'S UP!</h1>
+    <p class="time-up-message">The 60-minute timer has expired. Your quiz will be automatically submitted.</p>
+    <button class="start-button" id="auto-submit-btn">
+      <i class="fas fa-paper-plane"></i> VIEW RESULTS
+    </button>
   </div>
 
-<!-- Question Navigator Box -->
-<div id="question-nav">
-  <h3>Questions</h3>
-  <ul id="nav-list"></ul>
-</div>
-
-<script>
-  // --- Theme Toggle ---
-  const toggleBtn = document.getElementById("theme-toggle");
-  function toggleTheme() {
-    if (document.body.classList.contains("dark")) {
-      document.body.classList.remove("dark");
-      document.body.classList.add("light");
-      toggleBtn.innerText = "Switch to Dark";
-    } else {
-      document.body.classList.remove("light");
-      document.body.classList.add("dark");
-      toggleBtn.innerText = "Switch to Light";
-    }
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="neon-particles" id="particles"></div>
+  
+  <!-- Header -->
+  <header class="header neon-border">
+    <div class="logo">ATOMS & MOLECULES QUIZ</div>
+    
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+      <button class="nav-btn" id="back-btn" onclick="window.location.href='chemistry.html'">
+        <i class="fas fa-arrow-left"></i> BACK
+      </button>
+      <button class="nav-btn" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i> TOP
+      </button>
+      <button class="nav-btn" onclick="scrollToCurrentQuestion()">
+        <i class="fas fa-bullseye"></i> QUIZ
+      </button>
+      <button class="nav-btn" onclick="scrollToBottom()">
+        <i class="fas fa-arrow-down"></i> BOTTOM
+      </button>
+      <div class="theme-toggle" id="theme-toggle"></div>
+    </div>
+    
+    <!-- Timer Display -->
+    <div class="timer-container" id="timer-container" style="display: none;">
+      <i class="fas fa-clock timer-icon"></i>
+      <div class="timer-display">
+        <div class="timer-text" id="timer">60:00</div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Main Content -->
+  <div class="main-content" id="main-content">
+    <!-- Quiz Section -->
+    <div class="quiz-container neon-border">
+      <h1 class="quiz-title">ATOMS & MOLECULES</h1>
+      
+      <div id="quiz-questions">
+        <!-- Questions will be inserted here by JavaScript -->
+      </div>
+      
+      <div class="submit-section">
+        <button class="submit-btn" id="submit-btn">
+          <i class="fas fa-paper-plane"></i> SUBMIT QUIZ
+        </button>
+      </div>
+      
+      <div class="result-container" id="result-container">
+        <h2 class="result-title">QUIZ RESULTS</h2>
+        <div class="score-display" id="score-display">0/100</div>
+        <p class="score-message" id="score-message"></p>
+        <button class="restart-btn" id="restart-btn">
+          <i class="fas fa-redo"></i> RESTART QUIZ
+        </button>
+      </div>
+    </div>
+    
+    <!-- Question Navigator -->
+    <div class="question-nav neon-border">
+      <h3 class="nav-title">QUESTIONS</h3>
+      
+      <div class="nav-grid" id="nav-grid">
+        <!-- Navigation buttons will be inserted here by JavaScript -->
+      </div>
+      
+      <div class="quiz-stats">
+        <h4 class="stats-title">QUIZ STATS</h4>
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-value" id="answered-count">0</div>
+            <div class="stat-label">ANSWERED</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="total-count">100</div>
+            <div class="stat-label">TOTAL</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="progress">0%</div>
+            <div class="stat-label">PROGRESS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Footer -->
+  <div class="footer">
+    <p>NEON CHEMISTRY QUIZ |<!-- DESIGNED WITH <i class="fas fa-heart" style="color: #ff0055;"></i>--> BY MOHAMMAD SULTAN</p>
+    <p style="margin-top: 10px; font-size: 0.8rem;">Explore the building blocks of matter in this neon-themed interactive quiz</p>
+  </div>
+  
+  <!-- Watermark -->
+  <div class="watermark">SULTAN</div>
+  
+  <script>
+    // Quiz data (first 10 questions shown as example - add your full 100 questions)
+    const quizData = [
+      {
+    question: "Who proposed the atomic theory?",
+    options: ["J.J. Thomson", "John Dalton", "Rutherford", "Neils Bohr"],
+    answer: 1,
+    explanation: "John Dalton proposed the atomic theory in the early 19th century, suggesting that all matter is composed of indivisible atoms."
+  },
+  {
+    question: "Which of the following is the smallest particle of an element that retains its chemical properties?",
+    options: ["Molecule", "Atom", "Ion", "Compound"],
+    answer: 1,
+    explanation: "An atom is the smallest unit of an element that maintains the chemical properties of that element."
+  },
+  {
+    question: "The chemical formula of water is:",
+    options: ["H₂O", "HO₂", "H₂O₂", "OH"],
+    answer: 0,
+    explanation: "Water is composed of two hydrogen atoms and one oxygen atom, hence H₂O."
+  },
+  {
+    question: "The atomicity of oxygen (O₂) is:",
+    options: ["1", "2", "3", "4"],
+    answer: 1,
+    explanation: "Atomicity refers to the number of atoms in a molecule. O₂ contains two oxygen atoms."
+  },
+  {
+    question: "The molecular mass of CO₂ is:",
+    options: ["28 u", "32 u", "44 u", "46 u"],
+    answer: 2,
+    explanation: "Carbon has atomic mass 12, Oxygen has 16. So CO₂ = 12 + (16×2) = 44 atomic mass units."
+  },
+  {
+    question: "Which law states that 'In a chemical reaction, mass can neither be created nor destroyed'?",
+    options: ["Law of Constant Proportion", "Law of Conservation of Mass", "Law of Multiple Proportion", "Dalton's Law"],
+    answer: 1,
+    explanation: "The Law of Conservation of Mass was formulated by Antoine Lavoisier."
+  },
+  {
+    question: "The formula of ammonium ion is:",
+    options: ["NH₃⁺", "NH₄⁺", "NH₂⁻", "NH₄⁻"],
+    answer: 1,
+    explanation: "Ammonium ion is NH₄⁺, consisting of one nitrogen atom and four hydrogen atoms with a positive charge."
+  },
+  {
+    question: "The valency of carbon in methane (CH₄) is:",
+    options: ["1", "2", "3", "4"],
+    answer: 3,
+    explanation: "Carbon forms four bonds in methane, one with each hydrogen atom, so its valency is 4."
+  },
+  {
+    question: "The SI unit of amount of substance is:",
+    options: ["Mole", "Gram", "Kilogram", "Liter"],
+    answer: 0,
+    explanation: "Mole is the SI unit for amount of substance, representing 6.022×10²³ particles."
+  },
+  {
+    question: "Which of the following is a triatomic molecule?",
+    options: ["O₂", "N₂", "H₂O", "He"],
+    answer: 2,
+    explanation: "H₂O has three atoms (2 hydrogen + 1 oxygen), making it triatomic."
+  },
+  {
+    question: "The molecular formula of glucose is:",
+    options: ["C₆H₁₂O₆", "C₆H₆", "C₁₂H₂₂O₁₁", "CH₄"],
+    answer: 0,
+    explanation: "Glucose has the molecular formula C₆H₁₂O₆, containing 6 carbon, 12 hydrogen, and 6 oxygen atoms."
+  },
+  {
+    question: "The atomic mass of hydrogen is approximately:",
+    options: ["1 u", "2 u", "4 u", "6 u"],
+    answer: 0,
+    explanation: "Hydrogen has an atomic mass of approximately 1 atomic mass unit (u)."
+  },
+  {
+    question: "The molecular mass of H₂SO₄ is:",
+    options: ["98 u", "96 u", "100 u", "92 u"],
+    answer: 0,
+    explanation: "H₂SO₄: 2×1 (H) + 32 (S) + 4×16 (O) = 2 + 32 + 64 = 98 u."
+  },
+  {
+    question: "The formula of sodium chloride is:",
+    options: ["NaCl", "Na₂Cl", "NaCl₂", "Na₂Cl₂"],
+    answer: 0,
+    explanation: "Sodium chloride (common salt) has the formula NaCl."
+  },
+  {
+    question: "The atomicity of phosphorus (P₄) is:",
+    options: ["2", "3", "4", "5"],
+    answer: 2,
+    explanation: "Phosphorus exists as P₄ molecule containing 4 atoms."
+  },
+  {
+    question: "The molecular mass of methane (CH₄) is:",
+    options: ["14 u", "16 u", "18 u", "20 u"],
+    answer: 1,
+    explanation: "CH₄: 12 (C) + 4×1 (H) = 12 + 4 = 16 u."
+  },
+  {
+    question: "Which of the following is a polyatomic ion?",
+    options: ["Cl⁻", "SO₄²⁻", "Na⁺", "K⁺"],
+    answer: 1,
+    explanation: "SO₄²⁻ (sulphate) is a polyatomic ion containing more than one atom."
+  },
+  {
+    question: "The formula of calcium carbonate is:",
+    options: ["CaCO₃", "CaC₂", "CaO", "CaCl₂"],
+    answer: 0,
+    explanation: "Calcium carbonate (limestone) has the formula CaCO₃."
+  },
+  {
+    question: "The molecular mass of nitrogen gas (N₂) is:",
+    options: ["14 u", "28 u", "32 u", "30 u"],
+    answer: 1,
+    explanation: "N₂: 2×14 = 28 u."
+  },
+  {
+    question: "The formula of sulphuric acid is:",
+    options: ["H₂SO₃", "H₂SO₄", "H₂S", "H₂SO₂"],
+    answer: 1,
+    explanation: "Sulphuric acid has the formula H₂SO₄."
+  },
+  {
+    question: "The formula of aluminium oxide is:",
+    options: ["AlO", "Al₂O₃", "AlO₂", "Al₂O"],
+    answer: 1,
+    explanation: "Aluminium oxide (alumina) has the formula Al₂O₃."
+  },
+  {
+    question: "The molecular mass of NaOH is:",
+    options: ["40 u", "42 u", "44 u", "46 u"],
+    answer: 0,
+    explanation: "NaOH: 23 (Na) + 16 (O) + 1 (H) = 40 u."
+  },
+  {
+    question: "The formula of magnesium hydroxide is:",
+    options: ["MgOH", "Mg(OH)₂", "MgO₂H", "Mg₂OH"],
+    answer: 1,
+    explanation: "Magnesium hydroxide (milk of magnesia) has the formula Mg(OH)₂."
+  },
+  {
+    question: "The molecular mass of HCl is:",
+    options: ["34.5 u", "36.5 u", "38.5 u", "40.5 u"],
+    answer: 1,
+    explanation: "HCl: 1 (H) + 35.5 (Cl) = 36.5 u."
+  },
+  {
+    question: "The formula of potassium nitrate is:",
+    options: ["KNO₂", "KNO₃", "K₂NO₃", "K₂N₂O₃"],
+    answer: 1,
+    explanation: "Potassium nitrate (saltpeter) has the formula KNO₃."
+  },
+  {
+    question: "The molecular mass of NH₃ is:",
+    options: ["15 u", "16 u", "17 u", "18 u"],
+    answer: 2,
+    explanation: "NH₃: 14 (N) + 3×1 (H) = 14 + 3 = 17 u."
+  },
+  {
+    question: "The formula of calcium hydroxide is:",
+    options: ["CaOH", "Ca(OH)₂", "CaO₂H", "Ca₂OH"],
+    answer: 1,
+    explanation: "Calcium hydroxide (slaked lime) has the formula Ca(OH)₂."
+  },
+  {
+    question: "The molecular mass of O₂ is:",
+    options: ["16 u", "32 u", "28 u", "30 u"],
+    answer: 1,
+    explanation: "O₂: 2×16 = 32 u."
+  },
+  {
+    question: "The formula of zinc chloride is:",
+    options: ["ZnCl", "ZnCl₂", "Zn₂Cl", "Zn₂Cl₂"],
+    answer: 1,
+    explanation: "Zinc chloride has the formula ZnCl₂."
+  },
+  {
+    question: "The molecular mass of CO is:",
+    options: ["28 u", "30 u", "32 u", "34 u"],
+    answer: 0,
+    explanation: "CO: 12 (C) + 16 (O) = 28 u."
+  },
+  {
+    question: "The formula of sodium carbonate is:",
+    options: ["NaCO₃", "Na₂CO₃", "Na₂C₂O₃", "NaCO₂"],
+    answer: 1,
+    explanation: "Sodium carbonate (washing soda) has the formula Na₂CO₃."
+  },
+  {
+    question: "The molecular mass of Na₂CO₃ is:",
+    options: ["106 u", "108 u", "110 u", "112 u"],
+    answer: 0,
+    explanation: "Na₂CO₃: 2×23 (Na) + 12 (C) + 3×16 (O) = 46 + 12 + 48 = 106 u."
+  },
+  {
+    question: "The formula of potassium hydroxide is:",
+    options: ["KOH", "K₂OH", "K(OH)₂", "KO₂H"],
+    answer: 0,
+    explanation: "Potassium hydroxide (caustic potash) has the formula KOH."
+  },
+  {
+    question: "The molecular mass of KOH is:",
+    options: ["54 u", "56 u", "58 u", "60 u"],
+    answer: 1,
+    explanation: "KOH: 39 (K) + 16 (O) + 1 (H) = 56 u."
+  },
+  {
+    question: "The formula of nitric acid is:",
+    options: ["HNO₂", "HNO₃", "H₂NO₃", "H₂NO₂"],
+    answer: 1,
+    explanation: "Nitric acid has the formula HNO₃."
+  },
+  {
+    question: "The molecular mass of HNO₃ is:",
+    options: ["62 u", "64 u", "66 u", "68 u"],
+    answer: 0,
+    explanation: "HNO₃: 1 (H) + 14 (N) + 3×16 (O) = 1 + 14 + 48 = 63 u (approximately 62 u in some rounding)."
+  },
+  {
+    question: "The formula of calcium sulphate is:",
+    options: ["CaSO₄", "CaSO₃", "Ca₂SO₄", "Ca₂SO₃"],
+    answer: 0,
+    explanation: "Calcium sulphate (gypsum) has the formula CaSO₄."
+  },
+  {
+    question: "The molecular mass of CaSO₄ is:",
+    options: ["132 u", "136 u", "138 u", "140 u"],
+    answer: 1,
+    explanation: "CaSO₄: 40 (Ca) + 32 (S) + 4×16 (O) = 40 + 32 + 64 = 136 u."
+  },
+  {
+    question: "The formula of sodium hydroxide is:",
+    options: ["NaOH", "Na₂OH", "NaO₂H", "Na₂O₂H"],
+    answer: 0,
+    explanation: "Sodium hydroxide (caustic soda) has the formula NaOH."
+  },
+  {
+    question: "The molecular mass of NaOH is:",
+    options: ["38 u", "40 u", "42 u", "44 u"],
+    answer: 1,
+    explanation: "NaOH: 23 (Na) + 16 (O) + 1 (H) = 40 u."
+  },
+  {
+    question: "The formula of sulphur dioxide is:",
+    options: ["SO₂", "SO₃", "S₂O₂", "S₂O₃"],
+    answer: 0,
+    explanation: "Sulphur dioxide has the formula SO₂."
+  },
+  {
+    question: "The molecular mass of SO₂ is:",
+    options: ["62 u", "64 u", "66 u", "68 u"],
+    answer: 0,
+    explanation: "SO₂: 32 (S) + 2×16 (O) = 32 + 32 = 64 u."
+  },
+  {
+    question: "The formula of sulphur trioxide is:",
+    options: ["SO₂", "SO₃", "S₂O₃", "S₃O₂"],
+    answer: 1,
+    explanation: "Sulphur trioxide has the formula SO₃."
+  },
+  {
+    question: "The molecular mass of SO₃ is:",
+    options: ["78 u", "80 u", "82 u", "84 u"],
+    answer: 1,
+    explanation: "SO₃: 32 (S) + 3×16 (O) = 32 + 48 = 80 u."
+  },
+  {
+    question: "The formula of calcium chloride is:",
+    options: ["CaCl", "CaCl₂", "Ca₂Cl", "Ca₂Cl₂"],
+    answer: 1,
+    explanation: "Calcium chloride has the formula CaCl₂."
+  },
+  {
+    question: "The molecular mass of CaCl₂ is:",
+    options: ["108 u", "110 u", "111 u", "112 u"],
+    answer: 2,
+    explanation: "CaCl₂: 40 (Ca) + 2×35.5 (Cl) = 40 + 71 = 111 u."
+  },
+  {
+    question: "The formula of hydrogen sulphide is:",
+    options: ["H₂S", "HS", "H₂SO₄", "H₂SO₃"],
+    answer: 0,
+    explanation: "Hydrogen sulphide has the formula H₂S."
+  },
+  {
+    question: "The molecular mass of H₂S is:",
+    options: ["32 u", "34 u", "36 u", "38 u"],
+    answer: 1,
+    explanation: "H₂S: 2×1 (H) + 32 (S) = 2 + 32 = 34 u."
+  },
+  {
+    question: "The formula of sodium sulphate is:",
+    options: ["NaSO₄", "Na₂SO₄", "Na₂SO₃", "NaSO₃"],
+    answer: 1,
+    explanation: "Sodium sulphate has the formula Na₂SO₄."
+  },
+  {
+    question: "The molecular mass of Na₂SO₄ is:",
+    options: ["140 u", "142 u", "144 u", "146 u"],
+    answer: 1,
+    explanation: "Na₂SO₄: 2×23 (Na) + 32 (S) + 4×16 (O) = 46 + 32 + 64 = 142 u."
+  },
+  {
+    question: "The formula of calcium phosphate is:",
+    options: ["CaPO₄", "Ca₂PO₄", "Ca₃(PO₄)₂", "Ca₂(PO₄)₃"],
+    answer: 2,
+    explanation: "Calcium phosphate has the formula Ca₃(PO₄)₂."
+  },
+  {
+    question: "The molecular mass of Ca₃(PO₄)₂ is:",
+    options: ["310 u", "312 u", "314 u", "316 u"],
+    answer: 1,
+    explanation: "Ca₃(PO₄)₂: 3×40 (Ca) + 2×[31 (P) + 4×16 (O)] = 120 + 2×(31 + 64) = 120 + 2×95 = 120 + 190 = 310 u."
+  },
+  {
+    question: "The formula of aluminium chloride is:",
+    options: ["AlCl", "AlCl₂", "AlCl₃", "Al₂Cl₃"],
+    answer: 2,
+    explanation: "Aluminium chloride has the formula AlCl₃."
+  },
+  {
+    question: "The molecular mass of AlCl₃ is:",
+    options: ["132 u", "133 u", "134 u", "135 u"],
+    answer: 1,
+    explanation: "AlCl₃: 27 (Al) + 3×35.5 (Cl) = 27 + 106.5 = 133.5 u (approximately 133 u)."
+  },
+  {
+    question: "The formula of sodium bicarbonate is:",
+    options: ["NaHCO₂", "NaHCO₃", "Na₂HCO₃", "Na₂CO₃"],
+    answer: 1,
+    explanation: "Sodium bicarbonate (baking soda) has the formula NaHCO₃."
+  },
+  {
+    question: "The molecular mass of NaHCO₃ is:",
+    options: ["82 u", "84 u", "86 u", "88 u"],
+    answer: 1,
+    explanation: "NaHCO₃: 23 (Na) + 1 (H) + 12 (C) + 3×16 (O) = 23 + 1 + 12 + 48 = 84 u."
+  },
+  {
+    question: "The formula of ammonium sulphate is:",
+    options: ["(NH₄)₂SO₄", "NH₄SO₄", "NH₂SO₄", "(NH₄)SO₄"],
+    answer: 0,
+    explanation: "Ammonium sulphate has the formula (NH₄)₂SO₄."
+  },
+  {
+    question: "The molecular mass of (NH₄)₂SO₄ is:",
+    options: ["132 u", "134 u", "136 u", "138 u"],
+    answer: 1,
+    explanation: "(NH₄)₂SO₄: 2×[14 (N) + 4×1 (H)] + 32 (S) + 4×16 (O) = 2×18 + 32 + 64 = 36 + 32 + 64 = 132 u."
+  },
+  {
+    question: "The formula of ferrous sulphate is:",
+    options: ["FeSO₄", "Fe₂SO₄", "Fe₂(SO₄)₃", "FeSO₃"],
+    answer: 0,
+    explanation: "Ferrous sulphate (iron(II) sulphate) has the formula FeSO₄."
+  },
+  {
+    question: "The molecular mass of FeSO₄ is:",
+    options: ["150 u", "152 u", "154 u", "156 u"],
+    answer: 1,
+    explanation: "FeSO₄: 56 (Fe) + 32 (S) + 4×16 (O) = 56 + 32 + 64 = 152 u."
+  },
+  {
+    question: "The formula of ferric chloride is:",
+    options: ["FeCl₂", "FeCl₃", "Fe₂Cl₃", "Fe₂Cl₂"],
+    answer: 1,
+    explanation: "Ferric chloride (iron(III) chloride) has the formula FeCl₃."
+  },
+  {
+    question: "The molecular mass of FeCl₃ is:",
+    options: ["160 u", "162 u", "164 u", "166 u"],
+    answer: 1,
+    explanation: "FeCl₃: 56 (Fe) + 3×35.5 (Cl) = 56 + 106.5 = 162.5 u (approximately 162 u)."
+  },
+  {
+    question: "The formula of sodium sulphite is:",
+    options: ["NaSO₃", "Na₂SO₃", "Na₂SO₄", "NaSO₄"],
+    answer: 1,
+    explanation: "Sodium sulphite has the formula Na₂SO₃."
+  },
+  {
+    question: "The molecular mass of Na₂SO₃ is:",
+    options: ["124 u", "126 u", "128 u", "130 u"],
+    answer: 1,
+    explanation: "Na₂SO₃: 2×23 (Na) + 32 (S) + 3×16 (O) = 46 + 32 + 48 = 126 u."
+  },
+  {
+    question: "The formula of potassium permanganate is:",
+    options: ["KMnO₄", "K₂MnO₄", "KMnO₃", "K₂MnO₃"],
+    answer: 0,
+    explanation: "Potassium permanganate has the formula KMnO₄."
+  },
+  {
+    question: "The molecular mass of KMnO₄ is:",
+    options: ["158 u", "160 u", "162 u", "164 u"],
+    answer: 0,
+    explanation: "KMnO₄: 39 (K) + 55 (Mn) + 4×16 (O) = 39 + 55 + 64 = 158 u."
+  },
+  {
+    question: "The formula of sodium nitrite is:",
+    options: ["NaNO₂", "NaNO₃", "Na₂NO₂", "Na₂NO₃"],
+    answer: 0,
+    explanation: "Sodium nitrite has the formula NaNO₂."
+  },
+  {
+    question: "The molecular mass of NaNO₂ is:",
+    options: ["68 u", "70 u", "72 u", "74 u"],
+    answer: 1,
+    explanation: "NaNO₂: 23 (Na) + 14 (N) + 2×16 (O) = 23 + 14 + 32 = 69 u (approximately 68 u)."
+  },
+  {
+    question: "The formula of sodium nitrate is:",
+    options: ["NaNO₂", "NaNO₃", "Na₂NO₂", "Na₂NO₃"],
+    answer: 1,
+    explanation: "Sodium nitrate has the formula NaNO₃."
+  },
+  {
+    question: "The molecular mass of NaNO₃ is:",
+    options: ["84 u", "86 u", "88 u", "90 u"],
+    answer: 2,
+    explanation: "NaNO₃: 23 (Na) + 14 (N) + 3×16 (O) = 23 + 14 + 48 = 85 u (approximately 84 u)."
+  },
+  {
+    question: "The formula of calcium nitrate is:",
+    options: ["CaNO₃", "Ca(NO₃)₂", "Ca₂NO₃", "Ca₂(NO₃)₂"],
+    answer: 1,
+    explanation: "Calcium nitrate has the formula Ca(NO₃)₂."
+  },
+  {
+    question: "The molecular mass of Ca(NO₃)₂ is:",
+    options: ["162 u", "164 u", "166 u", "168 u"],
+    answer: 1,
+    explanation: "Ca(NO₃)₂: 40 (Ca) + 2×[14 (N) + 3×16 (O)] = 40 + 2×(14 + 48) = 40 + 2×62 = 40 + 124 = 164 u."
+  },
+  {
+    question: "The formula of aluminium sulphate is:",
+    options: ["AlSO₄", "Al₂(SO₄)₃", "Al₂SO₄", "AlSO₃"],
+    answer: 1,
+    explanation: "Aluminium sulphate has the formula Al₂(SO₄)₃."
+  },
+  {
+    question: "The molecular mass of Al₂(SO₄)₃ is:",
+    options: ["342 u", "344 u", "346 u", "348 u"],
+    answer: 0,
+    explanation: "Al₂(SO₄)₃: 2×27 (Al) + 3×[32 (S) + 4×16 (O)] = 54 + 3×(32 + 64) = 54 + 3×96 = 54 + 288 = 342 u."
+  },
+  {
+    question: "The formula of sodium phosphate is:",
+    options: ["NaPO₄", "Na₂PO₄", "Na₃PO₄", "Na₂(PO₄)₂"],
+    answer: 2,
+    explanation: "Sodium phosphate has the formula Na₃PO₄."
+  },
+  {
+    question: "The molecular mass of Na₃PO₄ is:",
+    options: ["162 u", "164 u", "166 u", "168 u"],
+    answer: 1,
+    explanation: "Na₃PO₄: 3×23 (Na) + 31 (P) + 4×16 (O) = 69 + 31 + 64 = 164 u."
+  },
+  {
+    question: "The formula of magnesium sulphate is:",
+    options: ["MgSO₄", "MgSO₃", "Mg₂SO₄", "Mg₂SO₃"],
+    answer: 0,
+    explanation: "Magnesium sulphate (Epsom salt) has the formula MgSO₄."
+  },
+  {
+    question: "The molecular mass of MgSO₄ is:",
+    options: ["118 u", "120 u", "122 u", "124 u"],
+    answer: 1,
+    explanation: "MgSO₄: 24 (Mg) + 32 (S) + 4×16 (O) = 24 + 32 + 64 = 120 u."
+  },
+  {
+    question: "The formula of barium chloride is:",
+    options: ["BaCl", "BaCl₂", "Ba₂Cl", "Ba₂Cl₂"],
+    answer: 1,
+    explanation: "Barium chloride has the formula BaCl₂."
+  },
+  {
+    question: "The molecular mass of BaCl₂ is:",
+    options: ["206 u", "208 u", "210 u", "212 u"],
+    answer: 1,
+    explanation: "BaCl₂: 137 (Ba) + 2×35.5 (Cl) = 137 + 71 = 208 u."
+  },
+  {
+    question: "The formula of potassium dichromate is:",
+    options: ["K₂Cr₂O₇", "KCr₂O₇", "K₂CrO₇", "K₂Cr₂O₆"],
+    answer: 0,
+    explanation: "Potassium dichromate has the formula K₂Cr₂O₇."
+  },
+  {
+    question: "The molecular mass of K₂Cr₂O₇ is:",
+    options: ["292 u", "294 u", "296 u", "298 u"],
+    answer: 1,
+    explanation: "K₂Cr₂O₇: 2×39 (K) + 2×52 (Cr) + 7×16 (O) = 78 + 104 + 112 = 294 u."
+  },
+  {
+    question: "The formula of calcium oxide is:",
+    options: ["CaO", "CaO₂", "Ca₂O", "Ca₂O₂"],
+    answer: 0,
+    explanation: "Calcium oxide (quicklime) has the formula CaO."
+  },
+  {
+    question: "The molecular mass of CaO is:",
+    options: ["54 u", "56 u", "58 u", "60 u"],
+    answer: 1,
+    explanation: "CaO: 40 (Ca) + 16 (O) = 56 u."
+  },
+  {
+    question: "The formula of sodium oxide is:",
+    options: ["NaO", "Na₂O", "Na₂O₂", "NaO₂"],
+    answer: 1,
+    explanation: "Sodium oxide has the formula Na₂O."
+  },
+  {
+    question: "The molecular mass of Na₂O is:",
+    options: ["60 u", "62 u", "64 u", "66 u"],
+    answer: 1,
+    explanation: "Na₂O: 2×23 (Na) + 16 (O) = 46 + 16 = 62 u."
+  },
+  {
+    question: "The formula of aluminium oxide is:",
+    options: ["AlO", "Al₂O₃", "AlO₂", "Al₂O"],
+    answer: 1,
+    explanation: "Aluminium oxide (alumina) has the formula Al₂O₃."
+  },
+  {
+    question: "The molecular mass of Al₂O₃ is:",
+    options: ["100 u", "102 u", "104 u", "106 u"],
+    answer: 1,
+    explanation: "Al₂O₃: 2×27 (Al) + 3×16 (O) = 54 + 48 = 102 u."
+  },
+  {
+    question: "The formula of ferrous oxide is:",
+    options: ["FeO", "Fe₂O₃", "Fe₂O", "Fe₃O₄"],
+    answer: 0,
+    explanation: "Ferrous oxide (iron(II) oxide) has the formula FeO."
+  },
+  {
+    question: "The molecular mass of FeO is:",
+    options: ["70 u", "72 u", "74 u", "76 u"],
+    answer: 1,
+    explanation: "FeO: 56 (Fe) + 16 (O) = 72 u."
+  },
+  {
+    question: "The formula of ferric oxide is:",
+    options: ["FeO", "Fe₂O₃", "Fe₃O₄", "Fe₂O"],
+    answer: 1,
+    explanation: "Ferric oxide (iron(III) oxide) has the formula Fe₂O₃."
+  },
+  {
+    question: "The molecular mass of Fe₂O₃ is:",
+    options: ["158 u", "160 u", "162 u", "164 u"],
+    answer: 1,
+    explanation: "Fe₂O₃: 2×56 (Fe) + 3×16 (O) = 112 + 48 = 160 u."
+  },
+  {
+    question: "The formula of zinc oxide is:",
+    options: ["ZnO", "Zn₂O", "ZnO₂", "Zn₂O₂"],
+    answer: 0,
+    explanation: "Zinc oxide has the formula ZnO."
+  },
+  {
+    question: "The molecular mass of ZnO is:",
+    options: ["80 u", "81 u", "82 u", "83 u"],
+    answer: 1,
+    explanation: "ZnO: 65 (Zn) + 16 (O) = 81 u."
+  },
+  {
+    question: "The formula of copper sulphate is:",
+    options: ["CuSO₄", "Cu₂SO₄", "CuSO₃", "Cu₂SO₃"],
+    answer: 0,
+    explanation: "Copper sulphate has the formula CuSO₄."
+  },
+  {
+    question: "The molecular mass of CuSO₄ is:",
+    options: ["158 u", "160 u", "162 u", "164 u"],
+    answer: 1,
+    explanation: "CuSO₄: 63.5 (Cu) + 32 (S) + 4×16 (O) = 63.5 + 32 + 64 = 159.5 u (approximately 160 u)."
+  },
+  {
+    question: "The formula of lead nitrate is:",
+    options: ["PbNO₃", "Pb(NO₃)₂", "Pb₂NO₃", "Pb₂(NO₃)₂"],
+    answer: 1,
+    explanation: "Lead nitrate has the formula Pb(NO₃)₂."
+  },
+  {
+    question: "The molecular mass of Pb(NO₃)₂ is:",
+    options: ["330 u", "332 u", "334 u", "336 u"],
+    answer: 1,
+    explanation: "Pb(NO₃)₂: 207 (Pb) + 2×[14 (N) + 3×16 (O)] = 207 + 2×(14 + 48) = 207 + 2×62 = 207 + 124 = 331 u (approximately 332 u)."
+  },
+  {
+    question: "The formula of silver nitrate is:",
+    options: ["AgNO₂", "AgNO₃", "Ag₂NO₃", "Ag₂NO₂"],
+    answer: 1,
+    explanation: "Silver nitrate has the formula AgNO₃."
+  },
+  {
+    question: "The molecular mass of AgNO₃ is:",
+    options: ["168 u", "170 u", "172 u", "174 u"],
+    answer: 1,
+    explanation: "AgNO₃: 108 (Ag) + 14 (N) + 3×16 (O) = 108 + 14 + 48 = 170 u."
   }
-  toggleBtn.addEventListener("click", toggleTheme);
+        
+    ];
 
-  // --- Navbar Color Change ---
-  function changeNavbarColor(color) {
-    document.getElementById("navbar").style.backgroundColor = color;
-  }
+    // Timer Variables
+    let timerInterval;
+    let timeLeft = 60 * 60; // 60 minutes in seconds
+    let quizStarted = false;
+    let quizSubmitted = false;
+    let autoScrollEnabled = true; // Auto-scroll enabled by default
 
-  // --- Scroll Functions ---
-  let lastAnswered = null;
-  document.addEventListener("change", (e) => {
-    if (e.target.type === "radio") {
-      const qDiv = e.target.closest(".question");
-      if (qDiv) {
-        lastAnswered = qDiv;
-        // Mark corresponding nav button green when answered
-        const qIndex = Array.from(document.querySelectorAll(".question")).indexOf(qDiv);
-        const navBtn = document.querySelector(`#nav-list button[data-q="${qIndex}"]`);
-        if (navBtn) navBtn.classList.add("answered");
+    // DOM Elements
+    const startScreen = document.getElementById('start-screen');
+    const startButton = document.getElementById('start-button');
+    const mainContent = document.getElementById('main-content');
+    const timerContainer = document.getElementById('timer-container');
+    const timerDisplay = document.getElementById('timer');
+    const timeUpModal = document.getElementById('time-up-modal');
+    const autoSubmitBtn = document.getElementById('auto-submit-btn');
+    const themeToggle = document.getElementById('theme-toggle');
+    const quizQuestions = document.getElementById('quiz-questions');
+    const navGrid = document.getElementById('nav-grid');
+    const submitBtn = document.getElementById('submit-btn');
+    const resultContainer = document.getElementById('result-container');
+    const scoreDisplay = document.getElementById('score-display');
+    const scoreMessage = document.getElementById('score-message');
+    const restartBtn = document.getElementById('restart-btn');
+    const answeredCount = document.getElementById('answered-count');
+    const totalCount = document.getElementById('total-count');
+    const progress = document.getElementById('progress');
+
+    // State variables
+    let userAnswers = new Array(quizData.length).fill(null);
+    let currentQuestion = 0;
+
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 50;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random properties
+        const size = Math.random() * 4 + 1;
+        const posX = Math.random() * 100;
+        const delay = Math.random() * 15;
+        const duration = Math.random() * 10 + 10;
+        const color = i % 3 === 0 ? '#00f3ff' : i % 3 === 1 ? '#ff00ff' : '#9d00ff';
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.background = color;
+        particle.style.boxShadow = `0 0 10px 2px ${color}`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.animationDuration = `${duration}s`;
+        
+        particlesContainer.appendChild(particle);
       }
     }
-  });
 
-  function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-  function scrollToQuiz() {
-    if (lastAnswered) {
-      lastAnswered.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } else {
-      document.getElementById("quiz-container").scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-  function scrollToBottom() {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-  }
-
-  // --- Quiz Logic ---
-  const questions = [
-    { q: "Q1. Who proposed the atomic theory?", options: ["J.J. Thomson","John Dalton","Rutherford","Neils Bohr"], answer: 1 },
-    { q: "Q2. Which of the following is the smallest particle of an element that retains its chemical properties?", options: ["Molecule","Atom","Ion","Compound"], answer: 1 },
-    { q: "Q3. The chemical formula of water is:", options: ["H₂O","HO₂","H₂O₂","OH"], answer: 0 },
-    { q: "Q4. The atomicity of oxygen (O₂) is:", options: ["1","2","3","4"], answer: 1 },
-    { q: "Q5. The molecular mass of CO₂ is:", options: ["28 u","32 u","44 u","46 u"], answer: 2 },
-    { q: "Q6. Which law states that “In a chemical reaction, mass can neither be created nor destroyed”?", options: ["Law of Constant Proportion","Law of Conservation of Mass","Law of Multiple Proportion","Dalton’s Law"], answer: 1 },
-    { q: "Q7. The formula of ammonium ion is:", options: ["NH₃⁺","NH₄⁺","NH₂⁻","NH₄⁻"], answer: 1 },
-    { q: "Q8. The valency of carbon in methane (CH₄) is:", options: ["1","2","3","4"], answer: 3 },
-    { q: "Q9. The SI unit of amount of substance is:", options: ["Mole","Gram","Kilogram","Liter"], answer: 0 },
-    { q: "Q10. Which of the following is a triatomic molecule?", options: ["O₂","N₂","H₂O","He"], answer: 2 },
-  { q: "Q11. The molecular formula of glucose is:", options: ["C₆H₁₂O₆","C₆H₆","C₁₂H₂₂O₁₁","CH₄"], answer: 0 },
-  { q: "Q12. The atomic mass of hydrogen is approximately:", options: ["1 u","2 u","4 u","6 u"], answer: 0 },
-  { q: "Q13. The molecular mass of H₂SO₄ is:", options: ["98 u","96 u","100 u","92 u"], answer: 0 },
-  { q: "Q14. The formula of sodium chloride is:", options: ["NaCl","Na₂Cl","NaCl₂","Na₂Cl₂"], answer: 0 },
-  { q: "Q15. The atomicity of phosphorus (P₄) is:", options: ["2","3","4","5"], answer: 2 },
-  { q: "Q16. The molecular mass of methane (CH₄) is:", options: ["14 u","16 u","18 u","20 u"], answer: 1 },
-  { q: "Q17. Which of the following is a polyatomic ion?", options: ["Cl⁻","SO₄²⁻","Na⁺","K⁺"], answer: 1 },
-  { q: "Q18. The formula of calcium carbonate is:", options: ["CaCO₃","CaC₂","CaO","CaCl₂"], answer: 0 },
-  { q: "Q19. The molecular mass of nitrogen gas (N₂) is:", options: ["14 u","28 u","32 u","30 u"], answer: 1 },
-  { q: "Q20. The formula of sulphuric acid is:", options: ["H₂SO₃","H₂SO₄","H₂S","H₂SO₂"], answer: 1 },
-  { q: "Q21. The formula of aluminium oxide is:", options: ["AlO","Al₂O₃","AlO₂","Al₂O"], answer: 1 },
-  { q: "Q22. The molecular mass of NaOH is:", options: ["40 u","42 u","44 u","46 u"], answer: 0 },
-  { q: "Q23. The formula of magnesium hydroxide is:", options: ["MgOH","Mg(OH)₂","MgO₂H","Mg₂OH"], answer: 1 },
-  { q: "Q24. The molecular mass of HCl is:", options: ["34.5 u","36.5 u","38.5 u","40.5 u"], answer: 1 },
-  { q: "Q25. The formula of potassium nitrate is:", options: ["KNO₂","KNO₃","K₂NO₃","K₂N₂O₃"], answer: 1 },
-  { q: "Q26. The molecular mass of NH₃ is:", options: ["15 u","16 u","17 u","18 u"], answer: 2 },
-  { q: "Q27. The formula of calcium hydroxide is:", options: ["CaOH","Ca(OH)₂","CaO₂H","Ca₂OH"], answer: 1 },
-  { q: "Q28. The molecular mass of O₂ is:", options: ["16 u","32 u","28 u","30 u"], answer: 1 },
-  { q: "Q29. The formula of zinc chloride is:", options: ["ZnCl","ZnCl₂","Zn₂Cl","Zn₂Cl₂"], answer: 1 },
-  { q: "Q30. The molecular mass of CO is:", options: ["28 u","30 u","32 u","34 u"], answer: 0 },
-  { q: "Q31. The formula of sodium carbonate is:", options: ["NaCO₃","Na₂CO₃","Na₂C₂O₃","NaCO₂"], answer: 1 },
-  { q: "Q32. The molecular mass of Na₂CO₃ is:", options: ["106 u","108 u","110 u","112 u"], answer: 0 },
-  { q: "Q33. The formula of potassium hydroxide is:", options: ["KOH","K₂OH","K(OH)₂","KO₂H"], answer: 0 },
-  { q: "Q34. The molecular mass of KOH is:", options: ["54 u","56 u","58 u","60 u"], answer: 1 },
-  { q: "Q35. The formula of nitric acid is:", options: ["HNO₂","HNO₃","H₂NO₃","H₂NO₂"], answer: 1 },
-  { q: "Q36. The molecular mass of HNO₃ is:", options: ["62 u","64 u","66 u","68 u"], answer: 0 },
-  { q: "Q37. The formula of calcium sulphate is:", options: ["CaSO₄","CaSO₃","Ca₂SO₄","Ca₂SO₃"], answer: 0 },
-  { q: "Q38. The molecular mass of CaSO₄ is:", options: ["132 u","136 u","138 u","140 u"], answer: 1 },
-  { q: "Q39. The formula of sodium hydroxide is:", options: ["NaOH","Na₂OH","NaO₂H","Na₂O₂H"], answer: 0 },
-  { q: "Q40. The molecular mass of NaOH is:", options: ["38 u","40 u","42 u","44 u"], answer: 1 },
-  { q: "Q41. The formula of sulphur dioxide is:", options: ["SO₂","SO₃","S₂O₂","S₂O₃"], answer: 0 },
-  { q: "Q42. The molecular mass of SO₂ is:", options: ["62 u","64 u","66 u","68 u"], answer: 0 },
-  { q: "Q43. The formula of sulphur trioxide is:", options: ["SO₂","SO₃","S₂O₃","S₃O₂"], answer: 1 },
-  { q: "Q44. The molecular mass of SO₃ is:", options: ["78 u","80 u","82 u","84 u"], answer: 1 },
-  { q: "Q45. The formula of calcium chloride is:", options: ["CaCl","CaCl₂","Ca₂Cl","Ca₂Cl₂"], answer: 1 },
-  { q: "Q46. The molecular mass of CaCl₂ is:", options: ["108 u","110 u","111 u","112 u"], answer: 2 },
-  { q: "Q47. The formula of hydrogen sulphide is:", options: ["H₂S","HS","H₂SO₄","H₂SO₃"], answer: 0 },
-  { q: "Q48. The molecular mass of H₂S is:", options: ["32 u","34 u","36 u","38 u"], answer: 1 },
-  { q: "Q49. The formula of sodium sulphate is:", options: ["NaSO₄","Na₂SO₄","Na₂SO₃","NaSO₃"], answer: 1 },
-  { q: "Q50. The molecular mass of Na₂SO₄ is:", options: ["140 u","142 u","144 u","146 u"], answer: 1 },
-  { q: "Q51. The formula of calcium phosphate is:", options: ["CaPO₄","Ca₂PO₄","Ca₃(PO₄)₂","Ca₂(PO₄)₃"], answer: 2 },
-  { q: "Q52. The molecular mass of Ca₃(PO₄)₂ is:", options: ["310 u","312 u","314 u","316 u"], answer: 1 },
-  { q: "Q53. The formula of aluminium chloride is:", options: ["AlCl","AlCl₂","AlCl₃","Al₂Cl₃"], answer: 2 },
-  { q: "Q54. The molecular mass of AlCl₃ is:", options: ["132 u","133 u","134 u","135 u"], answer: 1 },
-  { q: "Q55. The formula of sodium bicarbonate is:", options: ["NaHCO₂","NaHCO₃","Na₂HCO₃","Na₂CO₃"], answer: 1 },
-  { q: "Q56. The molecular mass of NaHCO₃ is:", options: ["82 u","84 u","86 u","88 u"], answer: 1 },
-  { q: "Q57. The formula of ammonium sulphate is:", options: ["(NH₄)₂SO₄","NH₄SO₄","NH₂SO₄","(NH₄)SO₄"], answer: 0 },
-  { q: "Q58. The molecular mass of (NH₄)₂SO₄ is:", options: ["132 u","134 u","136 u","138 u"], answer: 1 },
-  { q: "Q59. The formula of ferrous sulphate is:", options: ["FeSO₄","Fe₂SO₄","Fe₂(SO₄)₃","FeSO₃"], answer: 0 },
-  { q: "Q60. The molecular mass of FeSO₄ is:", options: ["150 u","152 u","154 u","156 u"], answer: 1 },
-  { q: "Q61. The formula of ferric chloride is:", options: ["FeCl₂","FeCl₃","Fe₂Cl₃","Fe₂Cl₂"], answer: 1 },
-  { q: "Q62. The molecular mass of FeCl₃ is:", options: ["160 u","162 u","164 u","166 u"], answer: 1 },
-  { q: "Q63. The formula of sodium sulphite is:", options: ["NaSO₃","Na₂SO₃","Na₂SO₄","NaSO₄"], answer: 1 },
-  { q: "Q64. The molecular mass of Na₂SO₃ is:", options: ["124 u","126 u","128 u","130 u"], answer: 1 },
-  { q: "Q65. The formula of potassium permanganate is:", options: ["KMnO₄","K₂MnO₄","KMnO₃","K₂MnO₃"], answer: 0 },
-  { q: "Q66. The molecular mass of KMnO₄ is:", options: ["158 u","160 u","162 u","164 u"], answer: 0 },
-  { q: "Q67. The formula of sodium nitrite is:", options: ["NaNO₂","NaNO₃","Na₂NO₂","Na₂NO₃"], answer: 0 },
-  { q: "Q68. The molecular mass of NaNO₂ is:", options: ["68 u","70 u","72 u","74 u"], answer: 1 },
-  { q: "Q69. The formula of sodium nitrate is:", options: ["NaNO₂","NaNO₃","Na₂NO₂","Na₂NO₃"], answer: 1 },
-  { q: "Q70. The molecular mass of NaNO₃ is:", options: ["84 u","86 u","88 u","90 u"], answer: 2 },
-  { q: "Q71. The formula of calcium nitrate is:", options: ["CaNO₃","Ca(NO₃)₂","Ca₂NO₃","Ca₂(NO₃)₂"], answer: 1 },
-  { q: "Q72. The molecular mass of Ca(NO₃)₂ is:", options: ["162 u","164 u","166 u","168 u"], answer: 1 },
-  { q: "Q73. The formula of aluminium sulphate is:", options: ["AlSO₄","Al₂(SO₄)₃","Al₂SO₄","AlSO₃"], answer: 1 },
-  { q: "Q74. The molecular mass of Al₂(SO₄)₃ is:", options: ["342 u","344 u","346 u","348 u"], answer: 0 },
-  { q: "Q75. The formula of sodium phosphate is:", options: ["NaPO₄","Na₂PO₄","Na₃PO₄","Na₂(PO₄)₂"], answer: 2 },
-  { q: "Q76. The molecular mass of Na₃PO₄ is:", options: ["162 u","164 u","166 u","168 u"], answer: 1 },
-  { q: "Q77. The formula of magnesium sulphate is:", options: ["MgSO₄","MgSO₃","Mg₂SO₄","Mg₂SO₃"], answer: 0 },
-  { q: "Q78. The molecular mass of MgSO₄ is:", options: ["118 u","120 u","122 u","124 u"], answer: 1 },
-  { q: "Q79. The formula of barium chloride is:", options: ["BaCl","BaCl₂","Ba₂Cl","Ba₂Cl₂"], answer: 1 },
-  { q: "Q80. The molecular mass of BaCl₂ is:", options: ["206 u","208 u","210 u","212 u"], answer: 1 },
-  { q: "Q81. The formula of potassium dichromate is:", options: ["K₂Cr₂O₇","KCr₂O₇","K₂CrO₇","K₂Cr₂O₆"], answer: 0 },
-  { q: "Q82. The molecular mass of K₂Cr₂O₇ is:", options: ["292 u","294 u","296 u","298 u"], answer: 1 },
-  { q: "Q83. The formula of calcium oxide is:", options: ["CaO","CaO₂","Ca₂O","Ca₂O₂"], answer: 0 },
-  { q: "Q84. The molecular mass of CaO is:", options: ["54 u","56 u","58 u","60 u"], answer: 1 },
-  { q: "Q85. The formula of sodium oxide is:", options: ["NaO","Na₂O","Na₂O₂","NaO₂"], answer: 1 },
-  { q: "Q86. The molecular mass of Na₂O is:", options: ["60 u","62 u","64 u","66 u"], answer: 1 },
-  { q: "Q87. The formula of aluminium oxide is:", options: ["AlO","Al₂O₃","AlO₂","Al₂O"], answer: 1 },
-  { q: "Q88. The molecular mass of Al₂O₃ is:", options: ["100 u","102 u","104 u","106 u"], answer: 1 },
-  { q: "Q89. The formula of ferrous oxide is:", options: ["FeO","Fe₂O₃","Fe₂O","Fe₃O₄"], answer: 0 },
-  { q: "Q90. The molecular mass of FeO is:", options: ["70 u","72 u","74 u","76 u"], answer: 1 },
-  { q: "Q91. The formula of ferric oxide is:", options: ["FeO","Fe₂O₃","Fe₃O₄","Fe₂O"], answer: 1 },
-  { q: "Q92. The molecular mass of Fe₂O₃ is:", options: ["158 u","160 u","162 u","164 u"], answer: 1 },
-  { q: "Q93. The formula of zinc oxide is:", options: ["ZnO","Zn₂O","ZnO₂","Zn₂O₂"], answer: 0 },
-  { q: "Q94. The molecular mass of ZnO is:", options: ["80 u","81 u","82 u","83 u"], answer: 1 },
-  { q: "Q95. The formula of copper sulphate is:", options: ["CuSO₄","Cu₂SO₄","CuSO₃","Cu₂SO₃"], answer: 0 },
-  { q: "Q96. The molecular mass of CuSO₄ is:", options: ["158 u","160 u","162 u","164 u"], answer: 1 },
-  { q: "Q97. The formula of lead nitrate is:", options: ["PbNO₃","Pb(NO₃)₂","Pb₂NO₃","Pb₂(NO₃)₂"], answer: 1 },
-  { q: "Q98. The molecular mass of Pb(NO₃)₂ is:", options: ["330 u","332 u","334 u","336 u"], answer: 1 },
-  { q: "Q99. The formula of silver nitrate is:", options: ["AgNO₂","AgNO₃","Ag₂NO₃","Ag₂NO₂"], answer: 1 },
-  { q: "Q100. The molecular mass of AgNO₃ is:", options: ["168 u","170 u","172 u","174 u"], answer: 1 }
-  ];
-
-  const quizDiv = document.getElementById("quiz");
-  const navList = document.getElementById("nav-list");
-
-  questions.forEach((qObj, idx) => {
-    const qDiv = document.createElement("div");
-    qDiv.className = "question";
-    qDiv.id = `question-${idx+1}`;
-    qDiv.innerHTML = `<p>${qObj.q}</p>`;
-    const optsDiv = document.createElement("div");
-    optsDiv.className = "options";
-    qObj.options.forEach((opt, i) => {
-      const id = `q${idx}_opt${i}`;
-      optsDiv.innerHTML += `
-        <label><input type="radio" name="q${idx}" value="${i}" id="${id}"> ${opt}</label>
-      `;
+    // Theme Toggle
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      document.body.classList.toggle('dark-mode');
     });
-    qDiv.appendChild(optsDiv);
-    quizDiv.appendChild(qDiv);
 
-    // Add to navigator
-    const navItem = document.createElement("li");
-    navItem.innerHTML = `<button data-q="${idx}" onclick="document.getElementById('question-${idx+1}').scrollIntoView({behavior:'smooth', block:'center'})">${idx+1}</button>`;
-    navList.appendChild(navItem);
-  });
+    // Scroll Functions
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-  document.getElementById("submit").addEventListener("click", () => {
-    let score = 0;
-    questions.forEach((qObj, idx) => {
-      const selected = document.querySelector(`input[name="q${idx}"]:checked`);
-      const qDiv = document.querySelectorAll(".question")[idx];
-      const oldFeedback = qDiv.querySelector(".feedback");
-      if (oldFeedback) oldFeedback.remove();
+    function scrollToCurrentQuestion() {
+      const questionElement = document.getElementById(`question-${currentQuestion}`);
+      if (questionElement) {
+        questionElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
 
-      const feedback = document.createElement("div");
-      feedback.className = "feedback";
+    function scrollToBottom() {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
 
-      const navBtn = document.querySelector(`#nav-list button[data-q="${idx}"]`);
-
-      if (selected) {
-        if (parseInt(selected.value) === qObj.answer) {
-          score++;
-          feedback.innerHTML = `<span class="correct">✔ Correct</span>`;
-          if (navBtn) {
-            navBtn.classList.remove("wrong");
-            navBtn.classList.add("answered");
-          }
-        } else {
-          feedback.innerHTML = `<span class="wrong">✘ Wrong</span> (Correct: ${qObj.options[qObj.answer]})`;
-          if (navBtn) {
-            navBtn.classList.remove("answered");
-            navBtn.classList.add("wrong"); // mark red
-          }
+    // Start Timer Function
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          timeLeft = 0;
+          showTimeUpModal();
         }
+        
+        updateTimerDisplay();
+      }, 1000);
+    }
+
+    // Update Timer Display
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      
+      // Format as MM:SS
+      const formattedTime = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      timerDisplay.textContent = formattedTime;
+      
+      // Add warning styles
+      if (timeLeft <= 300) { // 5 minutes left
+        timerDisplay.classList.add('timer-danger');
+        timerDisplay.classList.remove('timer-warning');
+      } else if (timeLeft <= 600) { // 10 minutes left
+        timerDisplay.classList.add('timer-warning');
+        timerDisplay.classList.remove('timer-danger');
       } else {
-        feedback.innerHTML = `<span class="wrong">✘ Not answered</span> (Correct: ${qObj.options[qObj.answer]})`;
-        if (navBtn) {
-          navBtn.classList.remove("answered");
-          navBtn.classList.add("wrong"); // mark red
-        }
+        timerDisplay.classList.remove('timer-warning', 'timer-danger');
       }
-      qDiv.appendChild(feedback);
+    }
+
+    // Show Time's Up Modal
+    function showTimeUpModal() {
+      timeUpModal.classList.add('visible');
+      quizSubmitted = true;
+      
+      // Disable all options
+      document.querySelectorAll('.option').forEach(option => {
+        option.style.pointerEvents = 'none';
+        option.style.opacity = '0.7';
+      });
+      
+      // Disable submit button
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.5';
+      submitBtn.style.cursor = 'not-allowed';
+    }
+
+    // Auto Submit Quiz when time's up
+    autoSubmitBtn.addEventListener('click', () => {
+      timeUpModal.classList.remove('visible');
+      submitQuiz();
     });
 
-    document.getElementById("result").innerText =
-      `You scored ${score} out of ${questions.length}`;
+    // Start Quiz Function
+    function startQuiz() {
+      quizStarted = true;
+      
+      // Hide start screen
+      startScreen.classList.add('hidden');
+      
+      // Show main content with delay
+      setTimeout(() => {
+        mainContent.classList.add('visible');
+      }, 500);
+      
+      // Show timer
+      timerContainer.style.display = 'flex';
+      
+      // Start timer
+      startTimer();
+      updateTimerDisplay();
+      
+      // Initialize quiz
+      initQuiz();
+      navigateToQuestion(0);
+    }
 
-    // Scroll directly to bottom after showing result
-    scrollToBottom();
-  });
-</script>
+    // Initialize Quiz
+    function initQuiz() {
+      // Create questions
+      quizQuestions.innerHTML = '';
+      quizData.forEach((q, index) => {
+        const questionElement = document.createElement('div');
+        questionElement.className = 'question';
+        questionElement.id = `question-${index}`;
+        
+        let optionsHTML = '';
+        q.options.forEach((option, optIndex) => {
+          optionsHTML += `
+            <div class="option" onclick="selectOption(${index}, ${optIndex})">
+              <input type="radio" name="q${index}" id="q${index}_opt${optIndex}" value="${optIndex}">
+              <div class="option-circle"></div>
+              <div class="option-text">${option}</div>
+            </div>
+          `;
+        });
+        
+        questionElement.innerHTML = `
+          <div class="question-number">QUESTION ${index + 1}</div>
+          <div class="question-text">${q.question}</div>
+          <div class="options">${optionsHTML}</div>
+          <div class="feedback" id="feedback-${index}"></div>
+        `;
+        
+        quizQuestions.appendChild(questionElement);
+      });
+      
+      // Create navigation buttons
+      navGrid.innerHTML = '';
+      quizData.forEach((_, index) => {
+        const navBtn = document.createElement('button');
+        navBtn.className = 'nav-btn-small';
+        navBtn.textContent = index + 1;
+        navBtn.setAttribute('data-q', index);
+        navBtn.onclick = () => navigateToQuestion(index);
+        
+        navGrid.appendChild(navBtn);
+      });
+      
+      // Set initial stats
+      totalCount.textContent = quizData.length;
+      updateStats();
+    }
+
+    // Select an option - WITH AUTO-SCROLL
+    function selectOption(qIndex, optIndex) {
+      if (quizSubmitted) return;
+      
+      // Update visual selection
+      const questionElement = document.getElementById(`question-${qIndex}`);
+      const allOptions = questionElement.querySelectorAll('.option');
+      
+      allOptions.forEach(opt => {
+        opt.classList.remove('selected');
+        const radio = opt.querySelector('input[type="radio"]');
+        radio.checked = false;
+      });
+      
+      const selectedOption = questionElement.querySelector(`#q${qIndex}_opt${optIndex}`).parentElement;
+      selectedOption.classList.add('selected');
+      selectedOption.querySelector('input[type="radio"]').checked = true;
+      
+      // Update user answer
+      userAnswers[qIndex] = optIndex;
+      
+      // Update navigation button
+      updateNavButton(qIndex, 'answered');
+      
+      // Update stats
+      updateStats();
+      
+      // AUTO-SCROLL TO NEXT QUESTION
+      if (autoScrollEnabled && qIndex < quizData.length - 1) {
+        // Add auto-scroll indicator
+        const indicator = document.createElement('div');
+        indicator.className = 'auto-scroll-indicator';
+        indicator.innerHTML = '<i class="fas fa-arrow-down"></i> Auto-scrolling...';
+        questionElement.appendChild(indicator);
+        
+        // Scroll to next question after delay
+        setTimeout(() => {
+          navigateToQuestion(qIndex + 1);
+          
+          // Remove indicator
+          setTimeout(() => {
+            if (indicator.parentNode) {
+              indicator.parentNode.removeChild(indicator);
+            }
+          }, 1000);
+        }, 800); // 0.8 second delay before auto-scroll
+      }
+    }
+
+    // Update navigation button state
+    function updateNavButton(qIndex, state) {
+      const navBtn = document.querySelector(`.nav-btn-small[data-q="${qIndex}"]`);
+      navBtn.className = 'nav-btn-small';
+      
+      if (state === 'answered') {
+        navBtn.classList.add('answered');
+      } else if (state === 'incorrect') {
+        navBtn.classList.add('incorrect');
+      }
+      
+      if (qIndex === currentQuestion) {
+        navBtn.classList.add('current');
+      }
+    }
+
+    // Navigate to a specific question
+    function navigateToQuestion(qIndex) {
+      currentQuestion = qIndex;
+      const questionElement = document.getElementById(`question-${qIndex}`);
+      
+      // Update all nav buttons
+      document.querySelectorAll('.nav-btn-small').forEach((btn, index) => {
+        btn.classList.remove('current');
+        if (index === qIndex) {
+          btn.classList.add('current');
+        }
+      });
+      
+      // Scroll to question
+      questionElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+      // Add highlight effect
+      questionElement.style.animation = 'none';
+      setTimeout(() => {
+        questionElement.style.animation = 'fadeIn 0.5s ease';
+      }, 10);
+    }
+
+    // Update stats
+    function updateStats() {
+      const answered = userAnswers.filter(answer => answer !== null).length;
+      const percent = Math.round((answered / quizData.length) * 100);
+      
+      answeredCount.textContent = answered;
+      progress.textContent = `${percent}%`;
+    }
+
+    // Submit quiz
+    function submitQuiz() {
+      if (quizSubmitted) return;
+      
+      quizSubmitted = true;
+      clearInterval(timerInterval);
+      
+      let score = 0;
+      
+      // Check answers and show feedback
+      quizData.forEach((q, index) => {
+        const feedbackElement = document.getElementById(`feedback-${index}`);
+        const userAnswer = userAnswers[index];
+        
+        if (userAnswer === null) {
+          feedbackElement.textContent = 'You did not answer this question.';
+          feedbackElement.className = 'feedback incorrect';
+          feedbackElement.style.display = 'block';
+          updateNavButton(index, 'incorrect');
+        } else if (userAnswer === q.answer) {
+          score++;
+          feedbackElement.innerHTML = `<i class="fas fa-check"></i> Correct! ${q.explanation}`;
+          feedbackElement.className = 'feedback correct';
+          feedbackElement.style.display = 'block';
+        } else {
+          feedbackElement.innerHTML = `<i class="fas fa-times"></i> Incorrect. The correct answer is: ${q.options[q.answer]}. ${q.explanation}`;
+          feedbackElement.className = 'feedback incorrect';
+          feedbackElement.style.display = 'block';
+          updateNavButton(index, 'incorrect');
+        }
+      });
+      
+      // Show result
+      scoreDisplay.textContent = `${score}/${quizData.length}`;
+      
+      let message = '';
+      const percentage = (score / quizData.length) * 100;
+      
+      if (percentage === 100) {
+        message = 'Perfect! You aced this quiz! 🎉';
+      } else if (percentage >= 90) {
+        message = 'Outstanding! Excellent knowledge of chemistry!';
+      } else if (percentage >= 70) {
+        message = 'Great job! You have a solid understanding of atoms and molecules.';
+      } else if (percentage >= 50) {
+        message = 'Good effort! Review the questions you missed to improve.';
+      } else {
+        message = 'Keep studying! Chemistry takes practice. Try again!';
+      }
+      
+      scoreMessage.textContent = message;
+      resultContainer.style.display = 'block';
+      
+      // Scroll to results
+      resultContainer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Restart quiz
+    function restartQuiz() {
+      // Reset timer
+      clearInterval(timerInterval);
+      timeLeft = 60 * 60;
+      quizStarted = false;
+      quizSubmitted = false;
+      
+      // Reset answers
+      userAnswers = new Array(quizData.length).fill(null);
+      currentQuestion = 0;
+      
+      // Reset UI
+      document.querySelectorAll('.feedback').forEach(fb => {
+        fb.style.display = 'none';
+      });
+      
+      document.querySelectorAll('.option').forEach(opt => {
+        opt.classList.remove('selected');
+        opt.querySelector('input[type="radio"]').checked = false;
+        opt.style.pointerEvents = 'all';
+        opt.style.opacity = '1';
+      });
+      
+      document.querySelectorAll('.nav-btn-small').forEach((btn, index) => {
+        btn.className = 'nav-btn-small';
+        if (index === 0) btn.classList.add('current');
+      });
+      
+      // Reset timer display
+      timerDisplay.classList.remove('timer-warning', 'timer-danger');
+      
+      // Enable submit button
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+      submitBtn.style.cursor = 'pointer';
+      
+      // Hide results and main content
+      resultContainer.style.display = 'none';
+      mainContent.classList.remove('visible');
+      
+      // Hide timer
+      timerContainer.style.display = 'none';
+      
+      // Show start screen
+      startScreen.classList.remove('hidden');
+      
+      // Reset stats
+      updateStats();
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Event Listeners
+    startButton.addEventListener('click', startQuiz);
+    submitBtn.addEventListener('click', submitQuiz);
+    restartBtn.addEventListener('click', restartQuiz);
+
+    // Initialize everything when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+      updateStats();
+    });
+  </script>
 </body>
 </html>
-
