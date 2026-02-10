@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.47">
+    <title>Physics MCQs Challenge | Neon Edition</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-green: #39ff14;
+            --neon-yellow: #ffd700;
+            --neon-blue: #1e90ff;
+            --neon-purple: #6a0dad;
+            --dark-bg: #0a0a0f;
+            --darker-bg: #050505;
+            --card-bg: #1a1a2e;
+            --text: #e0e0e0;
+            --text-dim: #aaa;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 255, 0.05) 0%, transparent 20%);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--darker-bg), #151515);
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 80px;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 243, 255, 0.1);
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 101;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(0, 243, 255, 0.25);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .back-btn i {
+            font-size: 1.1rem;
+        }
+
+        .header-content {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--neon-yellow);
+            font-size: 1.2rem;
+            font-style: italic;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 2rem auto;
+            gap: 2rem;
+            padding: 0 1.5rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            flex: 0 0 280px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+            position: sticky;
+            top: 140px;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        /* Style the scrollbar for sidebar */
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(0, 243, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--neon-cyan);
+            border-radius: 10px;
+        }
+
+        .sidebar h3 {
+            color: var(--neon-blue);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--neon-blue);
+            padding-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(30, 144, 255, 0.3);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(30, 144, 255, 0.1);
+            border-left: 3px solid var(--neon-blue);
+            color: var(--neon-blue);
+            transform: translateX(5px);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(30, 144, 255, 0.15);
+            border-left: 3px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+
+        .nav-links i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.1);
+        }
+
+        .topic-header {
+            color: var(--neon-cyan);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+            border-bottom: 2px solid var(--neon-cyan);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .topic-header i {
+            margin-right: 15px;
+        }
+
+        /* Section Cards - EXACTLY like Biology page */
+        .section-card {
+            background-color: rgba(20, 20, 30, 0.7);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            border-left: 5px solid var(--neon-blue);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .section-title {
+            color: var(--neon-cyan);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title i {
+            margin-right: 10px;
+        }
+
+        /* Button Container - EXACTLY like Biology page */
+        .button-container {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        /* MCQs Button - Same as Biology */
+        .mcq-btn {
+            flex: 1;
+            min-width: 200px;
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.1), rgba(30, 144, 255, 0.1));
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .mcq-btn:hover {
+            background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(30, 144, 255, 0.2));
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* Notes Button - Same as Biology */
+        .notes-btn {
+            flex: 1;
+            min-width: 200px;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(106, 13, 173, 0.1));
+            border: 2px solid var(--neon-yellow);
+            color: var(--neon-yellow);
+            padding: 1.2rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .notes-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(106, 13, 173, 0.2));
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .button-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(0, 243, 255, 0.3);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .neon-text {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 5px var(--neon-cyan);
+            font-weight: bold;
+        }
+
+        /* Watermark */
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 120px;
+            font-weight: bold;
+            font-style: italic;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-blue), var(--neon-purple));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.08;
+            pointer-events: none;
+            z-index: 0;
+            width: 100vw;
+            text-align: center;
+            letter-spacing: 15px;
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(30, 144, 255, 0.5);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(30, 144, 255, 0.8);
+            background-color: rgba(30, 144, 255, 0.1);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: static;
+                width: 100%;
+                top: 0;
+                max-height: none;
+            }
+            
+            .topic-header {
+                font-size: 1.8rem;
+            }
+            
+            .back-btn {
+                position: relative;
+                left: 0;
+                top: 0;
+                transform: none;
+                margin-bottom: 1rem;
+                align-self: flex-start;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+            
+            .button-container {
+                flex-direction: column;
+            }
+            
+            .mcq-btn, .notes-btn {
+                min-width: 100%;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .scroll-top-btn {
+                bottom: 70px;
+            }
+            
+            .watermark {
+                font-size: 80px;
+                letter-spacing: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .section-card {
+                padding: 1.5rem;
+            }
+            
+            .back-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .watermark {
+                font-size: 60px;
+                letter-spacing: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Back Button -->
+    <header>
+        <a href="index.html" class="back-btn" id="backButton">
+            <i class="fas fa-arrow-left"></i> Back to Menu
+        </a>
+        
+        <div class="header-content">
+            <h1 class="header-title"><i class="fas fa-atom"></i> Physics MCQs Challenge</h1>
+            <p class="subtitle">Master the Laws of the Universe</p>
+        </div>
+    </header>
+
+    <!-- Watermark -->
+    <div class="watermark">PHYSICS</div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <h3><i class="fas fa-stream"></i> Physics Topics</h3>
+            <ul class="nav-links">
+                <li><a href="#motion-section" class="active"><i class="fas fa-running"></i> Motion</a></li>
+                <li><a href="#force-section"><i class="fas fa-weight-hanging"></i> Force & Laws of Motion</a></li>
+                <li><a href="#gravitation-section"><i class="fas fa-globe"></i> Gravitation</a></li>
+                <li><a href="#work-energy-section"><i class="fas fa-bolt"></i> Work & Energy</a></li>
+                <li><a href="#sound-section"><i class="fas fa-volume-up"></i> Sound</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Motion Section -->
+            <section id="motion-section">
+                <h2 class="topic-header"><i class="fas fa-running"></i> Motion</h2>
+                <div class="section-card">
+                    <h3 class="section-title"><i class="fas fa-tachometer-alt"></i> Understanding Motion</h3>
+                    <p>Study displacement, velocity, acceleration, and equations of motion. Learn graphical representation of motion and solve numerical problems.</p>
+                    
+                    <div class="button-container">
+                        <!-- MCQs Button -->
+                        <a href="blank.html" class="mcq-btn">
+                            <i class="fas fa-question-circle button-icon"></i>
+                            Practice MCQs
+                            <small style="display: block; font-size: 0.8rem; opacity: 0.8;">100 challenging questions</small>
+                        </a>
+                        
+                        <!-- Notes Button -->
+                        <a href="motion-notes.html" class="notes-btn">
+                            <i class="fas fa-book-open button-icon"></i>
+                            Study Notes
+                            <small style="display: block; font-size: 0.8rem; opacity: 0.8;">Complete theory & formulas</small>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Force and Laws of Motion Section -->
+            <section id="force-section">
+                <h2 class="topic-header"><i class="fas fa-weight-hanging"></i> Force and Laws of Motion</h2>
+                <div class="section-card">
+                    <h3 class="section-title"><i class="fas fa-balance-scale"></i> Newton's Laws</h3>
+                    <p>Learn Newton's three laws of motion, momentum, inertia, and conservation of momentum. Understand balanced and unbalanced forces.</p>
+                    
+                    <div class="button-container">
+                        <!-- MCQs Button -->
+                        <a href="blank.html" class="mcq-btn">
+                            <i class="fas fa-question-circle button-icon"></i>
+                            Practice MCQs
+                            <small style="display: block; font-size: 0.8rem; opacity: 0.8;">100 challenging questions</small>
+                        </a>
+                        
+                        <!-- Notes Button -->
+                        <a href="force-law-notes.html" class="notes-btn">
+                            <i class="fas fa-book-open button-icon"></i>
+                            Study Notes
+                            <small style="display: block; font-size: 0.8rem; opacity: 0.8;">Complete theory & formulas</small>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gravitation Section -->
+            <section id="gravitation-section">
+                <h2 class="topic-header"><i class="fas fa-globe"></i> Gravitation</h2>
+                <div class="section-card">
+                    <h3 class="section-title"><i class="fas fa-meteor"></i> Universal Law of Gravitation</h3>
+                    <p>Understand universal law of gravitation, free fall, mass vs weight, and acceleration due to gravity. Study Kepler's laws and satellites.</p>
+                    
+                    <div class="button-container">
+                        <!-- MCQs Button -->
+                        <a href="blank.html" class="mcq-btn">
+                            <i class="fas fa-question-circle button-icon"></i>
+                            Practice MCQs
+                            <small style="display: block; font-size: 0.8rem; opacity: 0.8;">100 challenging questions</small>
+                        </a>
+                        
+                        <!-- Notes Button -->
+                        <a href="gravitation-notes.html" class="notes-btn">
+                            <i class="fas fa-book-open button-icon"></i>
+                            Study Notes
+                            <small style="display: block; font-size: 0.8rem; opacity: 0.8;">Complete theory & formulas</small>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work and Energy Section -->
+            <section id="work-energy-section">
+                <h2 class="topic-header"><i class="fas fa-bolt"></i> Work and Energy</h2>
+                <div class="section-card">
+                    <h3 class="section-title"><i class="fas fa-charging-station"></i> Energy Concepts</h3>
+                    <p>Explore work, energy, power, kinetic and potential energy, and the law of conservation of energy. Solve problems on energy transformations.</p>
+                    
+                    <div class="button-container">
+                        <!-- MCQs Button -->
+                        <a href="blank.html" class="mcq-btn">
+                            <i class="fas fa-question-circle button-icon"></i>
+                            Practice MCQs
+                            <small style="display: block; font-size: 0.8rem; opacity: 0.8;">100 challenging questions</small>
+                        </a>
+                        
+                        <!-- Notes Button -->
+                        <a href="work-notes.html" class="notes-btn">
+                            <i class="fas fa-book-open button-icon"></i>
+                            Study Notes
+                            <small style="display: block; font-size: 0.8rem; opacity: 0.8;">Complete theory & formulas</small>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sound Section -->
+            <section id="sound-section">
+                <h2 class="topic-header"><i class="fas fa-volume-up"></i> Sound</h2>
+                <div class="section-card">
+                    <h3 class="section-title"><i class="fas fa-wave-square"></i> Sound Waves</h3>
+                    <p>Study production and propagation of sound, reflection, echoes, audible range, and applications of ultrasound. Understand characteristics of sound waves.</p>
+                    
+                    <div class="button-container">
+                        <!-- MCQs Button -->
+                        <a href="blank.html" class="mcq-btn">
+                            <i class="fas fa-question-circle button-icon"></i>
+                            Practice MCQs
+                            <small style="display: block; font-size: 0.8rem; opacity: 0.8;">100 challenging questions</small>
+                        </a>
+                        
+                        <!-- Notes Button -->
+                        <a href="sound-notes.html" class="notes-btn">
+                            <i class="fas fa-book-open button-icon"></i>
+                            Study Notes
+                            <small style="display: block; font-size: 0.8rem; opacity: 0.8;">Complete theory & formulas</small>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Challenge Summary -->
+            <div style="margin-top: 3rem; padding: 1.5rem; background: rgba(0, 243, 255, 0.1); border-radius: 10px; border-left: 5px solid var(--neon-cyan);">
+                <h3 style="color: var(--neon-cyan); margin-bottom: 10px;"><i class="fas fa-trophy"></i> Physics Challenge Summary</h3>
+                <p style="color: var(--text);">
+                    • <strong>5 Topics</strong> covering all Class 9 Physics chapters<br>
+                    • <strong>100 MCQs total</strong> across all topics<br>
+                    • <strong>Complete Notes</strong> for each topic<br>
+                    • <strong>Track progress</strong> and improve weak areas<br>
+                    • <strong>Aim for 100%</strong> mastery in Physics!
+                </p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Physics MCQs Challenge | Neon Interactive Edition</p>
+        <p>Created by <span class="neon-text">MOHAMMAD SULTAN</span> | Master Physics Concepts!</p>
+        <p>Select a topic above to begin your physics journey!</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top-btn" id="scrollTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Highlight current section in navigation
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Show/hide scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        // Scroll to top button functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        let isDark = true;
+        
+        themeToggle.addEventListener('click', function() {
+            isDark = !isDark;
+            
+            if (isDark) {
+                // Dark theme
+                document.body.style.backgroundColor = '';
+                document.body.style.color = '';
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.style.borderColor = '';
+                themeToggle.style.color = '';
+                themeToggle.style.boxShadow = '';
+            } else {
+                // Light theme
+                document.body.style.backgroundColor = '#f0f0f0';
+                document.body.style.color = '#333';
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.style.borderColor = '#ff9900';
+                themeToggle.style.color = '#ff9900';
+                themeToggle.style.boxShadow = '0 0 15px rgba(255, 153, 0, 0.5)';
+            }
+        });
+        
+        // Add hover effects to section cards
+        document.querySelectorAll('.section-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 10px 30px rgba(0, 243, 255, 0.2)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
+    </script>
+</body>
+</html>

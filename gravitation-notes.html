@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.47">
+    <title>Class 9: Gravitation | Neon Notes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --neon-purple: #9d00ff;
+            --neon-blue: #00f3ff;
+            --neon-green: #39ff14;
+            --neon-yellow: #fff700;
+            --neon-pink: #ff00ff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #111;
+            --text: #f0f0f0;
+            --text-dim: #aaa;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(157, 0, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 243, 255, 0.05) 0%, transparent 20%);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--darker-bg), #151515);
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--neon-purple);
+            box-shadow: 0 0 20px rgba(157, 0, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 80px;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(157, 0, 255, 0.1);
+            border: 2px solid var(--neon-purple);
+            color: var(--neon-purple);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 101;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(157, 0, 255, 0.25);
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.5);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .back-btn i {
+            font-size: 1.1rem;
+        }
+
+        .header-content {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(157, 0, 255, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 2rem auto;
+            gap: 2rem;
+            padding: 0 1.5rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            flex: 0 0 280px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(157, 0, 255, 0.2);
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.1);
+            position: sticky;
+            top: 140px;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(157, 0, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--neon-purple);
+            border-radius: 10px;
+        }
+
+        .sidebar h3 {
+            color: var(--neon-blue);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--neon-blue);
+            padding-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.3);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(157, 0, 255, 0.1);
+            border-left: 3px solid var(--neon-purple);
+            color: var(--neon-purple);
+            transform: translateX(5px);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(157, 0, 255, 0.15);
+            border-left: 3px solid var(--neon-purple);
+            color: var(--neon-purple);
+            font-weight: bold;
+        }
+
+        .nav-links i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.1);
+        }
+
+        .topic-header {
+            color: var(--neon-green);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+            border-bottom: 2px solid var(--neon-green);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .topic-header i {
+            margin-right: 15px;
+        }
+
+        /* Cards */
+        .card {
+            background-color: rgba(20, 20, 30, 0.7);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--neon-yellow);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-title {
+            color: var(--neon-purple);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+        }
+
+        .card-content {
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .card-content ul, .card-content ol {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .card-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: rgba(157, 0, 255, 0.2);
+            color: var(--neon-purple);
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        tr:hover {
+            background-color: rgba(157, 0, 255, 0.05);
+        }
+
+        /* Highlight Box */
+        .highlight {
+            background-color: rgba(0, 243, 255, 0.1);
+            border-left: 5px solid var(--neon-blue);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .highlight:before {
+            content: "!";
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--neon-blue);
+            color: black;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Question Box */
+        .question {
+            background-color: rgba(57, 255, 20, 0.1);
+            border: 1px solid var(--neon-green);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .question:before {
+            content: "Q";
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            background-color: var(--neon-green);
+            color: black;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Definition Box */
+        .definition {
+            background-color: rgba(255, 0, 255, 0.1);
+            border-left: 5px solid var(--neon-pink);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        /* Formula Box */
+        .formula {
+            background-color: rgba(255, 255, 0, 0.1);
+            border: 2px dashed var(--neon-yellow);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .formula p {
+            font-size: 1.4rem;
+            color: var(--neon-yellow);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Diagram Styling */
+        .diagram-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .diagram-box {
+            background: rgba(157, 0, 255, 0.05);
+            border: 2px dashed var(--neon-purple);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .diagram-title {
+            color: var(--neon-yellow);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(157, 0, 255, 0.3);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .purple-text {
+            color: var(--neon-purple);
+            text-shadow: 0 0 5px var(--neon-purple);
+            font-weight: bold;
+        }
+
+        .blue-text {
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px var(--neon-blue);
+        }
+
+        .yellow-text {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 5px var(--neon-yellow);
+        }
+
+        .green-text {
+            color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+            background-color: rgba(255, 0, 255, 0.1);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-purple);
+            color: var(--neon-purple);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(157, 0, 255, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: static;
+                width: 100%;
+                top: 0;
+            }
+            
+            .topic-header {
+                font-size: 1.8rem;
+            }
+            
+            .back-btn {
+                position: relative;
+                left: 0;
+                top: 0;
+                transform: none;
+                margin-bottom: 1rem;
+                align-self: flex-start;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .scroll-top-btn {
+                bottom: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .card {
+                padding: 1.2rem;
+            }
+            
+            .back-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Back Button -->
+    <header>
+        <a href="#" class="back-btn" id="backButton">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+        
+        <div class="header-content">
+            <h1 class="header-title"><i class="fas fa-globe-americas"></i> Gravitation</h1>
+            <p class="subtitle">Class 9 Physics | Interactive Edition by Sultan</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <h3><i class="fas fa-stream"></i> Topics</h3>
+            <ul class="nav-links">
+                <li><a href="#introduction" class="active"><i class="fas fa-info-circle"></i> Introduction</a></li>
+                <li><a href="#newton-law"><i class="fas fa-atom"></i> Newton's Law of Gravitation</a></li>
+                <li><a href="#gravity"><i class="fas fa-weight"></i> Gravity & 'g'</a></li>
+                <li><a href="#mass-weight"><i class="fas fa-balance-scale"></i> Mass vs Weight</a></li>
+                <li><a href="#moon-weight"><i class="fas fa-moon"></i> Weight on Moon</a></li>
+                <li><a href="#free-fall"><i class="fas fa-falling"></i> Free Fall</a></li>
+                <li><a href="#kepler"><i class="fas fa-satellite"></i> Kepler's Laws</a></li>
+                <li><a href="#thrust-pressure"><i class="fas fa-compress-alt"></i> Thrust & Pressure</a></li>
+                <li><a href="#buoyancy"><i class="fas fa-water"></i> Buoyancy</a></li>
+                <li><a href="#archimedes"><i class="fas fa-ship"></i> Archimedes' Principle</a></li>
+                <li><a href="#applications"><i class="fas fa-lightbulb"></i> Applications</a></li>
+                <li><a href="#pyq"><i class="fas fa-question-circle"></i> Practice Questions</a></li>
+                <li><a href="#answers"><i class="fas fa-check-circle"></i> Answers</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Introduction Section -->
+            <section id="introduction">
+                <h2 class="topic-header"><i class="fas fa-info-circle"></i> Introduction to Gravitation</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-apple-alt"></i> Newton's Apple Story</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"In 1666, Newton saw an apple fall and wondered, 'Why did it fall straight down?' He realized a force must pull objects toward Earth, the same force that keeps planets in orbit. He named this force gravity."</em></p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Gravitation Definition:</strong>
+                            <p><span class="purple-text">"Gravitation is the force of attraction between any two bodies in the universe."</span></p>
+                        </div>
+                        
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title"><i class="fas fa-baseball-ball"></i> Example 1</h4>
+                                <p>Ball falling to ground due to gravity</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title"><i class="fas fa-globe-americas"></i> Example 2</h4>
+                                <p>Earth orbiting around the Sun</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title"><i class="fas fa-moon"></i> Example 3</h4>
+                                <p>Moon orbiting around Earth</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Newton's Law Section -->
+            <section id="newton-law">
+                <h2 class="topic-header"><i class="fas fa-atom"></i> Newton's Law of Gravitation</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-book"></i> Universal Law</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Every object in the universe attracts every other object with a force directly proportional to the product of their masses and inversely proportional to the square of the distance between them."</em></p>
+                        </div>
+                        
+                        <div class="formula">
+                            <p>\[F = G \frac{m_1 m_2}{r^2}\]</p>
+                            <p>Where:<br>
+                            F = Gravitational force<br>
+                            G = Gravitational constant (6.67 × 10⁻¹¹ Nm²/kg²)<br>
+                            m₁, m₂ = Masses of objects<br>
+                            r = Distance between centers</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: The Earth is attracted by Sun's gravity but doesn't fall into it. Why?</strong>
+                            <p><em>Answer: Earth's tangential velocity provides centripetal force that balances gravitational attraction, keeping it in orbit.</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: If distance between two objects is halved, what happens to gravitational force?</strong>
+                            <p><em>Answer: Force becomes 4 times (since F ∝ 1/r², half distance = 1/(1/2)² = 4 times).</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Gravity Section -->
+            <section id="gravity">
+                <h2 class="topic-header"><i class="fas fa-weight"></i> Gravity & Acceleration due to Gravity (g)</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-calculator"></i> Calculating 'g'</h3>
+                    <div class="card-content">
+                        <div class="formula">
+                            <p>\[g = \frac{GM}{R^2}\]</p>
+                            <p>Where:<br>
+                            G = 6.67 × 10⁻¹¹ Nm²/kg²<br>
+                            M = Mass of Earth (6 × 10²⁴ kg)<br>
+                            R = Radius of Earth (6.4 × 10⁶ m)</p>
+                        </div>
+                        
+                        <div class="formula">
+                            <p>\[g \approx 9.8 \, \text{m/s}^2\]</p>
+                            <p>Standard value on Earth's surface</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-mountain"></i> Variation of 'g'</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Factor</th>
+                                    <th>Effect on 'g'</th>
+                                    <th>Reason</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="purple-text">Altitude</span></td>
+                                    <td>Decreases</td>
+                                    <td>Distance from Earth's center increases</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="purple-text">Depth</span></td>
+                                    <td>Decreases</td>
+                                    <td>Mass below decreases faster than radius</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="purple-text">Latitude</span></td>
+                                    <td>Max at poles, Min at equator</td>
+                                    <td>Earth is oblate (flattened at poles)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="question">
+                            <strong>Q: Why does body fall faster at poles than equator?</strong>
+                            <p><em>Answer: 'g' is higher at poles (9.83 m/s²) than equator (9.78 m/s²) due to Earth's shape and rotation.</em></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-balance-scale"></i> G vs g</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>G (Gravitational Constant)</th>
+                                    <th>g (Acceleration due to gravity)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Universal constant</td>
+                                    <td>Varies with location</td>
+                                </tr>
+                                <tr>
+                                    <td>G = 6.67 × 10⁻¹¹ Nm²/kg²</td>
+                                    <td>g ≈ 9.8 m/s² (on Earth)</td>
+                                </tr>
+                                <tr>
+                                    <td>Unit: Nm²/kg²</td>
+                                    <td>Unit: m/s²</td>
+                                </tr>
+                                <tr>
+                                    <td>Same everywhere in universe</td>
+                                    <td>Different on different planets</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mass vs Weight Section -->
+            <section id="mass-weight">
+                <h2 class="topic-header"><i class="fas fa-balance-scale"></i> Mass vs Weight</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Comparison Table</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mass</th>
+                                    <th>Weight</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Amount of matter in body</td>
+                                    <td>Force of gravity on body</td>
+                                </tr>
+                                <tr>
+                                    <td>Scalar quantity</td>
+                                    <td>Vector quantity</td>
+                                </tr>
+                                <tr>
+                                    <td>Constant everywhere</td>
+                                    <td>Changes with location</td>
+                                </tr>
+                                <tr>
+                                    <td>Measured by balance</td>
+                                    <td>Measured by spring balance</td>
+                                </tr>
+                                <tr>
+                                    <td>Unit: kg or g</td>
+                                    <td>Unit: Newton (N)</td>
+                                </tr>
+                                <tr>
+                                    <td>Never zero</td>
+                                    <td>Can be zero (in space)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="formula">
+                            <p>\[W = m \times g\]</p>
+                            <p>Weight = Mass × Acceleration due to gravity</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Weight on Moon Section -->
+            <section id="moon-weight">
+                <h2 class="topic-header"><i class="fas fa-moon"></i> Weight on the Moon</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-calculator"></i> Calculation</h3>
+                    <div class="card-content">
+                        <div class="formula">
+                            <p>\[\frac{W_m}{W_e} = \frac{M_m / R_m^2}{M_e / R_e^2}\]</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <p>Mass of Moon (Mₘ) = 7.36 × 10²² kg<br>
+                            Radius of Moon (Rₘ) = 1.74 × 10⁶ m<br>
+                            Mass of Earth (Mₑ) = 5.98 × 10²⁴ kg<br>
+                            Radius of Earth (Rₑ) = 6.37 × 10⁶ m</p>
+                        </div>
+                        
+                        <div class="formula">
+                            <p>\[W_m \approx \frac{1}{6} W_e\]</p>
+                            <p>Weight on Moon ≈ ¹/₆ × Weight on Earth</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-question-circle"></i> Example Questions</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q: Find weight of 80 kg man on moon.</strong>
+                            <p><em>Mass on Earth = 80 kg (same everywhere)<br>
+                            Weight on Earth = 80 × 9.8 = 784 N<br>
+                            Weight on Moon = 784 ÷ 6 ≈ 130.67 N</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: If Earth's gravity becomes zero, where would Moon go?</strong>
+                            <p><em>Answer: Moon would move tangentially in straight line (Newton's 1st law).</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Free Fall Section -->
+            <section id="free-fall">
+                <h2 class="topic-header"><i class="fas fa-falling"></i> Free Fall</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-book"></i> Definition</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Free fall is motion under the influence of gravity only, with no other forces acting (like air resistance)."</em></p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Equations of Motion for Free Fall:</strong>
+                            <ol>
+                                <li>v = u + gt</li>
+                                <li>h = ut + ½gt²</li>
+                                <li>v² = u² + 2gh</li>
+                            </ol>
+                            <p>where g = +9.8 m/s² (downward), g = -9.8 m/s² (upward)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-question-circle"></i> Problems</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q: Stone dropped from 20m tower. Find velocity before hitting ground.</strong>
+                            <p><em>u = 0, h = 20m, g = 9.8 m/s²<br>
+                            Using v² = u² + 2gh<br>
+                            v² = 0 + 2×9.8×20 = 392<br>
+                            v = √392 ≈ 19.8 m/s</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Stone thrown horizontally vs stone dropped - which hits first?</strong>
+                            <p><em>Answer: Both hit simultaneously! Horizontal motion doesn't affect vertical fall time.</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Kepler's Laws Section -->
+            <section id="kepler">
+                <h2 class="topic-header"><i class="fas fa-satellite"></i> Kepler's Laws of Planetary Motion</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-list-ol"></i> Three Laws</h3>
+                    <div class="card-content">
+                        <div class="highlight">
+                            <strong>1. Law of Orbits:</strong>
+                            <p>Planets move in elliptical orbits with Sun at one focus.</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>2. Law of Areas:</strong>
+                            <p>Line joining planet and Sun sweeps equal areas in equal times.</p>
+                            <p>→ Planet moves faster when closer to Sun</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>3. Law of Periods:</strong>
+                            <p>Square of orbital period ∝ Cube of average distance from Sun</p>
+                            <p>T² ∝ r³</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Thrust & Pressure Section -->
+            <section id="thrust-pressure">
+                <h2 class="topic-header"><i class="fas fa-compress-alt"></i> Thrust & Pressure</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-book"></i> Definitions</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><span class="purple-text">Thrust:</span> Force acting perpendicular to surface</p>
+                            <p><span class="purple-text">Pressure:</span> Thrust per unit area</p>
+                        </div>
+                        
+                        <div class="formula">
+                            <p>\[\text{Pressure} = \frac{\text{Thrust}}{\text{Area}}\]</p>
+                            <p>SI Unit: Pascal (Pa) = N/m²</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-question-circle"></i> Applications</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q: Why sharp knife cuts better?</strong>
+                            <p><em>Answer: Smaller area → Higher pressure with same force.</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Why camel has broad feet?</strong>
+                            <p><em>Answer: Larger area → Lower pressure → Doesn't sink in sand.</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Why nails have sharp ends?</strong>
+                            <p><em>Answer: Small area → High pressure → Easy to penetrate.</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Brick (2.5kg, 20×10×5cm) pressure in different positions?</strong>
+                            <p><em>Thrust = Weight = 2.5×9.8 = 24.5 N<br>
+                            Area1 (20×10): 0.02 m² → P = 1225 Pa<br>
+                            Area2 (20×5): 0.01 m² → P = 2450 Pa<br>
+                            Area3 (10×5): 0.005 m² → P = 4900 Pa</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Buoyancy Section -->
+            <section id="buoyancy">
+                <h2 class="topic-header"><i class="fas fa-water"></i> Buoyancy & Buoyant Force</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-arrow-up"></i> Definition</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Buoyant force is the upward force exerted by fluid on immersed object. Also called upthrust."</em></p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Factors affecting buoyant force:</strong>
+                            <ul>
+                                <li>Density of fluid (↑ density → ↑ buoyancy)</li>
+                                <li>Volume of object submerged (↑ volume → ↑ buoyancy)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-swimmer"></i> Floating Conditions</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Condition</th>
+                                    <th>Result</th>
+                                    <th>Density Relation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Buoyant force > Weight</td>
+                                    <td>Object floats</td>
+                                    <td>ρ_object < ρ_fluid</td>
+                                </tr>
+                                <tr>
+                                    <td>Buoyant force = Weight</td>
+                                    <td>Object suspended</td>
+                                    <td>ρ_object = ρ_fluid</td>
+                                </tr>
+                                <tr>
+                                    <td>Buoyant force < Weight</td>
+                                    <td>Object sinks</td>
+                                    <td>ρ_object > ρ_fluid</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="question">
+                            <strong>Q: Why easier to swim in sea than fresh water?</strong>
+                            <p><em>Answer: Sea water has higher density → More buoyant force → Easier to float.</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Archimedes Principle Section -->
+            <section id="archimedes">
+                <h2 class="topic-header"><i class="fas fa-ship"></i> Archimedes' Principle</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-book"></i> Statement</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"When an object is immersed in fluid, it experiences upward buoyant force equal to weight of fluid displaced by the object."</em></p>
+                        </div>
+                        
+                        <div class="formula">
+                            <p>Buoyant force = Weight of fluid displaced</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-cogs"></i> Applications</h3>
+                    <div class="card-content">
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title"><i class="fas fa-submarine"></i> Submarine</h4>
+                                <p>Changes water in tanks to control buoyancy</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title"><i class="fas fa-hot-air-balloon"></i> Hot-air Balloon</h4>
+                                <p>Heated air less dense → Rises</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title"><i class="fas fa-ship"></i> Ships</h4>
+                                <p>Displace large water volume to float</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Applications Section -->
+            <section id="applications">
+                <h2 class="topic-header"><i class="fas fa-lightbulb"></i> Real-life Applications</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-satellite"></i> Astronomy</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li><span class="purple-text">Planetary orbits:</span> Gravity keeps planets in orbit</li>
+                            <li><span class="purple-text">Tides:</span> Moon's gravity causes sea tides</li>
+                            <li><span class="purple-text">Satellites:</span> Artificial satellites use orbital mechanics</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-industry"></i> Engineering</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li><span class="purple-text">Building design:</span> Must account for weight distribution</li>
+                            <li><span class="purple-text">Bridge construction:</span> Consider gravitational forces</li>
+                            <li><span class="purple-text">Vehicle design:</span> Center of gravity affects stability</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-home"></i> Daily Life</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li><span class="purple-text">Walking:</span> Friction with ground prevents slipping</li>
+                            <li><span class="purple-text">Falling objects:</span> Always fall downward</li>
+                            <li><span class="purple-text">Water flow:</span> Gravity causes rivers to flow downhill</li>
+                            <li><span class="purple-text">Weight measurement:</span> Scales measure gravitational force</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PYQ Section -->
+            <section id="pyq">
+                <h2 class="topic-header"><i class="fas fa-question-circle"></i> Practice Questions (PYQ)</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-pen-fancy"></i> Previous Year Questions</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q1: Object weighs 10N on Earth. Weight on Moon?</strong>
+                            <p>a) 1.25N b) 2.7N c) 1.66N d) 3.18N</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q2: Unit of gravitational constant G?</strong>
+                            <p>a) N/kg b) N.m²/kg² c) m²/s² d) kg/m²</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q3: Mass doubled, distance halved. Gravitational force becomes?</strong>
+                            <p>a) 2× b) 4× c) 8× d) 16×</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q4: Cork pushed deeper into water. Buoyant force?</strong>
+                            <p>a) Increases b) Decreases c) First increases then decreases d) Constant</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q5: Car falls from ledge in 0.5s (g=10m/s²). Find:<br>
+                            (i) Speed on striking ground<br>
+                            (ii) Average speed<br>
+                            (iii) Height of ledge</strong>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q6: Stone dropped from 10m on planet with g=20m/s². Find speed and time.</strong>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q7: Person can lift 15kg on Earth. Maximum mass on Moon?</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Answers Section -->
+            <section id="answers">
+                <h2 class="topic-header"><i class="fas fa-check-circle"></i> Answers</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-lightbulb"></i> Detailed Answers</h3>
+                    <div class="card-content">
+                        <div class="highlight">
+                            <strong>Q1:</strong>
+                            <p><span class="purple-text">c) 1.66N</span><br>
+                            W_moon = W_earth ÷ 6 = 10 ÷ 6 ≈ 1.66N</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Q2:</strong>
+                            <p><span class="purple-text">b) N.m²/kg²</span><br>
+                            From F = G(m₁m₂/r²), G = Fr²/(m₁m₂) → Unit = N.m²/kg²</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Q3:</strong>
+                            <p><span class="purple-text">c) 8 times</span><br>
+                            F ∝ m₁m₂/r²<br>
+                            m doubles → 2×, r halves → 1/(½)² = 4×<br>
+                            Total = 2 × 4 = 8 times</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Q4:</strong>
+                            <p><span class="purple-text">a) Increases</span><br>
+                            Buoyant force ∝ Volume displaced. More immersion = more displacement.</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Q5:</strong>
+                            <p>(i) v = u + gt = 0 + 10×0.5 = 5 m/s<br>
+                            (ii) avg v = (u+v)/2 = (0+5)/2 = 2.5 m/s<br>
+                            (iii) h = ut + ½gt² = 0 + ½×10×(0.5)² = 1.25 m</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Q6:</strong>
+                            <p>v² = u² + 2gh = 0 + 2×20×10 = 400 → v = 20 m/s<br>
+                            t = (v-u)/g = 20/20 = 1 second</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Q7:</strong>
+                            <p>Force applied = Weight of 15kg on Earth = 15×9.8 = 147N<br>
+                            On Moon, same force can lift: m = F/g_moon = 147/(9.8/6) = 147/1.63 ≈ 90kg</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="highlight">
+                <strong>"If life throws you down, blame gravity and bounce back!" - Sultan</strong>
+                <p style="margin-top: 10px;">Remember: <em>"Gravity isn't just a force, it's what keeps us grounded while reaching for the stars!"</em> 🌍🚀</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Class 9: Gravitation | Interactive Physics Edition</p>
+        <p>Created with <span class="purple-text">HTML, CSS & JavaScript</span> | All concepts explained with real-life examples</p>
+        <p>- Interactive Edition by Sultan</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top-btn" id="scrollTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Highlight current section in navigation
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Show/hide scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        // Back button functionality
+        const backButton = document.getElementById('backButton');
+        
+        backButton.addEventListener('click', function(e) {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        
+        // Scroll to top button functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            
+            if (document.body.classList.contains('light-theme')) {
+                // Light theme
+                document.body.style.backgroundColor = '#f0f0f0';
+                document.body.style.color = '#333';
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.style.borderColor = '#ff9900';
+                themeToggle.style.color = '#ff9900';
+                themeToggle.style.boxShadow = '0 0 15px rgba(255, 153, 0, 0.5)';
+                
+                // Update cards for light theme
+                document.querySelectorAll('.card').forEach(card => {
+                    card.style.backgroundColor = '#fff';
+                    card.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.sidebar, .content').forEach(el => {
+                    el.style.backgroundColor = '#fff';
+                    el.style.color = '#333';
+                });
+            } else {
+                // Dark theme (default)
+                document.body.style.backgroundColor = '';
+                document.body.style.color = '';
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.style.borderColor = '';
+                themeToggle.style.color = '';
+                themeToggle.style.boxShadow = '';
+                
+                // Reset cards to dark theme
+                document.querySelectorAll('.card').forEach(card => {
+                    card.style.backgroundColor = '';
+                    card.style.color = '';
+                });
+                
+                document.querySelectorAll('.sidebar, .content').forEach(el => {
+                    el.style.backgroundColor = '';
+                    el.style.color = '';
+                });
+            }
+        });
+        
+        // Add interactive hover effects to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 10px 30px rgba(157, 0, 255, 0.2)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
+        
+        // Interactive quiz reveal for practice questions
+        document.querySelectorAll('#pyq .question').forEach(question => {
+            const answer = question.querySelector('p:last-child');
+            if (!answer || !answer.innerHTML.includes('Answer:')) {
+                question.style.cursor = 'pointer';
+                
+                question.addEventListener('click', function() {
+                    const answerSection = document.getElementById('answers');
+                    const correspondingAnswer = answerSection.querySelector(`.highlight:nth-child(${Array.from(document.querySelectorAll('#pyq .question')).indexOf(this) + 1})`);
+                    
+                    if (correspondingAnswer) {
+                        window.scrollTo({
+                            top: correspondingAnswer.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Highlight the answer briefly
+                        correspondingAnswer.style.animation = 'flash 1s';
+                        setTimeout(() => {
+                            correspondingAnswer.style.animation = '';
+                        }, 1000);
+                    }
+                });
+            }
+        });
+        
+        // Add animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            @keyframes flash {
+                0%, 100% { background-color: rgba(0, 243, 255, 0.1); }
+                50% { background-color: rgba(0, 243, 255, 0.3); }
+            }
+            
+            .card {
+                animation: fadeIn 0.5s ease-out;
+            }
+            
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-10px); }
+            }
+            
+            .header-title {
+                animation: float 3s ease-in-out infinite;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Add gravity-themed interactivity
+        document.querySelectorAll('.formula').forEach(formula => {
+            formula.addEventListener('click', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.transition = 'transform 0.2s';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+        
+        // Falling animation for free fall section
+        const freeFallCard = document.querySelector('#free-fall .card');
+        if (freeFallCard) {
+            freeFallCard.addEventListener('mouseenter', function() {
+                this.querySelector('.card-title i').style.animation = 'float 0.5s ease-in-out';
+            });
+        }
+    </script>
+</body>
+</html>

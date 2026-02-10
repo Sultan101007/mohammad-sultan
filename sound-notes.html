@@ -1,0 +1,1533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.47">
+    <title>Class 9: Sound | Neon Notes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-green: #39ff14;
+            --neon-yellow: #fff700;
+            --neon-purple: #9d00ff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #111;
+            --text: #f0f0f0;
+            --text-dim: #aaa;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(157, 0, 255, 0.05) 0%, transparent 20%);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--darker-bg), #151515);
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--neon-pink);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 80px;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 0, 255, 0.1);
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 101;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(255, 0, 255, 0.25);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .back-btn i {
+            font-size: 1.1rem;
+        }
+
+        .header-content {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--neon-pink), var(--neon-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 2rem auto;
+            gap: 2rem;
+            padding: 0 1.5rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            flex: 0 0 280px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 0, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.1);
+            position: sticky;
+            top: 140px;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 0, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--neon-pink);
+            border-radius: 10px;
+        }
+
+        .sidebar h3 {
+            color: var(--neon-cyan);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--neon-cyan);
+            padding-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(0, 243, 255, 0.3);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 0, 255, 0.1);
+            border-left: 3px solid var(--neon-pink);
+            color: var(--neon-pink);
+            transform: translateX(5px);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(255, 0, 255, 0.15);
+            border-left: 3px solid var(--neon-pink);
+            color: var(--neon-pink);
+            font-weight: bold;
+        }
+
+        .nav-links i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.1);
+        }
+
+        .topic-header {
+            color: var(--neon-green);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+            border-bottom: 2px solid var(--neon-green);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .topic-header i {
+            margin-right: 15px;
+        }
+
+        /* Cards */
+        .card {
+            background-color: rgba(20, 20, 30, 0.7);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--neon-purple);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-title {
+            color: var(--neon-pink);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+        }
+
+        .card-content {
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .card-content ul, .card-content ol {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .card-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: rgba(255, 0, 255, 0.2);
+            color: var(--neon-pink);
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 0, 255, 0.05);
+        }
+
+        /* Math Styling */
+        .math {
+            font-family: 'Cambria Math', serif;
+            color: var(--neon-cyan);
+            background-color: rgba(0, 243, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 0.3rem 0;
+        }
+
+        .equation {
+            display: block;
+            text-align: center;
+            margin: 1.5rem auto;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid var(--neon-cyan);
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            max-width: 600px;
+        }
+
+        /* Highlight Box */
+        .highlight {
+            background-color: rgba(255, 0, 255, 0.1);
+            border-left: 5px solid var(--neon-pink);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .highlight:before {
+            content: "!";
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--neon-pink);
+            color: black;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Question Box */
+        .question {
+            background-color: rgba(57, 255, 20, 0.1);
+            border: 1px solid var(--neon-green);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            background-color: rgba(57, 255, 20, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .question:before {
+            content: "Q";
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            background-color: var(--neon-green);
+            color: black;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--neon-green);
+            color: var(--neon-cyan);
+            animation: fadeIn 0.5s;
+        }
+
+        /* Definition Box */
+        .definition {
+            background-color: rgba(157, 0, 255, 0.1);
+            border-left: 5px solid var(--neon-purple);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        /* Diagram Styling */
+        .diagram-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .diagram-box {
+            background: rgba(255, 0, 255, 0.05);
+            border: 2px dashed var(--neon-pink);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .diagram-title {
+            color: var(--neon-pink);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Speed Comparison */
+        .speed-comparison {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .speed-item {
+            flex: 1;
+            padding: 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 10px;
+            background: rgba(0, 243, 255, 0.1);
+        }
+
+        .speed-item:nth-child(1) { border-top: 4px solid var(--neon-cyan); }
+        .speed-item:nth-child(2) { border-top: 4px solid var(--neon-green); }
+        .speed-item:nth-child(3) { border-top: 4px solid var(--neon-yellow); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 0, 255, 0.3);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .neon-text {
+            color: var(--neon-pink);
+            text-shadow: 0 0 5px var(--neon-pink);
+            font-weight: bold;
+        }
+
+        .cyan-text {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        .purple-text {
+            color: var(--neon-purple);
+            text-shadow: 0 0 5px var(--neon-purple);
+        }
+
+        .yellow-text {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 5px var(--neon-yellow);
+        }
+
+        .green-text {
+            color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+            background-color: rgba(0, 243, 255, 0.1);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: static;
+                width: 100%;
+                top: 0;
+            }
+            
+            .topic-header {
+                font-size: 1.8rem;
+            }
+            
+            .back-btn {
+                position: relative;
+                left: 0;
+                top: 0;
+                transform: none;
+                margin-bottom: 1rem;
+                align-self: flex-start;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .scroll-top-btn {
+                bottom: 70px;
+            }
+            
+            .speed-comparison {
+                flex-direction: column;
+            }
+            
+            .speed-item {
+                margin: 0.5rem 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .card {
+                padding: 1.2rem;
+            }
+            
+            .back-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Back Button -->
+    <header>
+        <a href="physics.html" class="back-btn" id="backButton">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+        
+        <div class="header-content">
+            <h1 class="header-title"><i class="fas fa-volume-up"></i> Sound</h1>
+            <p class="subtitle">Class 9 Physics  | Neon Interactive</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <h3><i class="fas fa-stream"></i> Topics</h3>
+            <ul class="nav-links">
+                <li><a href="#introduction" class="active"><i class="fas fa-info-circle"></i> Introduction to Sound</a></li>
+                <li><a href="#production"><i class="fas fa-vibrate"></i> Production of Sound</a></li>
+                <li><a href="#wave-types"><i class="fas fa-wave-square"></i> Wave Types</a></li>
+                <li><a href="#longitudinal-waves"><i class="fas fa-compress-alt"></i> Longitudinal Waves</a></li>
+                <li><a href="#characteristics"><i class="fas fa-sliders-h"></i> Wave Characteristics</a></li>
+                <li><a href="#speed-sound"><i class="fas fa-tachometer-alt"></i> Speed of Sound</a></li>
+                <li><a href="#reflection"><i class="fas fa-retweet"></i> Reflection of Sound</a></li>
+                <li><a href="#echo-reverberation"><i class="fas fa-echo"></i> Echo & Reverberation</a></li>
+                <li><a href="#applications"><i class="fas fa-tools"></i> Applications</a></li>
+                <li><a href="#hearing-range"><i class="fas fa-ear-deaf"></i> Hearing Range</a></li>
+                <li><a href="#ultrasound"><i class="fas fa-heartbeat"></i> Ultrasound</a></li>
+                <li><a href="#sonar"><i class="fas fa-satellite-dish"></i> SONAR System</a></li>
+                <li><a href="#human-ear"><i class="fas fa-ear"></i> Human Ear</a></li>
+                <li><a href="#practice-questions"><i class="fas fa-question-circle"></i> Practice Questions</a></li>
+                <li><a href="#mcq"><i class="fas fa-list-ol"></i> MCQs</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Introduction Section -->
+            <section id="introduction">
+                <h2 class="topic-header"><i class="fas fa-info-circle"></i> Introduction to Sound</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-quote-left"></i> What is Sound?</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Sound is a form of energy which creates a sensation of hearing when it reaches the ear."</em></p>
+                        </div>
+                        
+                        <ul>
+                            <li>Sound is produced by <span class="neon-text">vibrating objects</span>.</li>
+                            <li><span class="neon-text">Vibration</span>: Rapid back-and-forth motion of an object.</li>
+                            <li>Law of conservation of energy applies to sound.</li>
+                            <li>Requires a <span class="cyan-text">medium</span> (solid, liquid, or gas) to travel.</li>
+                        </ul>
+                        
+                        <div class="highlight">
+                            <strong>Examples of Sound Production:</strong>
+                            <p>• Striking a tuning fork</p>
+                            <p>• Vibrating vocal cords (human voice)</p>
+                            <p>• Plucked guitar strings</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Production of Sound Section -->
+            <section id="production">
+                <h2 class="topic-header"><i class="fas fa-vibrate"></i> Production of Sound</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-cogs"></i> Medium Requirement</h3>
+                    <div class="card-content">
+                        <p>The substance through which sound travels is called a <span class="neon-text">medium</span>.</p>
+                        
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Solids</h4>
+                                <p>Fastest transmission</p>
+                                <p>Example: Metal rods</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Liquids</h4>
+                                <p>Medium speed</p>
+                                <p>Example: Water</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Gases</h4>
+                                <p>Slowest transmission</p>
+                                <p>Example: Air</p>
+                            </div>
+                        </div>
+                        
+                        <div class="definition">
+                            <p><strong>Important Note:</strong> It's the disturbance caused by vibrations that travels through the medium, NOT the particles themselves.</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Bell-Jar Experiment Proof:</strong>
+                            <div class="answer">
+                                <p>Electric bell in airtight jar with vacuum pump:</p>
+                                <p>• Air present → Sound heard clearly</p>
+                                <p>• Air removed → Sound becomes fainter</p>
+                                <p>• Complete vacuum → No sound heard</p>
+                                <p><span class="cyan-text">Conclusion:</span> Sound requires a medium to travel.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Wave Types Section -->
+            <section id="wave-types">
+                <h2 class="topic-header"><i class="fas fa-wave-square"></i> Types of Waves</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-project-diagram"></i> Mechanical vs Electromagnetic</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mechanical Waves</th>
+                                    <th>Electromagnetic Waves</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Require a medium to propagate</td>
+                                    <td>Do NOT require a medium</td>
+                                </tr>
+                                <tr>
+                                    <td>Example: Sound waves</td>
+                                    <td>Example: Light waves</td>
+                                </tr>
+                                <tr>
+                                    <td>Cannot travel through vacuum</td>
+                                    <td>Can travel through vacuum</td>
+                                </tr>
+                                <tr>
+                                    <td>Speed depends on medium</td>
+                                    <td>Constant speed in vacuum (3×10⁸ m/s)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="highlight">
+                            <p><strong>Sound waves are mechanical waves</strong> because they require a material medium (air, water, solids) to travel through.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-arrows-alt-h"></i> Transverse vs Longitudinal Waves</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Transverse Waves</th>
+                                    <th>Longitudinal Waves</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Particles oscillate perpendicular to wave direction</td>
+                                    <td>Particles oscillate parallel to wave direction</td>
+                                </tr>
+                                <tr>
+                                    <td>Has crests and troughs</td>
+                                    <td>Has compressions and rarefactions</td>
+                                </tr>
+                                <tr>
+                                    <td>Example: Light waves, water waves</td>
+                                    <td>Example: Sound waves, slinky waves</td>
+                                </tr>
+                                <tr>
+                                    <td>Can travel without medium (light)</td>
+                                    <td>Always requires medium</td>
+                                </tr>
+                                <tr>
+                                    <td>Demonstrated with rope</td>
+                                    <td>Demonstrated with slinky</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Longitudinal Waves Section -->
+            <section id="longitudinal-waves">
+                <h2 class="topic-header"><i class="fas fa-compress-alt"></i> Sound as Longitudinal Waves</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-waveform"></i> Compression & Rarefaction</h3>
+                    <div class="card-content">
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Compression (C)</h4>
+                                <p>• Particles crowded together</p>
+                                <p>• High density & pressure</p>
+                                <p>• Represented by peaks</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Rarefaction (R)</h4>
+                                <p>• Particles spread apart</p>
+                                <p>• Low density & pressure</p>
+                                <p>• Represented by troughs</p>
+                            </div>
+                        </div>
+                        
+                        <div class="definition">
+                            <p><strong>Why sound waves are longitudinal:</strong> Particles of medium vibrate parallel to wave direction, creating alternating compressions and rarefactions that transfer sound energy.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Characteristics Section -->
+            <section id="characteristics">
+                <h2 class="topic-header"><i class="fas fa-sliders-h"></i> Characteristics of Sound Waves</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-ruler"></i> Basic Parameters</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Characteristic</th>
+                                    <th>Definition</th>
+                                    <th>SI Unit</th>
+                                    <th>Determines</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Frequency (ν)</span></td>
+                                    <td>Number of oscillations per second</td>
+                                    <td>Hertz (Hz)</td>
+                                    <td>Pitch (high/low)</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Amplitude (A)</span></td>
+                                    <td>Maximum displacement from mean position</td>
+                                    <td>Meter (m)</td>
+                                    <td>Loudness</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Wavelength (λ)</span></td>
+                                    <td>Distance between consecutive compressions or rarefactions</td>
+                                    <td>Meter (m)</td>
+                                    <td>Wave pattern</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Time Period (T)</span></td>
+                                    <td>Time for one complete oscillation</td>
+                                    <td>Second (s)</td>
+                                    <td>T = 1/ν</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="equation">
+                            T = 1/ν &nbsp;&nbsp; and &nbsp;&nbsp; ν = 1/T
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-music"></i> Sound Characteristics</h3>
+                    <div class="card-content">
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Pitch</h4>
+                                <p>Brain's interpretation of frequency</p>
+                                <p>High ν → High pitch (violin)</p>
+                                <p>Low ν → Low pitch (drum)</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Loudness</h4>
+                                <p>Ear's response to amplitude</p>
+                                <p>Large A → Loud sound</p>
+                                <p>Small A → Soft sound</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Quality/Timbre</h4>
+                                <p>Distinguishes same pitch from different sources</p>
+                                <p>Same note: Piano vs Guitar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Speed of Sound Section -->
+            <section id="speed-sound">
+                <h2 class="topic-header"><i class="fas fa-tachometer-alt"></i> Speed of Sound</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bolt"></i> Formula & Factors</h3>
+                    <div class="card-content">
+                        <div class="equation">
+                            v = ν × λ
+                        </div>
+                        <p>Where: v = speed of sound, ν = frequency, λ = wavelength</p>
+                        
+                        <div class="speed-comparison">
+                            <div class="speed-item">
+                                <h4 class="cyan-text">Solids</h4>
+                                <p>Fastest</p>
+                                <p>Aluminium: 6420 m/s</p>
+                                <p>Steel: 5960 m/s</p>
+                            </div>
+                            <div class="speed-item">
+                                <h4 class="green-text">Liquids</h4>
+                                <p>Medium</p>
+                                <p>Sea Water: 1531 m/s</p>
+                            </div>
+                            <div class="speed-item">
+                                <h4 class="yellow-text">Gases</h4>
+                                <p>Slowest</p>
+                                <p>Air (0°C): 331 m/s</p>
+                                <p>Air (22°C): 344 m/s</p>
+                            </div>
+                        </div>
+                        
+                        <div class="definition">
+                            <p><strong>Factors affecting speed:</strong> Nature of medium (solid>liquid>gas), temperature (increases with temperature), density.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-question"></i> Speed Problems</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q: Sound wave frequency 2 kHz, wavelength 0.5 m. Calculate speed.</strong>
+                            <div class="answer">
+                                <p>ν = 2 kHz = 2000 Hz, λ = 0.5 m</p>
+                                <p>v = ν × λ = 2000 × 0.5 = <span class="neon-text">1000 m/s</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Thunder heard 4s after lightning. Speed of sound = 340 m/s. Distance to cloud?</strong>
+                            <div class="answer">
+                                <p>Distance = Speed × Time</p>
+                                <p>d = 340 × 4 = <span class="neon-text">1360 m</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Tuning fork frequency 500 Hz. Calculate time period.</strong>
+                            <div class="answer">
+                                <p>T = 1/ν = 1/500 = <span class="neon-text">0.002 s = 2 ms</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reflection Section -->
+            <section id="reflection">
+                <h2 class="topic-header"><i class="fas fa-retweet"></i> Reflection of Sound</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-mirror"></i> Laws of Reflection</h3>
+                    <div class="card-content">
+                        <p>Like light, sound bounces back when it hits a hard surface.</p>
+                        
+                        <div class="highlight">
+                            <strong>Laws of Reflection (same as light):</strong>
+                            <p>1. Incident wave, reflected wave, and normal lie in same plane</p>
+                            <p>2. Angle of reflection = Angle of incidence</p>
+                        </div>
+                        
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Angle of Incidence (i)</h4>
+                                <p>Angle between incident ray and normal</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Angle of Reflection (r)</h4>
+                                <p>Angle between reflected ray and normal</p>
+                                <p>i = r</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Echo & Reverberation Section -->
+            <section id="echo-reverberation">
+                <h2 class="topic-header"><i class="fas fa-echo"></i> Echo & Reverberation</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-redo"></i> Echo</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Phenomenon where a sound produced is heard again due to reflection."</em></p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Conditions for distinct echo:</strong>
+                            <p>• Time interval ≥ 0.1s (sound persists in brain for 0.1s)</p>
+                            <p>• Minimum distance to reflecting surface ≥ 17.2 m</p>
+                            <p>• Multiple echoes possible due to multiple reflections</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Person hears echo after 2s. Speed of sound = 343 m/s. Distance to reflecting surface?</strong>
+                            <div class="answer">
+                                <p>Distance = (Speed × Time)/2</p>
+                                <p>d = (343 × 2)/2 = <span class="neon-text">343 m</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-volume-up"></i> Reverberation</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Persistence of sound caused by repeated reflections in enclosed space."</em></p>
+                        </div>
+                        
+                        <p><span class="neon-text">Problem:</span> Excessive reverberation in auditoriums distorts clarity.</p>
+                        <p><span class="cyan-text">Solution:</span> Use sound-absorbing materials:</p>
+                        <ul>
+                            <li>Compressed fibre boards on walls/ceilings</li>
+                            <li>Rough plaster surfaces</li>
+                            <li>Draperies and curtains</li>
+                            <li>Sound-absorbing seats</li>
+                        </ul>
+                        
+                        <div class="question">
+                            <strong>Difference between Echo and Reverberation:</strong>
+                            <div class="answer">
+                                <p><span class="neon-text">Echo:</span> Single reflection, distinct repetition</p>
+                                <p><span class="neon-text">Reverberation:</span> Multiple reflections, persistence/lingering of sound</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Applications Section -->
+            <section id="applications">
+                <h2 class="topic-header"><i class="fas fa-tools"></i> Applications of Sound Reflection</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bullhorn"></i> Practical Uses</h3>
+                    <div class="card-content">
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Megaphones/Horns</h4>
+                                <p>Focus sound in specific direction</p>
+                                <p>Conical shape reflects waves forward</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Stethoscope</h4>
+                                <p>Multiple reflections in tubes</p>
+                                <p>Amplifies body sounds</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Concert Halls</h4>
+                                <p>Curved ceilings</p>
+                                <p>Even sound distribution</p>
+                            </div>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Other applications:</strong>
+                            <p>• Soundboards behind stages</p>
+                            <p>• Trumpets, shehnais (musical instruments)</p>
+                            <p>• Hearing aids</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hearing Range Section -->
+            <section id="hearing-range">
+                <h2 class="topic-header"><i class="fas fa-ear-deaf"></i> Hearing Range</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-assistive-listening-systems"></i> Audible & Inaudible Sounds</h3>
+                    <div class="card-content">
+                        <div class="diagram-container">
+                            <div class="diagram-box" style="border-color: var(--neon-purple);">
+                                <h4 class="diagram-title" style="color: var(--neon-purple);">Audible Range</h4>
+                                <p>20 Hz to 20,000 Hz</p>
+                                <p>Human hearing range</p>
+                                <p>Most sensitive: 2-4 kHz</p>
+                            </div>
+                            <div class="diagram-box" style="border-color: var(--neon-cyan);">
+                                <h4 class="diagram-title" style="color: var(--neon-cyan);">Infrasound</h4>
+                                <p>Below 20 Hz</p>
+                                <p>Not heard by humans</p>
+                                <p>Sources: Earthquakes, whales</p>
+                            </div>
+                            <div class="diagram-box" style="border-color: var(--neon-yellow);">
+                                <h4 class="diagram-title" style="color: var(--neon-yellow);">Ultrasound</h4>
+                                <p>Above 20,000 Hz</p>
+                                <p>Not heard by humans</p>
+                                <p>Used by: Bats, dolphins</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ultrasound Section -->
+            <section id="ultrasound">
+                <h2 class="topic-header"><i class="fas fa-heartbeat"></i> Ultrasound Applications</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-stethoscope"></i> Medical Uses</h3>
+                    <div class="card-content">
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Ultrasonography</h4>
+                                <p>Images of internal organs</p>
+                                <p>Detects tumors, stones</p>
+                                <p>Pregnancy monitoring</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Echocardiography</h4>
+                                <p>Heart imaging</p>
+                                <p>Detects heart problems</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Kidney Stone Treatment</h4>
+                                <p>Breaks stones into grains</p>
+                                <p>Non-invasive procedure</p>
+                            </div>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Industrial Uses:</strong>
+                            <p>• Cleaning hard-to-reach parts</p>
+                            <p>• Detecting cracks in metals (flaw detection)</p>
+                            <p>• Measuring thickness</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SONAR Section -->
+            <section id="sonar">
+                <h2 class="topic-header"><i class="fas fa-satellite-dish"></i> SONAR System</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-water"></i> What is SONAR?</h3>
+                    <div class="card-content">
+                        <p><span class="neon-text">SONAR</span> = Sound Navigation And Ranging</p>
+                        
+                        <div class="definition">
+                            <p><strong>Definition:</strong> Technique using ultrasonic waves to measure distance, direction, and speed of underwater objects.</p>
+                        </div>
+                        
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Transmitter</h4>
+                                <p>Sends ultrasonic waves</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Detector</h4>
+                                <p>Receives reflected waves</p>
+                            </div>
+                        </div>
+                        
+                        <div class="equation">
+                            d = (v × t) / 2
+                        </div>
+                        <p>Where: d = depth/distance, v = speed in water, t = time interval</p>
+                        
+                        <div class="question">
+                            <strong>Q: Ultrasound returns from seabed after 3.42s. Speed in seawater = 1531 m/s. Distance to seabed?</strong>
+                            <div class="answer">
+                                <p>d = (v × t)/2 = (1531 × 3.42)/2</p>
+                                <p>d = 5236.02/2 = <span class="neon-text">2618.01 m</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-fish"></i> Animal Use of Ultrasound</h3>
+                    <div class="card-content">
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Bats</h4>
+                                <p>Emit ultrasonic squeaks</p>
+                                <p>Navigate in dark</p>
+                                <p>Locate prey</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Porpoises/Dolphins</h4>
+                                <p>Use for navigation</p>
+                                <p>Find food in dark water</p>
+                                <p>Communication</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Human Ear Section -->
+            <section id="human-ear">
+                <h2 class="topic-header"><i class="fas fa-ear"></i> Human Ear Structure</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-anatomy"></i> Parts of Ear</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Part</th>
+                                    <th>Function</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Outer Ear (Pinna)</span></td>
+                                    <td>Collects sound waves</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Auditory Canal</span></td>
+                                    <td>Directs sound to eardrum</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Eardrum (Tympanic)</span></td>
+                                    <td>Vibrates with sound waves</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Middle Ear Bones</span></td>
+                                    <td>Hammer, anvil, stirrup - amplify vibrations</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Cochlea (Inner Ear)</span></td>
+                                    <td>Converts vibrations to electrical signals</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Auditory Nerve</span></td>
+                                    <td>Sends signals to brain</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="definition">
+                            <p><strong>Working:</strong> Sound waves → Eardrum vibrations → Bone amplification → Cochlea conversion → Nerve signals → Brain interpretation</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section id="practice-questions">
+                <h2 class="topic-header"><i class="fas fa-question-circle"></i> Practice Questions</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-pen-fancy"></i> Problem Set</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q: Why hear humming bees but not pendulum vibrations?</strong>
+                            <div class="answer">
+                                <p>Bee humming frequency (~200 Hz) is within audible range (20-20,000 Hz).</p>
+                                <p>Pendulum frequency (< 20 Hz) is infrasound, below human hearing range.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Flash & thunder produced simultaneously but thunder heard later. Why?</strong>
+                            <div class="answer">
+                                <p>Light travels much faster (3×10⁸ m/s) than sound (~340 m/s).</p>
+                                <p>Thunder is heard after lightning is seen due to slower speed of sound.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Echo heard faster on hot day than cold day. Why?</strong>
+                            <div class="answer">
+                                <p>Speed of sound increases with temperature.</p>
+                                <p>Hot day → Higher temperature → Faster sound → Shorter echo time.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Why dog suitable for detective work?</strong>
+                            <div class="answer">
+                                <p>Dogs can hear ultrasound (up to 45,000 Hz).</p>
+                                <p>Can detect sounds humans cannot hear.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Frequency = 100 Hz. Vibrations per minute?</strong>
+                            <div class="answer">
+                                <p>100 Hz = 100 vibrations/second</p>
+                                <p>Per minute = 100 × 60 = <span class="neon-text">6000 vibrations</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MCQs Section -->
+            <section id="mcq">
+                <h2 class="topic-header"><i class="fas fa-list-ol"></i> Multiple Choice Questions</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-check-circle"></i> MCQs with Answers</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>1. When sound travels through air, particles:</strong>
+                            <p>a) Move permanently</p>
+                            <p>b) Vibrate along wave direction</p>
+                            <p>c) Vibrate perpendicular to wave</p>
+                            <p>d) Don't move</p>
+                            <div class="answer">
+                                <p><span class="neon-text">(b) Vibrate along wave direction</span> - Sound waves are longitudinal</p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>2. Speed of sound is maximum in:</strong>
+                            <p>a) Solids b) Liquids c) Gases d) Vacuum</p>
+                            <div class="answer">
+                                <p><span class="neon-text">(a) Solids</span> - Fastest in solids, then liquids, slowest in gases</p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>3. Loudness depends on:</strong>
+                            <p>a) Frequency b) Amplitude c) Wavelength d) Velocity</p>
+                            <div class="answer">
+                                <p><span class="neon-text">(b) Amplitude</span> - Larger amplitude = louder sound</p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>4. Time period = 0.01s. Frequency?</strong>
+                            <p>a) 10 Hz b) 50 Hz c) 100 Hz d) 200 Hz</p>
+                            <div class="answer">
+                                <p>ν = 1/T = 1/0.01 = 100 Hz</p>
+                                <p><span class="neon-text">(c) 100 Hz</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>5. Human audible range:</strong>
+                            <p>a) 0-1000 Hz b) 20-20,000 Hz c) 50-15,000 Hz d) 20-50,000 Hz</p>
+                            <div class="answer">
+                                <p><span class="neon-text">(b) 20-20,000 Hz</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="highlight">
+                <strong>"Be the powerhouse of your life!" - Sultan Bhai</strong>
+                <p style="margin-top: 10px;">Remember: <em>"Sound waves may need a medium to travel, but your dreams can soar in any vacuum!"</em> 🔊✨</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Class 9: Sound   | Neon Interactive</p>
+        <p>Created with <span class="neon-text">HTML, CSS & JavaScript</span></p>
+        <p>Master sound concepts with this interactive learning experience!</p>
+        
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top-btn" id="scrollTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Highlight current section in navigation
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Show/hide scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        // Back button functionality
+        const backButton = document.getElementById('backButton');
+        
+        backButton.addEventListener('click', function(e) {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        
+        // Scroll to top button functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            
+            if (document.body.classList.contains('light-theme')) {
+                // Light theme
+                document.body.style.backgroundColor = '#f0f0f0';
+                document.body.style.color = '#333';
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.style.borderColor = '#ff9900';
+                themeToggle.style.color = '#ff9900';
+                themeToggle.style.boxShadow = '0 0 15px rgba(255, 153, 0, 0.5)';
+                
+                // Update card backgrounds
+                document.querySelectorAll('.card').forEach(card => {
+                    card.style.backgroundColor = 'rgba(240, 240, 240, 0.9)';
+                });
+            } else {
+                // Dark theme (default)
+                document.body.style.backgroundColor = '';
+                document.body.style.color = '';
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.style.borderColor = '';
+                themeToggle.style.color = '';
+                themeToggle.style.boxShadow = '';
+                
+                // Reset card backgrounds
+                document.querySelectorAll('.card').forEach(card => {
+                    card.style.backgroundColor = '';
+                });
+            }
+        });
+        
+        // Interactive hover effects to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 10px 30px rgba(255, 0, 255, 0.2)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
+        
+        // Interactive quiz reveal for practice questions
+        document.querySelectorAll('.question').forEach(question => {
+            const answer = question.querySelector('.answer');
+            if (answer) {
+                question.addEventListener('click', function() {
+                    if (answer.style.display === 'none' || answer.style.display === '') {
+                        answer.style.display = 'block';
+                        answer.style.animation = 'fadeIn 0.5s';
+                    } else {
+                        answer.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

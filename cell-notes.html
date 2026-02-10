@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.47">
+    <title>Class 9: The Fundamental Unit of Life | Neon Notes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-green: #39ff14;
+            --neon-yellow: #fff700;
+            --neon-purple: #9d00ff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #111;
+            --text: #f0f0f0;
+            --text-dim: #aaa;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(157, 0, 255, 0.05) 0%, transparent 20%);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--darker-bg), #151515);
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 80px;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 243, 255, 0.1);
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 101;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(0, 243, 255, 0.25);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .back-btn i {
+            font-size: 1.1rem;
+        }
+
+        .header-content {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 2rem auto;
+            gap: 2rem;
+            padding: 0 1.5rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            flex: 0 0 280px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+            position: sticky;
+            top: 140px;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(0, 243, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--neon-cyan);
+            border-radius: 10px;
+        }
+
+        .sidebar h3 {
+            color: var(--neon-pink);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--neon-pink);
+            padding-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(255, 0, 255, 0.3);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(0, 243, 255, 0.1);
+            border-left: 3px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            transform: translateX(5px);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(0, 243, 255, 0.15);
+            border-left: 3px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            font-weight: bold;
+        }
+
+        .nav-links i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.1);
+        }
+
+        .topic-header {
+            color: var(--neon-green);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+            border-bottom: 2px solid var(--neon-green);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .topic-header i {
+            margin-right: 15px;
+        }
+
+        /* Cards */
+        .card {
+            background-color: rgba(20, 20, 30, 0.7);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--neon-purple);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-title {
+            color: var(--neon-cyan);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+        }
+
+        .card-content {
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .card-content ul, .card-content ol {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .card-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: rgba(0, 243, 255, 0.2);
+            color: var(--neon-cyan);
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        tr:hover {
+            background-color: rgba(0, 243, 255, 0.05);
+        }
+
+        /* Highlight Box */
+        .highlight {
+            background-color: rgba(255, 0, 255, 0.1);
+            border-left: 5px solid var(--neon-pink);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .highlight:before {
+            content: "!";
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--neon-pink);
+            color: black;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Question Box */
+        .question {
+            background-color: rgba(57, 255, 20, 0.1);
+            border: 1px solid var(--neon-green);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .question:before {
+            content: "Q";
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            background-color: var(--neon-green);
+            color: black;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Definition Box */
+        .definition {
+            background-color: rgba(157, 0, 255, 0.1);
+            border-left: 5px solid var(--neon-purple);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        /* Cell Diagram Styling */
+        .cell-diagram {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .diagram-box {
+            background: rgba(0, 243, 255, 0.05);
+            border: 2px dashed var(--neon-cyan);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .diagram-title {
+            color: var(--neon-yellow);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(0, 243, 255, 0.3);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .neon-text {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 5px var(--neon-cyan);
+            font-weight: bold;
+        }
+
+        .purple-text {
+            color: var(--neon-purple);
+            text-shadow: 0 0 5px var(--neon-purple);
+        }
+
+        .yellow-text {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 5px var(--neon-yellow);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+            background-color: rgba(255, 0, 255, 0.1);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: static;
+                width: 100%;
+                top: 0;
+            }
+            
+            .topic-header {
+                font-size: 1.8rem;
+            }
+            
+            .back-btn {
+                position: relative;
+                left: 0;
+                top: 0;
+                transform: none;
+                margin-bottom: 1rem;
+                align-self: flex-start;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .scroll-top-btn {
+                bottom: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .card {
+                padding: 1.2rem;
+            }
+            
+            .back-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Back Button -->
+    <header>
+        <a href="biology.html" class="back-btn" id="backButton">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+        
+        <div class="header-content">
+            <h1 class="header-title"><i class="fas fa-microscope"></i> The Fundamental Unit of Life</h1>
+            <p class="subtitle">Class 9 Biology |  Neon Interactive Edition</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <h3><i class="fas fa-stream"></i> Topics</h3>
+            <ul class="nav-links">
+                <li><a href="#introduction" class="active"><i class="fas fa-info-circle"></i> Introduction to Cell</a></li>
+                <li><a href="#discoveries"><i class="fas fa-history"></i> Cell Discoveries</a></li>
+                <li><a href="#cell-theory"><i class="fas fa-graduation-cap"></i> Cell Theory</a></li>
+                <li><a href="#cell-properties"><i class="fas fa-expand-alt"></i> Cell Properties</a></li>
+                <li><a href="#cell-structure"><i class="fas fa-sitemap"></i> Cell Structure</a></li>
+                <li><a href="#plasma-membrane"><i class="fas fa-shield-alt"></i> Plasma Membrane</a></li>
+                <li><a href="#transport"><i class="fas fa-exchange-alt"></i> Cell Transport</a></li>
+                <li><a href="#cell-organelles"><i class="fas fa-cogs"></i> Cell Organelles</a></li>
+                <li><a href="#plant-vs-animal"><i class="fas fa-balance-scale"></i> Plant vs Animal Cell</a></li>
+                <li><a href="#cell-division"><i class="fas fa-divide"></i> Cell Division</a></li>
+                <li><a href="#pyq"><i class="fas fa-question-circle"></i> Practice Questions (PYQ)</a></li>
+                <li><a href="#answers"><i class="fas fa-check-circle"></i> PYQ Answers</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Introduction Section -->
+            <section id="introduction">
+                <h2 class="topic-header"><i class="fas fa-info-circle"></i> Introduction to Cell</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-quote-left"></i> What is a Cell?</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Cells are the structural, functional, and biological units of all living beings."</em></p>
+                        </div>
+                        
+                        <ul>
+                            <li>The entire functioning of living organisms begins from the basic unit called <span class="neon-text">cell</span>, that's why it's called the <span class="neon-text">fundamental unit of life</span>.</li>
+                            <li>A cell can replicate itself independently. Hence, they are known as the <span class="neon-text">building blocks of life</span>.</li>
+                            <li>Cells provide structure and support, facilitate growth, allow transport, produce energy, and aid in reproduction.</li>
+                        </ul>
+                        
+                        <div class="highlight">
+                            <strong>Key Concept:</strong>
+                            <p>Just like bricks make a building, cells make an organism. Each cell carries out specific functions while working together in harmony.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Discoveries Section -->
+            <section id="discoveries">
+                <h2 class="topic-header"><i class="fas fa-history"></i> Discoveries Related to Cell</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Timeline of Cell Discoveries</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Scientist</th>
+                                    <th>Year</th>
+                                    <th>Discovery</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Robert Hooke</span></td>
+                                    <td>1665</td>
+                                    <td>First discovered and named the "cell" while observing cork slices</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Anton Van Leeuwenhoek</span></td>
+                                    <td>1674</td>
+                                    <td>Discovered protozoa and bacteria (first living cell observation)</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Robert Brown</span></td>
+                                    <td>1831</td>
+                                    <td>Discovered the cell nucleus</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Schleiden & Schwann</span></td>
+                                    <td>1838-1839</td>
+                                    <td>Proposed the cell theory</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Purkinje</span></td>
+                                    <td>1839</td>
+                                    <td>Coined the term "protoplasm" for living substance</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="question">
+                            <strong>Q: Who discovered the cell nucleus?</strong>
+                            <p><em>Answer: Robert Brown discovered the cell nucleus in 1831.</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cell Theory Section -->
+            <section id="cell-theory">
+                <h2 class="topic-header"><i class="fas fa-graduation-cap"></i> Cell Theory</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-clipboard-list"></i> Main Principles</h3>
+                    <div class="card-content">
+                        <div class="highlight">
+                            <strong>The Cell Theory (Schleiden & Schwann, 1838-39):</strong>
+                        </div>
+                        
+                        <ol>
+                            <li><span class="neon-text">All living organisms are composed of cells.</span></li>
+                            <li><span class="neon-text">The living organisms could be made up of one or more cells.</span></li>
+                            <li><span class="neon-text">The new cells arise from pre-existing cells through the process of cell division.</span></li>
+                        </ol>
+                        
+                        <div class="definition">
+                            <p><strong>Modern Addition:</strong> Cells contain hereditary information (DNA) which is passed from parent to daughter cells during cell division.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cell Properties Section -->
+            <section id="cell-properties">
+                <h2 class="topic-header"><i class="fas fa-expand-alt"></i> Cell Properties</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-hashtag"></i> Cell Number</h3>
+                    <div class="card-content">
+                        <div class="cell-diagram">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title"><i class="fas fa-bacteria"></i> Unicellular</h4>
+                                <p>Single cell organisms</p>
+                                <p><span class="yellow-text">Examples:</span> Bacteria, Protozoa, Amoeba</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title"><i class="fas fa-user-friends"></i> Multicellular</h4>
+                                <p>Multiple cell organisms</p>
+                                <p><span class="yellow-text">Examples:</span> Humans, Animals, Plants</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-shapes"></i> Cell Shape</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li><span class="neon-text">Variable shapes:</span> Cells can be spherical, spindle-shaped, elongated, branched, discoidal, polygonal, etc.</li>
+                            <li><span class="neon-text">Function determines shape:</span> Nerve cells are long to conduct impulses, red blood cells are disc-shaped for easy flow.</li>
+                            <li><span class="neon-text">Plant cells:</span> Generally rectangular due to rigid cell wall.</li>
+                            <li><span class="neon-text">Animal cells:</span> Irregular shapes depending on function.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-ruler"></i> Cell Size</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cell Type</th>
+                                    <th>Size</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Smallest Cell</span></td>
+                                    <td>0.1 - 0.5 μm</td>
+                                    <td>Mycoplasma (PPLO - Pleuro Pneumonia Like Organisms)</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Largest Cell</span></td>
+                                    <td>~15 cm diameter</td>
+                                    <td>Ostrich egg (single cell)</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Human Cell Range</span></td>
+                                    <td>5 - 20 μm</td>
+                                    <td>Most human cells are microscopic</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Longest Cell</span></td>
+                                    <td>Up to 1 meter</td>
+                                    <td>Nerve cells in giraffe neck</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cell Structure Section -->
+            <section id="cell-structure">
+                <h2 class="topic-header"><i class="fas fa-sitemap"></i> Cell Structure</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-dna"></i> Prokaryotic vs Eukaryotic Cells</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Prokaryotic Cell</th>
+                                    <th>Eukaryotic Cell</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Size</span></td>
+                                    <td>1 - 10 μm (small)</td>
+                                    <td>5 - 100 μm (large)</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Nuclear Region</span></td>
+                                    <td>Not well-defined (Nucleoid)</td>
+                                    <td>Well-defined with nuclear membrane</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Chromosomes</span></td>
+                                    <td>Single circular chromosome</td>
+                                    <td>Multiple linear chromosomes</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Membrane-bound Organelles</span></td>
+                                    <td>Absent</td>
+                                    <td>Present</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Cell Type</span></td>
+                                    <td>Bacteria, Archaea</td>
+                                    <td>Plants, Animals, Fungi, Protists</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Ribosomes</span></td>
+                                    <td>70S (smaller)</td>
+                                    <td>80S (larger)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="question">
+                            <strong>Q: The undefined nuclear region of prokaryotes is also known as:</strong>
+                            <p><em>(a) Nucleus (b) Nucleolus (c) Nucleic acid (d) Nucleoid</em></p>
+                            <p><strong>Answer: (d) Nucleoid</strong></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: The only cell organelle seen in prokaryotic cell:</strong>
+                            <p><em>(a) Mitochondria (b) Ribosomes (c) Plastids (d) Lysosomes</em></p>
+                            <p><strong>Answer: (b) Ribosomes</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Plasma Membrane Section -->
+            <section id="plasma-membrane">
+                <h2 class="topic-header"><i class="fas fa-shield-alt"></i> Plasma Membrane</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-info-circle"></i> Structure and Functions</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li><span class="neon-text">Outermost covering</span> of the cell that separates cell contents from external environment.</li>
+                            <li><span class="neon-text">Selectively permeable:</span> Allows entry and exit of some materials, prevents movement of others.</li>
+                            <li>Made up of <span class="purple-text">lipids and proteins</span> (fluid mosaic model).</li>
+                            <li>Allows diffusion of substances like <span class="neon-text">carbon dioxide and oxygen</span>.</li>
+                            <li>Regulates movement of substances in and out of the cell.</li>
+                            <li>Provides shape and protection to the cell.</li>
+                        </ul>
+                        
+                        <div class="highlight">
+                            <strong>Cell Wall (Plants only):</strong>
+                            <ul>
+                                <li>Non-living, rigid outer covering composed mainly of cellulose.</li>
+                                <li>Provides structural strength and lies outside the plasma membrane.</li>
+                                <li>Permits plants to resist bursting in hypotonic environments.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Transport Section -->
+            <section id="transport">
+                <h2 class="topic-header"><i class="fas fa-exchange-alt"></i> Cell Transport Mechanisms</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-truck-moving"></i> Active vs Passive Transport</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Passive Transport</th>
+                                    <th>Active Transport</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Substances move from higher to lower concentration</td>
+                                    <td>Substances move from lower to higher concentration</td>
+                                </tr>
+                                <tr>
+                                    <td>No energy required</td>
+                                    <td>Requires energy (ATP molecules)</td>
+                                </tr>
+                                <tr>
+                                    <td>Slow movement</td>
+                                    <td>Rapid movement</td>
+                                </tr>
+                                <tr>
+                                    <td>Only small molecules/water transported</td>
+                                    <td>Large molecules transported</td>
+                                </tr>
+                                <tr>
+                                    <td>Examples: Diffusion, Osmosis</td>
+                                    <td>Examples: Sodium-potassium pump</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-tint"></i> Osmosis</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Osmosis is the passage of water molecules across a semi-permeable membrane from a solution with a high concentration to a solution with a lower concentration."</em></p>
+                        </div>
+                        
+                        <ul>
+                            <li><span class="neon-text">Endosmosis:</span> Water enters the cell (cell swells)</li>
+                            <li><span class="neon-text">Exosmosis:</span> Water moves out of cell (cell shrinks)</li>
+                            <li><span class="neon-text">Plasmolysis:</span> Shrinkage of cell contents away from cell wall in plants due to water loss</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-wind"></i> Diffusion vs Osmosis</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Diffusion</th>
+                                    <th>Osmosis</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Movement of particles from high to low concentration</td>
+                                    <td>Movement of solvent across semipermeable membrane</td>
+                                </tr>
+                                <tr>
+                                    <td>Occurs in liquids and gases</td>
+                                    <td>Occurs in liquids only</td>
+                                </tr>
+                                <tr>
+                                    <td>No membrane required</td>
+                                    <td>Requires semi-permeable membrane</td>
+                                </tr>
+                                <tr>
+                                    <td>Water not necessary</td>
+                                    <td>Water is main solvent</td>
+                                </tr>
+                                <tr>
+                                    <td>Flow in all directions</td>
+                                    <td>Flow in one direction only</td>
+                                </tr>
+                                <tr>
+                                    <td>Example: Ink in water</td>
+                                    <td>Example: RBC swelling in water</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cell Organelles Section -->
+            <section id="cell-organelles">
+                <h2 class="topic-header"><i class="fas fa-cogs"></i> Cell Organelles</h2>
+                
+                <div class="card">
+                    <h3 class="card-title" style="color: var(--neon-purple);"><i class="fas fa-network-wired"></i> Endoplasmic Reticulum</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Rough ER (RER)</th>
+                                    <th>Smooth ER (SER)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Appears rough due to ribosomes</td>
+                                    <td>Smooth appearance</td>
+                                </tr>
+                                <tr>
+                                    <td>Sites of protein synthesis</td>
+                                    <td>Facilitates lipid production</td>
+                                </tr>
+                                <tr>
+                                    <td>No lipid production</td>
+                                    <td>No protein synthesis</td>
+                                </tr>
+                                <tr>
+                                    <td>No detoxification capability</td>
+                                    <td>Crucial in detoxification (liver cells)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="question">
+                            <strong>Q: Lipid molecules in the cell are synthesised by:</strong>
+                            <p><em>(a) Smooth endoplasmic reticulum (b) Rough endoplasmic reticulum (c) Golgi apparatus (d) Plastids</em></p>
+                            <p><strong>Answer: (a) Smooth endoplasmic reticulum</strong></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title" style="color: var(--neon-yellow);"><i class="fas fa-boxes"></i> Golgi Apparatus</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li>Named after <span class="neon-text">Camillo Golgi</span>.</li>
+                            <li>Comprises membrane-bound vesicles arranged in stacks (cisterns).</li>
+                            <li><span class="yellow-text">Functions:</span> Packaging, storage, modification and transport of proteins.</li>
+                            <li>Plays role in formation of lysosomes.</li>
+                            <li>Known as the <span class="neon-text">'Traffic police' of the cell</span>.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title" style="color: #ff4444;"><i class="fas fa-trash-alt"></i> Lysosomes</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li>Filled with digestive enzymes from RER.</li>
+                            <li>Acts as the cell's <span class="neon-text">waste disposal system</span>.</li>
+                            <li>Digests foreign material and worn-out organelles.</li>
+                            <li>Termed <span class="neon-text">"suicide bags"</span> - burst during cellular disturbance causing self-digestion.</li>
+                            <li>Breaks down all organic material including bacteria.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title" style="color: #39ff14;"><i class="fas fa-bolt"></i> Mitochondria</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li>Cell's <span class="neon-text">powerhouses</span>.</li>
+                            <li>Two membranes: porous outer and folded inner (cristae).</li>
+                            <li>Inner folds increase surface area for <span class="neon-text">ATP generation</span>.</li>
+                            <li>Produces <span class="neon-text">ATP</span> (energy currency of cell).</li>
+                            <li>Has its own DNA and ribosomes (semi-autonomous).</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title" style="color: #00f3ff;"><i class="fas fa-leaf"></i> Plastids</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li><span class="neon-text">Exclusive to plant cells</span>.</li>
+                            <li><span class="neon-text">Chromoplasts:</span> Colored plastids (flowers, fruits).</li>
+                            <li><span class="neon-text">Chloroplasts:</span> Green chromoplasts containing chlorophyll for photosynthesis.</li>
+                            <li><span class="neon-text">Leucoplasts:</span> Colorless plastids for storage (starch, oils, proteins).</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-dna"></i> Ribosomes</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li><span class="neon-text">Membrane-less</span> cell organelle.</li>
+                            <li>Involved in <span class="neon-text">synthesis of proteins</span>.</li>
+                            <li>Present in both <span class="neon-text">Prokaryotic and Eukaryotic</span> cells.</li>
+                            <li>Made of rRNA and proteins.</li>
+                        </ul>
+                        
+                        <div class="question">
+                            <strong>Q: Which of these options are not the functions of ribosomes?</strong>
+                            <p>I. It helps in manufacture of protein molecules.<br>
+                            II. It helps in manufacture of enzymes.<br>
+                            III. It helps in manufacture of hormones.<br>
+                            IV. It helps in manufacture of starch molecules.</p>
+                            <p><em>(a) I and II (b) I and III (c) III and IV (d) IV and I</em></p>
+                            <p><strong>Answer: (c) III and IV</strong></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-warehouse"></i> Vacuoles</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li><span class="neon-text">Storage sacs</span> in cells.</li>
+                            <li>Small in animals, <span class="neon-text">large in plants</span>.</li>
+                            <li>Plant central vacuole occupies <span class="neon-text">50-90% of cell volume</span>.</li>
+                            <li>Filled with <span class="neon-text">cell sap</span> (amino acids, sugars, proteins).</li>
+                            <li>Provides <span class="neon-text">turgidity and rigidity</span> to plant cells.</li>
+                            <li>In single-celled organisms: stores food, expels excess water and wastes.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-layer-group"></i> Organelle Membrane Classification</h3>
+                    <div class="card-content">
+                        <div class="cell-diagram">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Double Membrane</h4>
+                                <p>• Nucleus<br>• Mitochondria<br>• Plastids</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Single Membrane</h4>
+                                <p>• Vacuole<br>• Lysosome<br>• Golgi apparatus<br>• Endoplasmic reticulum</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Membrane-less</h4>
+                                <p>• Ribosome<br>• Centrosome (Centriole)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Plant vs Animal Cell Section -->
+            <section id="plant-vs-animal">
+                <h2 class="topic-header"><i class="fas fa-balance-scale"></i> Plant vs Animal Cell</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Comparison Table</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Plant Cell</th>
+                                    <th>Animal Cell</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Cell Shape</span></td>
+                                    <td>Square or rectangular</td>
+                                    <td>Irregular or round</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Cell Wall</span></td>
+                                    <td>Present (Cellulose)</td>
+                                    <td>Absent</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Plastids</span></td>
+                                    <td>Present</td>
+                                    <td>Absent</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Vacuoles</span></td>
+                                    <td>Few large or single central</td>
+                                    <td>Small and numerous</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Lysosomes</span></td>
+                                    <td>Present but very rare</td>
+                                    <td>Present</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Centrioles</span></td>
+                                    <td>Absent</td>
+                                    <td>Present</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Mode of Nutrition</span></td>
+                                    <td>Autotrophic</td>
+                                    <td>Heterotrophic</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Mitochondria</span></td>
+                                    <td>Present but fewer</td>
+                                    <td>Present and numerous</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="question">
+                            <strong>Q: Why cell walls are only present in plants and not animals?</strong>
+                            <p><em>Answer: Cell wall provides rigidity and fixed structure to plants which are immobile. It contains cellulose making trunks and branches strong. Animals need flexibility for movement.</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cell Division Section -->
+            <section id="cell-division">
+                <h2 class="topic-header"><i class="fas fa-divide"></i> Cell Division</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-info-circle"></i> Introduction</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li>Process through which new cells are formed in organisms.</li>
+                            <li>New cells formed for <span class="neon-text">growth, cell replacement, and reproduction</span>.</li>
+                            <li>Two main types: <span class="neon-text">Mitosis</span> and <span class="neon-text">Meiosis</span>.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Mitosis vs Meiosis</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mitosis</th>
+                                    <th>Meiosis</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Equational division</td>
+                                    <td>Reductional division</td>
+                                </tr>
+                                <tr>
+                                    <td>Two daughter cells formed</td>
+                                    <td>Four daughter cells formed</td>
+                                </tr>
+                                <tr>
+                                    <td>Same chromosome number as parent</td>
+                                    <td>Half chromosome number as parent</td>
+                                </tr>
+                                <tr>
+                                    <td>Helps in growth and repair</td>
+                                    <td>Responsible for gamete production</td>
+                                </tr>
+                                <tr>
+                                    <td>Occurs in somatic cells</td>
+                                    <td>Occurs in germ cells</td>
+                                </tr>
+                                <tr>
+                                    <td>One division cycle</td>
+                                    <td>Two division cycles</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PYQ Section -->
+            <section id="pyq">
+                <h2 class="topic-header"><i class="fas fa-question-circle"></i> Practice Questions (PYQ)</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-pen-fancy"></i> Previous Year Questions</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q1: In brief state what happens when:</strong>
+                            <p>(a) Dry apricots are left for sometime in pure water and later transferred to sugar solution?</p>
+                            <p>(b) A red blood cell is kept in concentrated saline solution?</p>
+                            <p>(c) The plasma membrane of a cell breaks down?</p>
+                            <p>(d) Rhoeo leaves are boiled in water first and then a drop of sugar syrup is put on it?</p>
+                            <p>(e) Golgi apparatus is removed from the cell?</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q2: The undefined nuclear region of prokaryotes are also known as:</strong>
+                            <p>(a) nucleus (b) nucleolus (c) nucleic acid (d) nucleoid</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q3: Lipid molecules in the cell are synthesised by:</strong>
+                            <p>(a) Smooth endoplasmic reticulum (b) Rough endoplasmic reticulum (c) Golgi apparatus (d) Plastids</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q4: Which of these options are not the functions of ribosomes?</strong>
+                            <p>I. It helps in manufacture of protein molecules.<br>
+                            II. It helps in manufacture of enzymes.<br>
+                            III. It helps in manufacture of hormones.<br>
+                            IV. It helps in manufacture of starch molecules.</p>
+                            <p>(a) I and II (b) I and III (c) III and IV (d) IV and I</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Answers Section -->
+            <section id="answers">
+                <h2 class="topic-header"><i class="fas fa-check-circle"></i> PYQ Answers</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-lightbulb"></i> Detailed Answers</h3>
+                    <div class="card-content">
+                        <div class="highlight">
+                            <strong>Q1 Answers:</strong>
+                            <p>(a) Dry apricots in pure water: <span class="neon-text">Swell due to osmosis</span>, then <span class="neon-text">shrink in sugar solution</span> due to exosmosis.</p>
+                            <p>(b) Red blood cell in concentrated saline solution: <span class="neon-text">Shrinks due to exosmosis</span> caused by water loss.</p>
+                            <p>(c) Plasma membrane breakage: <span class="neon-text">Disruption of cell integrity</span>, scattering of cell organelles.</p>
+                            <p>(d) Boiled Rhoeo leaves with sugar syrup: <span class="neon-text">No osmosis due to cell death</span>, demonstrating selective permeability.</p>
+                            <p>(e) Removal of Golgi apparatus: <span class="neon-text">Impaired protein processing, storage, and secretion</span>.</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Other Answers:</strong>
+                            <p>Q2: <span class="neon-text">(d) nucleoid</span></p>
+                            <p>Q3: <span class="neon-text">(a) Smooth endoplasmic reticulum</span></p>
+                            <p>Q4: <span class="neon-text">(c) III and IV</span></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="highlight">
+                <strong>"Be the powerhouse of your life!" - Mitochondria</strong>
+                <p style="margin-top: 10px;">Keep studying like Sultan Bhaiya says! Remember: <em>"Every cell in your body is working hard, make sure your brain cells are too!"</em> 🔬✨</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Class 9: The Fundamental Unit of Life | Neon Interactive Edition</p>
+        <p>Created with <span class="neon-text">HTML, CSS & JavaScript</span></p>
+        <p>Use this interactive page to study effectively! All notes organized with neon theme for better retention.</p>
+        <p>- Interactive Edition by Mohammad Sultan</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top-btn" id="scrollTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Highlight current section in navigation
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Show/hide scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        // Back button functionality
+        const backButton = document.getElementById('backButton');
+        
+        backButton.addEventListener('click', function(e) {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        
+        // Scroll to top button functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            
+            if (document.body.classList.contains('light-theme')) {
+                // Light theme
+                document.body.style.backgroundColor = '#f0f0f0';
+                document.body.style.color = '#333';
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.style.borderColor = '#ff9900';
+                themeToggle.style.color = '#ff9900';
+                themeToggle.style.boxShadow = '0 0 15px rgba(255, 153, 0, 0.5)';
+            } else {
+                // Dark theme (default)
+                document.body.style.backgroundColor = '';
+                document.body.style.color = '';
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.style.borderColor = '';
+                themeToggle.style.color = '';
+                themeToggle.style.boxShadow = '';
+            }
+        });
+        
+        // Add interactive hover effects to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 10px 30px rgba(0, 243, 255, 0.2)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
+        
+        // Interactive quiz reveal for practice questions
+        document.querySelectorAll('.question').forEach(question => {
+            const answer = question.querySelector('p:last-child');
+            if (answer && answer.innerHTML.includes('Answer:')) {
+                answer.style.display = 'none';
+                question.style.cursor = 'pointer';
+                
+                question.addEventListener('click', function() {
+                    if (answer.style.display === 'none') {
+                        answer.style.display = 'block';
+                        answer.style.animation = 'fadeIn 0.5s';
+                    } else {
+                        answer.style.display = 'none';
+                    }
+                });
+            }
+        });
+        
+        // Add fadeIn animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

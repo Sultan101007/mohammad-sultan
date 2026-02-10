@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.47">
+    <title>Class 9: Force & Laws of Motion | Neon Notes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --neon-blue: #0066ff;
+            --neon-red: #ff3333;
+            --neon-green: #39ff14;
+            --neon-yellow: #fff700;
+            --neon-orange: #ff9900;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #111;
+            --text: #f0f0f0;
+            --text-dim: #aaa;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 102, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 51, 51, 0.05) 0%, transparent 20%);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--darker-bg), #151515);
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 80px;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 102, 255, 0.1);
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 101;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(0, 102, 255, 0.25);
+            box-shadow: 0 0 15px rgba(0, 102, 255, 0.5);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .back-btn i {
+            font-size: 1.1rem;
+        }
+
+        .header-content {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 102, 255, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 2rem auto;
+            gap: 2rem;
+            padding: 0 1.5rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            flex: 0 0 280px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 102, 255, 0.1);
+            position: sticky;
+            top: 140px;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(0, 102, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--neon-blue);
+            border-radius: 10px;
+        }
+
+        .sidebar h3 {
+            color: var(--neon-red);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--neon-red);
+            padding-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(255, 51, 51, 0.3);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(0, 102, 255, 0.1);
+            border-left: 3px solid var(--neon-blue);
+            color: var(--neon-blue);
+            transform: translateX(5px);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(0, 102, 255, 0.15);
+            border-left: 3px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+
+        .nav-links i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.1);
+        }
+
+        .topic-header {
+            color: var(--neon-green);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+            border-bottom: 2px solid var(--neon-green);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .topic-header i {
+            margin-right: 15px;
+        }
+
+        /* Cards */
+        .card {
+            background-color: rgba(20, 20, 30, 0.7);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--neon-orange);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-title {
+            color: var(--neon-blue);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+        }
+
+        .card-content {
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .card-content ul, .card-content ol {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .card-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: rgba(0, 102, 255, 0.2);
+            color: var(--neon-blue);
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        tr:hover {
+            background-color: rgba(0, 102, 255, 0.05);
+        }
+
+        /* Highlight Box */
+        .highlight {
+            background-color: rgba(255, 51, 51, 0.1);
+            border-left: 5px solid var(--neon-red);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .highlight:before {
+            content: "!";
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--neon-red);
+            color: black;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Question Box */
+        .question {
+            background-color: rgba(57, 255, 20, 0.1);
+            border: 1px solid var(--neon-green);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .question:before {
+            content: "Q";
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            background-color: var(--neon-green);
+            color: black;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Definition Box */
+        .definition {
+            background-color: rgba(255, 153, 0, 0.1);
+            border-left: 5px solid var(--neon-orange);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        /* Formula Box */
+        .formula {
+            background-color: rgba(255, 255, 0, 0.1);
+            border: 2px dashed var(--neon-yellow);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .formula p {
+            font-size: 1.4rem;
+            color: var(--neon-yellow);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Diagram Styling */
+        .diagram-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .diagram-box {
+            background: rgba(0, 102, 255, 0.05);
+            border: 2px dashed var(--neon-blue);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .diagram-title {
+            color: var(--neon-yellow);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(0, 102, 255, 0.3);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .neon-text {
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px var(--neon-blue);
+            font-weight: bold;
+        }
+
+        .red-text {
+            color: var(--neon-red);
+            text-shadow: 0 0 5px var(--neon-red);
+        }
+
+        .yellow-text {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 5px var(--neon-yellow);
+        }
+
+        .green-text {
+            color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-red);
+            color: var(--neon-red);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 51, 51, 0.8);
+            background-color: rgba(255, 51, 51, 0.1);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(0, 102, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: static;
+                width: 100%;
+                top: 0;
+            }
+            
+            .topic-header {
+                font-size: 1.8rem;
+            }
+            
+            .back-btn {
+                position: relative;
+                left: 0;
+                top: 0;
+                transform: none;
+                margin-bottom: 1rem;
+                align-self: flex-start;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .scroll-top-btn {
+                bottom: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .card {
+                padding: 1.2rem;
+            }
+            
+            .back-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Back Button -->
+    <header>
+        <a href="#" class="back-btn" id="backButton">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+        
+        <div class="header-content">
+            <h1 class="header-title"><i class="fas fa-bolt"></i> Force & Laws of Motion</h1>
+            <p class="subtitle">Class 9 Physics | Interactive Edition by Sultan</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <h3><i class="fas fa-stream"></i> Topics</h3>
+            <ul class="nav-links">
+                <li><a href="#introduction" class="active"><i class="fas fa-info-circle"></i> Introduction</a></li>
+                <li><a href="#force"><i class="fas fa-hand-rock"></i> Force</a></li>
+                <li><a href="#balanced-forces"><i class="fas fa-balance-scale"></i> Balanced Forces</a></li>
+                <li><a href="#resultant-force"><i class="fas fa-calculator"></i> Resultant Force</a></li>
+                <li><a href="#galileo"><i class="fas fa-history"></i> Galileo's Analysis</a></li>
+                <li><a href="#inertia"><i class="fas fa-weight-hanging"></i> Inertia</a></li>
+                <li><a href="#newton-first"><i class="fas fa-law"></i> Newton's 1st Law</a></li>
+                <li><a href="#momentum"><i class="fas fa-running"></i> Momentum</a></li>
+                <li><a href="#newton-second"><i class="fas fa-cogs"></i> Newton's 2nd Law</a></li>
+                <li><a href="#newton-third"><i class="fas fa-exchange-alt"></i> Newton's 3rd Law</a></li>
+                <li><a href="#applications"><i class="fas fa-lightbulb"></i> Real-life Applications</a></li>
+                <li><a href="#pyq"><i class="fas fa-question-circle"></i> Practice Questions</a></li>
+                <li><a href="#answers"><i class="fas fa-check-circle"></i> Answers</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Introduction Section -->
+            <section id="introduction">
+                <h2 class="topic-header"><i class="fas fa-info-circle"></i> Introduction</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-quote-left"></i> What is Motion?</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Motion is the change in position of an object with respect to its surroundings in a given time."</em></p>
+                        </div>
+                        
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title"><i class="fas fa-bed"></i> Rest</h4>
+                                <p>Object's position doesn't change with time</p>
+                                <p><span class="yellow-text">Example:</span> Book on table, parked car</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title"><i class="fas fa-running"></i> Motion</h4>
+                                <p>Object's position changes with time</p>
+                                <p><span class="yellow-text">Example:</span> Moving car, flying bird</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Force Section -->
+            <section id="force">
+                <h2 class="topic-header"><i class="fas fa-hand-rock"></i> Force</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bolt"></i> Definition & Properties</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Force is a push or pull on a body that can change its state of motion or rest, or change its shape."</em></p>
+                        </div>
+                        
+                        <div class="formula">
+                            <p>SI Unit: Newton (N)</p>
+                            <p>CGS Unit: Dyne</p>
+                            <p><span class="neon-text">1 N = 100,000 dyne</span></p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Effects of Force:</strong>
+                            <ul>
+                                <li>Can make stationary body move</li>
+                                <li>Can stop moving body</li>
+                                <li>Can change direction of moving object</li>
+                                <li>Can change speed of moving body</li>
+                                <li>Can change shape and size of object</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Balanced Forces Section -->
+            <section id="balanced-forces">
+                <h2 class="topic-header"><i class="fas fa-balance-scale"></i> Balanced & Unbalanced Forces</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Comparison Table</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Balanced Force</th>
+                                    <th>Unbalanced Force</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Net force = 0</td>
+                                    <td>Net force ≠ 0</td>
+                                </tr>
+                                <tr>
+                                    <td>No change in state of motion</td>
+                                    <td>Produces change in motion</td>
+                                </tr>
+                                <tr>
+                                    <td>No acceleration</td>
+                                    <td>Causes acceleration</td>
+                                </tr>
+                                <tr>
+                                    <td>Equal magnitude, opposite direction</td>
+                                    <td>Unequal magnitude</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="green-text">Example:</span> Book on table</td>
+                                    <td><span class="red-text">Example:</span> Pushing a car</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Resultant Force Section -->
+            <section id="resultant-force">
+                <h2 class="topic-header"><i class="fas fa-calculator"></i> Resultant Force</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-plus-circle"></i> Net Force</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"The resultant force is the total force acting on an object when multiple forces are combined. Also called net force."</em></p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Key Concept:</strong>
+                            <p>Resultant force = Vector sum of all forces acting on an object</p>
+                            <p>If resultant force = 0 → Balanced forces (no change in motion)</p>
+                            <p>If resultant force ≠ 0 → Unbalanced forces (change in motion)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Galileo Section -->
+            <section id="galileo">
+                <h2 class="topic-header"><i class="fas fa-history"></i> Galileo's Analysis on Motion</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-flask"></i> Experiments & Observations</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Aristotle's Belief</th>
+                                    <th>Galileo's Opposition</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Natural state of bodies is rest</td>
+                                    <td>Bodies naturally oppose changes</td>
+                                </tr>
+                                <tr>
+                                    <td>Objects need force to keep moving</td>
+                                    <td>Objects continue moving without force (if no friction)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="highlight">
+                            <strong>Galileo's Observations:</strong>
+                            <ul>
+                                <li>Ball rolling down inclined plane: Speed increases</li>
+                                <li>Ball rolling up inclined plane: Speed decreases</li>
+                                <li>On smooth horizontal plane: Ball continues moving with constant speed</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Conclusion:</strong>
+                            <p>Bodies naturally oppose changes in their state of rest or motion. This property is called <span class="neon-text">Inertia</span>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inertia Section -->
+            <section id="inertia">
+                <h2 class="topic-header"><i class="fas fa-weight-hanging"></i> Inertia</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-info-circle"></i> Definition</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Inertia is the property of matter by which it tries to maintain its state of rest or uniform motion along a straight line."</em></p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Key Points:</strong>
+                            <ul>
+                                <li>Inertia is measured by mass</li>
+                                <li>Inertia ∝ Mass (directly proportional)</li>
+                                <li>More mass = More inertia</li>
+                                <li>Less mass = Less inertia</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bed"></i> Inertia of Rest</h3>
+                    <div class="card-content">
+                        <p>An object stays at rest until external force affects it.</p>
+                        <div class="question">
+                            <strong>Example:</strong>
+                            <p>When a car accelerates suddenly, passengers feel pushed backward. Actually, their bodies tend to stay at rest due to inertia while the car moves forward.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-running"></i> Inertia of Motion</h3>
+                    <div class="card-content">
+                        <p>An object continues in motion until a force acts on it.</p>
+                        <div class="question">
+                            <strong>Example:</strong>
+                            <p>A hockey puck slides on ice until friction or another force stops it.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-question-circle"></i> Inertia Examples</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q: Why does a person fall backward when bus starts suddenly?</strong>
+                            <p><em>Answer: Legs move with bus, but upper body tends to stay at rest due to inertia.</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Why does a person fall forward when bus brakes suddenly?</strong>
+                            <p><em>Answer: Bus stops but upper body tends to continue moving due to inertia.</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Why use seat belts?</strong>
+                            <p><em>Answer: Prevent forward movement during sudden stops (inertia of motion).</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Newton's First Law Section -->
+            <section id="newton-first">
+                <h2 class="topic-header"><i class="fas fa-law"></i> Newton's First Law of Motion</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-book"></i> Statement</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"A body remains in the state of rest or uniform motion in a straight line unless and until an external force acts on it."</em></p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Two Conditions:</strong>
+                            <ol>
+                                <li><span class="neon-text">Object at rest:</span> v = 0, a = 0 → Stays at rest</li>
+                                <li><span class="neon-text">Object in motion:</span> v ≠ 0, a = 0 → Continues with constant velocity</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="formula">
+                            <p><span class="neon-text">Newton's First Law = Law of Inertia</span></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Momentum Section -->
+            <section id="momentum">
+                <h2 class="topic-header"><i class="fas fa-running"></i> Momentum</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-calculator"></i> Definition & Formula</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Momentum is the quantity of motion an object has."</em></p>
+                        </div>
+                        
+                        <div class="formula">
+                            <p>\[p = m \times v\]</p>
+                            <p>Where:<br>
+                            p = momentum (kg m/s)<br>
+                            m = mass (kg)<br>
+                            v = velocity (m/s)</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Impulse:</strong>
+                            <p>Impulse = Force × Time</p>
+                            <p>Impulse = Change in momentum</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-exclamation-triangle"></i> Momentum Examples</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Why does a small bullet kill?</strong>
+                            <p><em>Answer: High velocity gives it large momentum (p = mv).</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Why does moving vehicle cause severe injury?</strong>
+                            <p><em>Answer: Large mass × velocity = large momentum.</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Newton's Second Law Section -->
+            <section id="newton-second">
+                <h2 class="topic-header"><i class="fas fa-cogs"></i> Newton's Second Law of Motion</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-book"></i> Statement</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"The rate of change of momentum of an object is directly proportional to the applied unbalanced force in the direction of the force."</em></p>
+                        </div>
+                        
+                        <div class="formula">
+                            <p>\[F \propto \frac{\Delta p}{\Delta t}\]</p>
+                            <p>\[F \propto \frac{m(v-u)}{t}\]</p>
+                            <p>\[F \propto m \times a\]</p>
+                            <p>\[F = k \times m \times a \quad (k = 1)\]</p>
+                            <p><span class="neon-text">\[F = m \times a\]</span></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-ruler"></i> Force vs Momentum</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Force (F = ma)</th>
+                                    <th>Momentum (p = mv)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Can exist when object stationary</td>
+                                    <td>Zero for stationary objects</td>
+                                </tr>
+                                <tr>
+                                    <td>Direction depends on acceleration</td>
+                                    <td>Direction depends on velocity</td>
+                                </tr>
+                                <tr>
+                                    <td>F ∝ 1/t (inversely proportional)</td>
+                                    <td>p ∝ t (directly proportional)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-lightbulb"></i> Applications</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q: Why does fielder pull hands back while catching?</strong>
+                            <p><em>Answer: Increases time → decreases acceleration → reduces force (F = ma).</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Why fall on sand instead of concrete?</strong>
+                            <p><em>Answer: Sand increases time of fall → reduces force of impact.</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Why karate player uses quick strike?</strong>
+                            <p><em>Answer: High acceleration → large force (F = ma).</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Newton's Third Law Section -->
+            <section id="newton-third">
+                <h2 class="topic-header"><i class="fas fa-exchange-alt"></i> Newton's Third Law of Motion</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-book"></i> Statement</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"To every action, there is an equal and opposite reaction."</em></p>
+                        </div>
+                        
+                        <div class="formula">
+                            <p>\[F_{1} = -F_{2}\]</p>
+                            <p>Action and reaction forces are:
+                            <br>• Equal in magnitude
+                            <br>• Opposite in direction
+                            <br>• Act on different bodies</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-question-circle"></i> Examples</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q: Why do both players get hurt in collision?</strong>
+                            <p><em>Answer: Each exerts equal opposite force on other (action-reaction).</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Why does gun recoil when fired?</strong>
+                            <p><em>Answer: Gun pushes bullet forward, bullet pushes gun backward.</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Why does rocket move upward?</strong>
+                            <p><em>Answer: Rocket pushes gases down, gases push rocket up.</em></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Why swimmer pushes water backward?</strong>
+                            <p><em>Answer: To get forward push from water (reaction).</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Applications Section -->
+            <section id="applications">
+                <h2 class="topic-header"><i class="fas fa-lightbulb"></i> Real-life Applications</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-car"></i> Transportation</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li><span class="neon-text">Seat belts:</span> Prevent injury due to inertia during sudden stops</li>
+                            <li><span class="neon-text">Airbags:</span> Increase time of impact → reduce force</li>
+                            <li><span class="neon-text">Crumple zones:</span> Increase collision time → reduce force on passengers</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-baseball-ball"></i> Sports</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li><span class="neon-text">Cricket:</span> Fielder pulls hands back to catch</li>
+                            <li><span class="neon-text">High jump:</span> Fall on cushioned beds</li>
+                            <li><span class="neon-text">Running:</span> Push ground backward to move forward</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-home"></i> Daily Life</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li><span class="neon-text">Shaking wet clothes:</span> Water droplets fall due to inertia</li>
+                            <li><span class="neon-text">Hammer tightening:</span> Inertia of hammer head</li>
+                            <li><span class="neon-text">Coin in glass trick:</span> Inertia of rest</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PYQ Section -->
+            <section id="pyq">
+                <h2 class="topic-header"><i class="fas fa-question-circle"></i> Practice Questions (PYQ)</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-pen-fancy"></i> Previous Year Questions</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q1: Between a football and rock of same size, which has more inertia? (CBSE 2016, 2018)</strong>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q2: What is momentum of body of mass 5 kg moving at 0.20 m/s? (CBSE 2016, 2019)</strong>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q3: Mass of goods lorry = 4000 kg, goods = 20000 kg, velocity = 2 m/s. Find momentum.</strong>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q4: Define SI unit of force. Force of 2N changes velocity from 2 m/s to 5 m/s in 10s. Find mass.</strong>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q5: 8000 kg engine pulls 5 wagons (2000 kg each). Engine force = 40000 N, friction = 5000 N. Find net accelerating force.</strong>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q6: If moon attracts earth, why doesn't earth move toward moon?</strong>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q7: Bullet mass = 10 g, time in barrel = 0.004 s, final velocity = 400 m/s. Find force on bullet.</strong>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Answers Section -->
+            <section id="answers">
+                <h2 class="topic-header"><i class="fas fa-check-circle"></i> Answers</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-lightbulb"></i> Detailed Answers</h3>
+                    <div class="card-content">
+                        <div class="highlight">
+                            <strong>Q1:</strong>
+                            <p><span class="neon-text">Rock has more inertia</span> because inertia ∝ mass. Rock has greater mass than football of same size.</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Q2:</strong>
+                            <p>\[p = m \times v = 5 \times 0.20 = 1 \, \text{kg m/s}\]</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Q3:</strong>
+                            <p>Total mass = 4000 + 20000 = 24000 kg<br>
+                            \[p = m \times v = 24000 \times 2 = 48000 \, \text{kg m/s}\]</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Q4:</strong>
+                            <p>1 Newton = Force that gives 1 kg mass acceleration of 1 m/s²<br>
+                            Using F = ma → a = (v-u)/t = (5-2)/10 = 0.3 m/s²<br>
+                            \[m = F/a = 2/0.3 = 6.67 \, \text{kg}\]</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Q5:</strong>
+                            <p>Total mass = 8000 + (5×2000) = 8000 + 10000 = 18000 kg<br>
+                            Net force = Engine force - Friction = 40000 - 5000 = 35000 N</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Q6:</strong>
+                            <p>Earth also attracts moon with equal force. Both move around their common center of mass. Earth's mass is much larger, so its acceleration is negligible.</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Q7:</strong>
+                            <p>m = 10 g = 0.01 kg, u = 0, v = 400 m/s, t = 0.004 s<br>
+                            \[a = (v-u)/t = 400/0.004 = 100000 \, \text{m/s}^2\]<br>
+                            \[F = ma = 0.01 \times 100000 = 1000 \, \text{N}\]</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="highlight">
+                <strong>"Shake off the inertia of distractions—don't lose focus until your goals are in motion!" - Sultan</strong>
+                <p style="margin-top: 10px;">Remember: <em>"Force is not just physics, it's the push you need to achieve your dreams!"</em> ⚡🚀</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Class 9: Force & Laws of Motion | Interactive Physics Edition</p>
+        <p>Created with <span class="neon-text">HTML, CSS & JavaScript</span> | All concepts explained with real-life examples</p>
+        <p>- Interactive Edition by Sultan</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top-btn" id="scrollTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Highlight current section in navigation
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Show/hide scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        // Back button functionality
+        const backButton = document.getElementById('backButton');
+        
+        backButton.addEventListener('click', function(e) {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        
+        // Scroll to top button functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            
+            if (document.body.classList.contains('light-theme')) {
+                // Light theme
+                document.body.style.backgroundColor = '#f0f0f0';
+                document.body.style.color = '#333';
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.style.borderColor = '#ff9900';
+                themeToggle.style.color = '#ff9900';
+                themeToggle.style.boxShadow = '0 0 15px rgba(255, 153, 0, 0.5)';
+                
+                // Update cards for light theme
+                document.querySelectorAll('.card').forEach(card => {
+                    card.style.backgroundColor = '#fff';
+                    card.style.color = '#333';
+                });
+                
+                document.querySelectorAll('.sidebar, .content').forEach(el => {
+                    el.style.backgroundColor = '#fff';
+                    el.style.color = '#333';
+                });
+            } else {
+                // Dark theme (default)
+                document.body.style.backgroundColor = '';
+                document.body.style.color = '';
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.style.borderColor = '';
+                themeToggle.style.color = '';
+                themeToggle.style.boxShadow = '';
+                
+                // Reset cards to dark theme
+                document.querySelectorAll('.card').forEach(card => {
+                    card.style.backgroundColor = '';
+                    card.style.color = '';
+                });
+                
+                document.querySelectorAll('.sidebar, .content').forEach(el => {
+                    el.style.backgroundColor = '';
+                    el.style.color = '';
+                });
+            }
+        });
+        
+        // Add interactive hover effects to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 10px 30px rgba(0, 102, 255, 0.2)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
+        
+        // Interactive quiz reveal for practice questions
+        document.querySelectorAll('#pyq .question').forEach(question => {
+            const answer = question.querySelector('p:last-child');
+            if (!answer || !answer.innerHTML.includes('Answer:')) {
+                question.style.cursor = 'pointer';
+                
+                question.addEventListener('click', function() {
+                    const answerSection = document.getElementById('answers');
+                    const correspondingAnswer = answerSection.querySelector(`.highlight:nth-child(${Array.from(document.querySelectorAll('#pyq .question')).indexOf(this) + 1})`);
+                    
+                    if (correspondingAnswer) {
+                        window.scrollTo({
+                            top: correspondingAnswer.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Highlight the answer briefly
+                        correspondingAnswer.style.animation = 'flash 1s';
+                        setTimeout(() => {
+                            correspondingAnswer.style.animation = '';
+                        }, 1000);
+                    }
+                });
+            }
+        });
+        
+        // Add animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            @keyframes flash {
+                0%, 100% { background-color: rgba(255, 51, 51, 0.1); }
+                50% { background-color: rgba(255, 51, 51, 0.3); }
+            }
+            
+            .card {
+                animation: fadeIn 0.5s ease-out;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Add physics-related interactivity
+        document.querySelectorAll('.formula').forEach(formula => {
+            formula.addEventListener('click', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.transition = 'transform 0.2s';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>

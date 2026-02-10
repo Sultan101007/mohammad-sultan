@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.47">
+    <title>Class 9: Motion | Neon Notes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-green: #39ff14;
+            --neon-yellow: #fff700;
+            --neon-purple: #9d00ff;
+            --neon-blue: #0066ff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #111;
+            --text: #f0f0f0;
+            --text-dim: #aaa;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 102, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(157, 0, 255, 0.05) 0%, transparent 20%);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--darker-bg), #151515);
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 80px;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 102, 255, 0.1);
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 101;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(0, 102, 255, 0.25);
+            box-shadow: 0 0 15px rgba(0, 102, 255, 0.5);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .back-btn i {
+            font-size: 1.1rem;
+        }
+
+        .header-content {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 102, 255, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--neon-yellow);
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 2rem auto;
+            gap: 2rem;
+            padding: 0 1.5rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            flex: 0 0 280px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 102, 255, 0.1);
+            position: sticky;
+            top: 140px;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(0, 102, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--neon-blue);
+            border-radius: 10px;
+        }
+
+        .sidebar h3 {
+            color: var(--neon-purple);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--neon-purple);
+            padding-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(157, 0, 255, 0.3);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(0, 102, 255, 0.1);
+            border-left: 3px solid var(--neon-blue);
+            color: var(--neon-blue);
+            transform: translateX(5px);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(0, 102, 255, 0.15);
+            border-left: 3px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-weight: bold;
+        }
+
+        .nav-links i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 0, 0.2);
+            box-shadow: 0 0 20px rgba(255, 255, 0, 0.1);
+        }
+
+        .topic-header {
+            color: var(--neon-blue);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 102, 255, 0.3);
+            border-bottom: 2px solid var(--neon-blue);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .topic-header i {
+            margin-right: 15px;
+        }
+
+        /* Cards */
+        .card {
+            background-color: rgba(20, 20, 30, 0.7);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--neon-purple);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-title {
+            color: var(--neon-blue);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+        }
+
+        .card-content {
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .card-content ul, .card-content ol {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .card-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: rgba(0, 102, 255, 0.2);
+            color: var(--neon-blue);
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        tr:hover {
+            background-color: rgba(0, 102, 255, 0.05);
+        }
+
+        /* Highlight Box */
+        .highlight {
+            background-color: rgba(157, 0, 255, 0.1);
+            border-left: 5px solid var(--neon-purple);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .highlight:before {
+            content: "!";
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--neon-purple);
+            color: black;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Question Box */
+        .question {
+            background-color: rgba(255, 255, 0, 0.1);
+            border: 1px solid var(--neon-yellow);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .question:before {
+            content: "Q";
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            background-color: var(--neon-yellow);
+            color: black;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Definition Box */
+        .definition {
+            background-color: rgba(0, 243, 255, 0.1);
+            border-left: 5px solid var(--neon-cyan);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        /* Formula Box */
+        .formula-box {
+            background-color: rgba(255, 0, 255, 0.1);
+            border: 2px solid var(--neon-pink);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+
+        .formula {
+            font-size: 1.3rem;
+            color: var(--neon-pink);
+            margin: 0.5rem 0;
+        }
+
+        /* Motion Visual Box */
+        .motion-visual {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .motion-item {
+            background: rgba(0, 102, 255, 0.05);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .motion-item:hover {
+            background: rgba(0, 102, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .motion-name {
+            color: var(--neon-cyan);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Graph Container */
+        .graph-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .graph-box {
+            background: rgba(157, 0, 255, 0.05);
+            border: 1px solid rgba(157, 0, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .graph-title {
+            color: var(--neon-purple);
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(0, 102, 255, 0.3);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .neon-text {
+            color: var(--neon-blue);
+            text-shadow: 0 0 5px var(--neon-blue);
+            font-weight: bold;
+        }
+
+        .purple-text {
+            color: var(--neon-purple);
+            text-shadow: 0 0 5px var(--neon-purple);
+        }
+
+        .yellow-text {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 5px var(--neon-yellow);
+        }
+
+        .cyan-text {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+            background-color: rgba(255, 0, 255, 0.1);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: static;
+                width: 100%;
+                top: 0;
+            }
+            
+            .topic-header {
+                font-size: 1.8rem;
+            }
+            
+            .back-btn {
+                position: relative;
+                left: 0;
+                top: 0;
+                transform: none;
+                margin-bottom: 1rem;
+                align-self: flex-start;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .scroll-top-btn {
+                bottom: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .card {
+                padding: 1.2rem;
+            }
+            
+            .back-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .motion-visual {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Back Button -->
+    <header>
+        <a href="physics.html" class="back-btn" id="backButton">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+        
+        <div class="header-content">
+            <h1 class="header-title"><i class="fas fa-bolt"></i> MOTION</h1>
+            <p class="subtitle">Class 9 Physics   | Neon Interactive Edition</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <h3><i class="fas fa-stream"></i> Topics</h3>
+            <ul class="nav-links">
+                <li><a href="#introduction" class="active"><i class="fas fa-info-circle"></i> Introduction</a></li>
+                <li><a href="#rest-motion"><i class="fas fa-pause"></i> Rest & Motion</a></li>
+                <li><a href="#physical-quantities"><i class="fas fa-balance-scale"></i> Physical Quantities</a></li>
+                <li><a href="#distance-displacement"><i class="fas fa-road"></i> Distance vs Displacement</a></li>
+                <li><a href="#speed-velocity"><i class="fas fa-tachometer-alt"></i> Speed & Velocity</a></li>
+                <li><a href="#acceleration"><i class="fas fa-running"></i> Acceleration</a></li>
+                <li><a href="#uniform-nonuniform"><i class="fas fa-chart-line"></i> Uniform & Non-uniform</a></li>
+                <li><a href="#equations"><i class="fas fa-calculator"></i> Equations of Motion</a></li>
+                <li><a href="#graphs"><i class="fas fa-chart-bar"></i> Graphical Representation</a></li>
+                <li><a href="#free-fall"><i class="fas fa-feather-alt"></i> Free Fall</a></li>
+                <li><a href="#circular-motion"><i class="fas fa-sync-alt"></i> Circular Motion</a></li>
+                <li><a href="#numericals"><i class="fas fa-calculator"></i> Numerical Problems</a></li>
+                <li><a href="#practice-questions"><i class="fas fa-question-circle"></i> Practice Questions</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Introduction Section -->
+            <section id="introduction">
+                <h2 class="topic-header"><i class="fas fa-info-circle"></i> Motion</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-quote-left"></i> What is Motion?</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"An object is said to be in motion when its position changes with time."</em></p>
+                        </div>
+                        
+                        <ul>
+                            <li>To describe the position of an object, we need a <span class="neon-text">reference point or origin</span>.</li>
+                            <li><span class="neon-text">Examples:</span> Movement of dust, leaves, branches</li>
+                            <li>Phenomena of sunrise, sunset, and changing seasons are due to <span class="neon-text">Earth's motion</span>.</li>
+                            <li>Motion is a <span class="neon-text">relative concept</span> - depends on the observer's frame of reference.</li>
+                        </ul>
+                        
+                        <div class="motion-visual">
+                            <div class="motion-item">
+                                <div class="motion-name">Linear Motion</div>
+                                <i class="fas fa-arrow-right fa-2x cyan-text"></i>
+                                <div>Straight line movement</div>
+                            </div>
+                            <div class="motion-item">
+                                <div class="motion-name">Circular Motion</div>
+                                <i class="fas fa-sync-alt fa-2x purple-text"></i>
+                                <div>Movement along circle</div>
+                            </div>
+                            <div class="motion-item">
+                                <div class="motion-name">Oscillatory Motion</div>
+                                <i class="fas fa-wave-square fa-2x yellow-text"></i>
+                                <div>To and fro movement</div>
+                            </div>
+                            <div class="motion-item">
+                                <div class="motion-name">Random Motion</div>
+                                <i class="fas fa-random fa-2x blue-text"></i>
+                                <div>Irregular movement</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rest & Motion Section -->
+            <section id="rest-motion">
+                <h2 class="topic-header"><i class="fas fa-pause"></i> Rest & Motion</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bed"></i> Rest</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"A body is said to be in a state of rest when its position does not change with time."</em></p>
+                        </div>
+                        
+                        <ul>
+                            <li><span class="neon-text">Examples:</span> Sleeping, sitting, standing, lying</li>
+                            <li>Rest is <span class="neon-text">relative</span> - depends on the observer</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-plane"></i> Motion is Relative</h3>
+                    <div class="card-content">
+                        <div class="highlight">
+                            <strong>Key Concept:</strong>
+                            <p>A body can be moving for one observer, and at the same time at rest for another observer.</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Example:</strong>
+                            <p>A person sitting in an airplane is at zero velocity relative to the airplane, but is moving at the same velocity as the airplane with respect to the ground.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Physical Quantities Section -->
+            <section id="physical-quantities">
+                <h2 class="topic-header"><i class="fas fa-balance-scale"></i> Physical Quantities</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Scalar vs Vector Quantities</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"A physical quantity is a property of a material or system that can be measured and quantified."</em></p>
+                        </div>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Scalar Quantity</th>
+                                    <th>Vector Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Has only magnitude</td>
+                                    <td>Has both magnitude and direction</td>
+                                </tr>
+                                <tr>
+                                    <td>No direction specified</td>
+                                    <td>Direction is essential</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Examples:</span> distance, speed, mass, time</td>
+                                    <td><span class="neon-text">Examples:</span> displacement, velocity, acceleration, force</td>
+                                </tr>
+                                <tr>
+                                    <td>Added algebraically</td>
+                                    <td>Added vectorially</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Distance vs Displacement Section -->
+            <section id="distance-displacement">
+                <h2 class="topic-header"><i class="fas fa-road"></i> Distance vs Displacement</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Comparison Table</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Distance</th>
+                                    <th>Displacement</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Actual length of path travelled</td>
+                                    <td>Shortest distance between initial and final position</td>
+                                </tr>
+                                <tr>
+                                    <td>Always positive</td>
+                                    <td>Can be positive, negative, or zero</td>
+                                </tr>
+                                <tr>
+                                    <td>Depends on path followed</td>
+                                    <td>Independent of path followed</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Scalar quantity</span></td>
+                                    <td><span class="neon-text">Vector quantity</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="question">
+                            <strong>Q: Can an object have zero displacement if it has moved a certain distance?</strong>
+                            <p><strong>Answer:</strong> Yes, if an object returns to its starting point, displacement is zero but distance traveled is not zero.</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: A body is moving along a circular path of radius 7 cm. What is the distance and displacement when it completes half a revolution?</strong>
+                            <p>a. Distance: 14 cm, Displacement: 0 cm</p>
+                            <p>b. Distance: 22 cm, Displacement: 7 cm</p>
+                            <p>c. Distance: 22 cm, Displacement: 14 cm</p>
+                            <p>d. Distance: 44 cm, Displacement: 14 cm</p>
+                            <p><strong>Answer: c. Distance: 22 cm, Displacement: 14 cm</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Speed & Velocity Section -->
+            <section id="speed-velocity">
+                <h2 class="topic-header"><i class="fas fa-tachometer-alt"></i> Speed & Velocity</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bolt"></i> Speed</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Speed is the distance traveled by an object in unit time."</em></p>
+                        </div>
+                        
+                        <div class="formula-box">
+                            <div class="formula">Speed = Distance / Time</div>
+                            <div class="formula">s = d/t</div>
+                        </div>
+                        
+                        <ul>
+                            <li><span class="neon-text">SI Unit:</span> meters per second (m/s)</li>
+                            <li><span class="neon-text">Commercial Unit:</span> km/hr</li>
+                            <li><span class="neon-text">Average Speed:</span> Total distance / Total time</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-location-arrow"></i> Velocity</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Velocity is the rate of change of displacement or speed with direction."</em></p>
+                        </div>
+                        
+                        <div class="formula-box">
+                            <div class="formula">Velocity = Displacement / Time</div>
+                            <div class="formula">v = s/t</div>
+                            <div class="formula">Average Velocity = (Initial + Final Velocity)/2</div>
+                            <div class="formula">v<sub>av</sub> = (u + v)/2</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Speed vs Velocity</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Speed</th>
+                                    <th>Velocity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Rate at which distance is covered</td>
+                                    <td>Rate at which position changes with direction</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Scalar quantity</span></td>
+                                    <td><span class="neon-text">Vector quantity</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Indicates how fast object moves</td>
+                                    <td>Indicates how fast + direction</td>
+                                </tr>
+                                <tr>
+                                    <td>Never zero or negative</td>
+                                    <td>Can be zero, negative or positive</td>
+                                </tr>
+                                <tr>
+                                    <td>Formula: distance/time</td>
+                                    <td>Formula: displacement/time</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="question">
+                            <strong>Q: A car travels a distance of 200 km from Delhi to Ambala towards North in 5 hours. Calculate (i) speed, and (ii) velocity.</strong>
+                            <p><strong>Answer:</strong></p>
+                            <p>(i) Speed = 200/5 = 40 km/hr</p>
+                            <p>(ii) Velocity = 200/5 = 40 km/hr towards North</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Acceleration Section -->
+            <section id="acceleration">
+                <h2 class="topic-header"><i class="fas fa-running"></i> Acceleration</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-chart-line"></i> Acceleration & Retardation</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Acceleration is the rate of change of velocity with time."</em></p>
+                        </div>
+                        
+                        <div class="formula-box">
+                            <div class="formula">Acceleration = (Final Velocity - Initial Velocity) / Time</div>
+                            <div class="formula">a = (v - u)/t</div>
+                        </div>
+                        
+                        <ul>
+                            <li><span class="neon-text">Positive Acceleration:</span> Velocity increases with time</li>
+                            <li><span class="neon-text">Negative Acceleration (Retardation):</span> Velocity decreases with time</li>
+                            <li><span class="neon-text">SI Unit:</span> m/s²</li>
+                            <li><span class="neon-text">Retardation:</span> Same as acceleration but negative value</li>
+                        </ul>
+                        
+                        <div class="highlight">
+                            <strong>Example of Retardation:</strong>
+                            <p>A plane landing slows down - this is retardation or deceleration.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Uniform & Non-uniform Motion Section -->
+            <section id="uniform-nonuniform">
+                <h2 class="topic-header"><i class="fas fa-chart-line"></i> Uniform & Non-uniform Motion</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Uniform vs Non-uniform Motion</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Uniform Motion</th>
+                                    <th>Non-uniform Motion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Equal distance in equal time intervals</td>
+                                    <td>Unequal distance in equal time intervals</td>
+                                </tr>
+                                <tr>
+                                    <td>Constant speed</td>
+                                    <td>Variable speed</td>
+                                </tr>
+                                <tr>
+                                    <td>Zero acceleration</td>
+                                    <td>Non-zero acceleration</td>
+                                </tr>
+                                <tr>
+                                    <td>Straight line distance-time graph</td>
+                                    <td>Curved line distance-time graph</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Example:</span> Truck on highway</td>
+                                    <td><span class="neon-text">Example:</span> Accelerating vehicle</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Uniform vs Non-uniform Acceleration</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Uniform Acceleration</th>
+                                    <th>Non-uniform Acceleration</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Equal velocity increase in equal time</td>
+                                    <td>Unequal velocity change in equal time</td>
+                                </tr>
+                                <tr>
+                                    <td>Straight line velocity-time graph</td>
+                                    <td>Curved line velocity-time graph</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Example:</span> Free-fall object</td>
+                                    <td><span class="neon-text">Example:</span> Circular motion</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Equations of Motion Section -->
+            <section id="equations">
+                <h2 class="topic-header"><i class="fas fa-calculator"></i> Equations of Motion</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-superscript"></i> Three Equations of Motion</h3>
+                    <div class="card-content">
+                        <div class="formula-box">
+                            <div class="formula">v = u + at</div>
+                            <p>Velocity-Time Relation</p>
+                        </div>
+                        
+                        <div class="formula-box">
+                            <div class="formula">s = ut + ½at²</div>
+                            <p>Displacement-Time Relation</p>
+                        </div>
+                        
+                        <div class="formula-box">
+                            <div class="formula">v² = u² + 2as</div>
+                            <p>Displacement-Velocity Relation</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Notation:</strong>
+                            <ul>
+                                <li><span class="neon-text">u</span> = Initial velocity (m/s)</li>
+                                <li><span class="neon-text">v</span> = Final velocity (m/s)</li>
+                                <li><span class="neon-text">a</span> = Acceleration (m/s²)</li>
+                                <li><span class="neon-text">t</span> = Time (s)</li>
+                                <li><span class="neon-text">s</span> = Displacement (m)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Graphical Representation Section -->
+            <section id="graphs">
+                <h2 class="topic-header"><i class="fas fa-chart-bar"></i> Graphical Representation</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-chart-line"></i> Distance-Time Graphs</h3>
+                    <div class="card-content">
+                        <div class="graph-container">
+                            <div class="graph-box">
+                                <div class="graph-title">Uniform Motion</div>
+                                <p>Straight line with constant slope</p>
+                                <p><span class="neon-text">Slope</span> = Speed</p>
+                            </div>
+                            <div class="graph-box">
+                                <div class="graph-title">Non-uniform Motion</div>
+                                <p>Curved line</p>
+                                <p>Changing slope = Changing speed</p>
+                            </div>
+                            <div class="graph-box">
+                                <div class="graph-title">Body at Rest</div>
+                                <p>Straight line parallel to time axis</p>
+                                <p>Zero slope = Zero speed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-chart-area"></i> Velocity-Time Graphs</h3>
+                    <div class="card-content">
+                        <div class="graph-container">
+                            <div class="graph-box">
+                                <div class="graph-title">Uniform Motion</div>
+                                <p>Straight line parallel to time axis</p>
+                                <p><span class="neon-text">Area</span> under graph = Distance</p>
+                            </div>
+                            <div class="graph-box">
+                                <div class="graph-title">Uniform Acceleration</div>
+                                <p>Straight line with positive slope</p>
+                                <p><span class="neon-text">Slope</span> = Acceleration</p>
+                            </div>
+                            <div class="graph-box">
+                                <div class="graph-title">Non-uniform Acceleration</div>
+                                <p>Curved line</p>
+                                <p>Changing slope = Changing acceleration</p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: a) What can you say about the motion of an object whose distance-time graph is a straight line parallel to the time axis?</strong>
+                            <p><strong>Answer:</strong> The object is at rest (zero speed).</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: b) What can you say about the motion of an object if its speed-time graph is a straight line parallel to the time axis?</strong>
+                            <p><strong>Answer:</strong> The object is moving with constant speed (uniform motion).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Free Fall Section -->
+            <section id="free-fall">
+                <h2 class="topic-header"><i class="fas fa-feather-alt"></i> Free Fall</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-arrow-down"></i> Motion Under Gravity</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Free fall motion under gravity is when an object moves only under the influence of gravity, without any other external forces acting upon it."</em></p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Key Points:</strong>
+                            <ul>
+                                <li>Acceleration due to gravity: <span class="neon-text">g = 9.8 m/s²</span></li>
+                                <li>For free fall, use equations of motion with <span class="neon-text">a = g</span></li>
+                                <li>All objects fall with same acceleration (neglecting air resistance)</li>
+                                <li>At maximum height, velocity = 0</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Circular Motion Section -->
+            <section id="circular-motion">
+                <h2 class="topic-header"><i class="fas fa-sync-alt"></i> Uniform Circular Motion</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-circle"></i> Circular Motion Basics</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"The motion of an object along a circular path covering equal distance along the circumference in the same interval of time."</em></p>
+                        </div>
+                        
+                        <div class="formula-box">
+                            <div class="formula">v = 2πr/t</div>
+                            <p>Velocity for circular path with radius r and time t</p>
+                        </div>
+                        
+                        <ul>
+                            <li><span class="neon-text">Examples:</span> Moon around Earth, Earth around Sun, cyclist on circular track</li>
+                            <li>Speed remains constant, but <span class="neon-text">direction of velocity changes</span></li>
+                            <li>Even though speed is constant, it's <span class="neon-text">accelerated motion</span> (direction changes)</li>
+                            <li>Centripetal acceleration acts towards the center</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Numerical Problems Section -->
+            <section id="numericals">
+                <h2 class="topic-header"><i class="fas fa-calculator"></i> Numerical Problems</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-car"></i> Problem 1: Car Acceleration</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q: A car starts from rest, and accelerates at a constant rate. After 0.25 min, it is moving with a velocity of 25 m/s. At what rate is the car accelerating?</strong>
+                            <p>a. 1 m/s² b. 1.33 m/s² c. 1.67 m/s² d. 2 m/s²</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Solution:</strong>
+                            <p>Given: u = 0, t = 0.25 × 60 = 15 s, v = 25 m/s</p>
+                            <p>Using v = u + at</p>
+                            <p>25 = 0 + a × 15</p>
+                            <p>a = 25/15 = 1.67 m/s²</p>
+                            <p><strong>Answer: c. 1.67 m/s²</strong></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-truck"></i> Problem 2: Truck Braking</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q: A truck came to rest when the brake was applied for 4s to get retardation of 3 m/s². Calculate how far the truck would have travelled after applying the brake.</strong>
+                            <p>a. 6 m b. 12 m c. 24 m d. 48 m</p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Solution:</strong>
+                            <p>Given: v = 0, t = 4 s, a = -3 m/s²</p>
+                            <p>First find u: v = u + at → 0 = u + (-3)×4 → u = 12 m/s</p>
+                            <p>Using v² = u² + 2as</p>
+                            <p>0 = (12)² + 2×(-3)×s</p>
+                            <p>0 = 144 - 6s → 6s = 144 → s = 24 m</p>
+                            <p><strong>Answer: c. 24 m</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section id="practice-questions">
+                <h2 class="topic-header"><i class="fas fa-question-circle"></i> Practice Questions</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-star"></i> Multiple Choice Questions</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>1. Which of the following statements is correct?</strong>
+                            <p>a) Both speed and velocity are same</p>
+                            <p>b) Speed is a scalar and velocity is a vector</p>
+                            <p>c) Speed is a vector and velocity is scalar</p>
+                            <p>d) None of these</p>
+                            <p><strong>Answer: b) Speed is a scalar and velocity is a vector</strong></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>2. If a body starts from rest, what can be said about the acceleration of the body?</strong>
+                            <p>a) Positively accelerated</p>
+                            <p>b) Negatively accelerated</p>
+                            <p>c) Uniformly accelerated</p>
+                            <p>d) None of the above</p>
+                            <p><strong>Answer: a) Positively accelerated</strong></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>3. The area under a velocity-time (v-t) graph represents a physical quantity which has the unit _____.</strong>
+                            <p><strong>Answer: Distance or Displacement (meters)</strong></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>4. A farmer moves along a square field of 10 m in 40 s. What will the farmer's magnitude of displacement be at the end of 2 minutes 20 seconds from his initial position?</strong>
+                            <p><strong>Answer: 10√2 m (diagonal of square)</strong></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>5. A cyclist on a training ride records the distance she travels away from home. The data only shows the first 150 minutes of the ride before her cycling computer ran out of battery.</strong>
+                            <p>a) How far did she ride in the first 150 minutes?</p>
+                            <p>b) For how long was she stationary?</p>
+                            <p><strong>Answer:</strong> (Requires graph data from question)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="highlight">
+                <strong>"Life's velocity will always change, just make sure you give in the right direction!" - Motion</strong>
+                <p style="margin-top: 10px;">Keep studying like Sultan Bhaiya says! Remember: <em>"In physics and in life, direction matters as much as speed!"</em> ⚡✨</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Class 9: MOTION | Neon Interactive Edition</p>
+        <p>  Created with <span class="neon-text">HTML, CSS & JavaScript</span></p>
+        <p>Use this interactive page to study effectively! All notes organized with neon theme for better retention.</p>
+        <p>- Interactive Edition by Mohammad Sultan</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top-btn" id="scrollTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Highlight current section in navigation
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Show/hide scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        // Back button functionality
+        const backButton = document.getElementById('backButton');
+        
+        backButton.addEventListener('click', function(e) {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        
+        // Scroll to top button functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            
+            if (document.body.classList.contains('light-theme')) {
+                // Light theme
+                document.body.style.backgroundColor = '#f0f0f0';
+                document.body.style.color = '#333';
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.style.borderColor = '#ff9900';
+                themeToggle.style.color = '#ff9900';
+                themeToggle.style.boxShadow = '0 0 15px rgba(255, 153, 0, 0.5)';
+            } else {
+                // Dark theme (default)
+                document.body.style.backgroundColor = '';
+                document.body.style.color = '';
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.style.borderColor = '';
+                themeToggle.style.color = '';
+                themeToggle.style.boxShadow = '';
+            }
+        });
+        
+        // Add interactive hover effects to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 10px 30px rgba(0, 102, 255, 0.2)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
+        
+        // Interactive quiz reveal for practice questions
+        document.querySelectorAll('.question').forEach(question => {
+            const answer = question.querySelector('p:last-child');
+            if (answer && answer.innerHTML.includes('Answer:')) {
+                answer.style.display = 'none';
+                question.style.cursor = 'pointer';
+                
+                question.addEventListener('click', function() {
+                    if (answer.style.display === 'none') {
+                        answer.style.display = 'block';
+                        answer.style.animation = 'fadeIn 0.5s';
+                    } else {
+                        answer.style.display = 'none';
+                    }
+                });
+            }
+        });
+        
+        // Interactive formula boxes
+        document.querySelectorAll('.formula-box').forEach(box => {
+            box.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.boxShadow = '0 0 20px rgba(255, 0, 255, 0.3)';
+            });
+            
+            box.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = '';
+            });
+        });
+        
+        // Add fadeIn animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .blue-text { color: #0066ff; }
+            .purple-text { color: #9d00ff; }
+            .yellow-text { color: #fff700; }
+            .cyan-text { color: #00f3ff; }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

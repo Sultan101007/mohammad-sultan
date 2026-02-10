@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.47">
+    <title>Class 9: Work and Energy | Neon Notes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-green: #39ff14;
+            --neon-yellow: #fff700;
+            --neon-purple: #9d00ff;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #111;
+            --text: #f0f0f0;
+            --text-dim: #aaa;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 243, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(157, 0, 255, 0.05) 0%, transparent 20%);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--darker-bg), #151515);
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--neon-yellow);
+            box-shadow: 0 0 20px rgba(255, 247, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 80px;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 247, 0, 0.1);
+            border: 2px solid var(--neon-yellow);
+            color: var(--neon-yellow);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 101;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(255, 247, 0, 0.25);
+            box-shadow: 0 0 15px rgba(255, 247, 0, 0.5);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .back-btn i {
+            font-size: 1.1rem;
+        }
+
+        .header-content {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--neon-yellow), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(255, 247, 0, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--neon-green);
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 2rem auto;
+            gap: 2rem;
+            padding: 0 1.5rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            flex: 0 0 280px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 247, 0, 0.2);
+            box-shadow: 0 0 15px rgba(255, 247, 0, 0.1);
+            position: sticky;
+            top: 140px;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 247, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--neon-yellow);
+            border-radius: 10px;
+        }
+
+        .sidebar h3 {
+            color: var(--neon-pink);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--neon-pink);
+            padding-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(255, 0, 255, 0.3);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 247, 0, 0.1);
+            border-left: 3px solid var(--neon-yellow);
+            color: var(--neon-yellow);
+            transform: translateX(5px);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(255, 247, 0, 0.15);
+            border-left: 3px solid var(--neon-yellow);
+            color: var(--neon-yellow);
+            font-weight: bold;
+        }
+
+        .nav-links i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.1);
+        }
+
+        .topic-header {
+            color: var(--neon-green);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+            border-bottom: 2px solid var(--neon-green);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .topic-header i {
+            margin-right: 15px;
+        }
+
+        /* Cards */
+        .card {
+            background-color: rgba(20, 20, 30, 0.7);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--neon-purple);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-title {
+            color: var(--neon-yellow);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+        }
+
+        .card-content {
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .card-content ul, .card-content ol {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .card-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: rgba(255, 247, 0, 0.2);
+            color: var(--neon-yellow);
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        tr:hover {
+            background-color: rgba(255, 247, 0, 0.05);
+        }
+
+        /* Math Styling */
+        .math {
+            font-family: 'Cambria Math', serif;
+            color: var(--neon-cyan);
+            background-color: rgba(0, 243, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 0.3rem 0;
+        }
+
+        .equation {
+            display: block;
+            text-align: center;
+            margin: 1.5rem auto;
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid var(--neon-cyan);
+            font-size: 1.2rem;
+            color: var(--neon-cyan);
+            max-width: 600px;
+        }
+
+        /* Highlight Box */
+        .highlight {
+            background-color: rgba(255, 0, 255, 0.1);
+            border-left: 5px solid var(--neon-pink);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .highlight:before {
+            content: "!";
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--neon-pink);
+            color: black;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Question Box */
+        .question {
+            background-color: rgba(57, 255, 20, 0.1);
+            border: 1px solid var(--neon-green);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            background-color: rgba(57, 255, 20, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .question:before {
+            content: "Q";
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            background-color: var(--neon-green);
+            color: black;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--neon-green);
+            color: var(--neon-cyan);
+            animation: fadeIn 0.5s;
+        }
+
+        /* Definition Box */
+        .definition {
+            background-color: rgba(157, 0, 255, 0.1);
+            border-left: 5px solid var(--neon-purple);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        /* Diagram Styling */
+        .diagram-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .diagram-box {
+            background: rgba(255, 247, 0, 0.05);
+            border: 2px dashed var(--neon-yellow);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .diagram-title {
+            color: var(--neon-yellow);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 247, 0, 0.3);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .neon-text {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 5px var(--neon-yellow);
+            font-weight: bold;
+        }
+
+        .cyan-text {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
+
+        .purple-text {
+            color: var(--neon-purple);
+            text-shadow: 0 0 5px var(--neon-purple);
+        }
+
+        .yellow-text {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 5px var(--neon-yellow);
+        }
+
+        .pink-text {
+            color: var(--neon-pink);
+            text-shadow: 0 0 5px var(--neon-pink);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+            background-color: rgba(255, 0, 255, 0.1);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-yellow);
+            color: var(--neon-yellow);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(255, 247, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 247, 0, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: static;
+                width: 100%;
+                top: 0;
+            }
+            
+            .topic-header {
+                font-size: 1.8rem;
+            }
+            
+            .back-btn {
+                position: relative;
+                left: 0;
+                top: 0;
+                transform: none;
+                margin-bottom: 1rem;
+                align-self: flex-start;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .scroll-top-btn {
+                bottom: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .card {
+                padding: 1.2rem;
+            }
+            
+            .back-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Back Button -->
+    <header>
+        <a href="physics.html" class="back-btn" id="backButton">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+        
+        <div class="header-content">
+            <h1 class="header-title"><i class="fas fa-bolt"></i> Work and Energy</h1>
+            <p class="subtitle">Class 9 Physics   | Neon Interactive</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <h3><i class="fas fa-stream"></i> Topics</h3>
+            <ul class="nav-links">
+                <li><a href="#introduction" class="active"><i class="fas fa-info-circle"></i> Introduction</a></li>
+                <li><a href="#work-definition"><i class="fas fa-cogs"></i> Work Definition</a></li>
+                <li><a href="#work-cases"><i class="fas fa-table"></i> Work Cases & Formula</a></li>
+                <li><a href="#work-examples"><i class="fas fa-tasks"></i> Work Examples</a></li>
+                <li><a href="#work-units"><i class="fas fa-ruler"></i> Work Units</a></li>
+                <li><a href="#energy"><i class="fas fa-battery-full"></i> Energy</a></li>
+                <li><a href="#kinetic-energy"><i class="fas fa-running"></i> Kinetic Energy</a></li>
+                <li><a href="#potential-energy"><i class="fas fa-mountain"></i> Potential Energy</a></li>
+                <li><a href="#conservation"><i class="fas fa-recycle"></i> Conservation of Energy</a></li>
+                <li><a href="#power"><i class="fas fa-tachometer-alt"></i> Power</a></li>
+                <li><a href="#commercial-units"><i class="fas fa-industry"></i> Commercial Units</a></li>
+                <li><a href="#practice-questions"><i class="fas fa-question-circle"></i> Practice Questions</a></li>
+                <li><a href="#mcq"><i class="fas fa-list-ol"></i> MCQs</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Introduction Section -->
+            <section id="introduction">
+                <h2 class="topic-header"><i class="fas fa-info-circle"></i> Introduction</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-quote-left"></i> What is Work?</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"In daily life, work includes any effort, but in science, work is different. Activities like reading, writing, or thinking use energy, but no work is done scientifically."</em></p>
+                        </div>
+                        
+                        <ul>
+                            <li>Work is done when a <span class="neon-text">force produces motion</span> in a body.</li>
+                            <li>Condition for work done: <span class="neon-text">Force should be applied</span> AND <span class="neon-text">Body should be displaced</span>.</li>
+                            <li>If force is applied but there's no displacement, <span class="pink-text">no work is done</span>.</li>
+                        </ul>
+                        
+                        <div class="highlight">
+                            <strong>Key Examples:</strong>
+                            <p>• A man pushing a stationary rock → No work done (no displacement)</p>
+                            <p>• A man standing with heavy suitcase → No work done (no displacement)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Definition Section -->
+            <section id="work-definition">
+                <h2 class="topic-header"><i class="fas fa-cogs"></i> Work Definition</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bullseye"></i> Scientific Definition</h3>
+                    <div class="card-content">
+                        <p>Work is done when a force causes displacement in the direction of the applied force.</p>
+                        
+                        <div class="equation">
+                            W = F × s
+                        </div>
+                        
+                        <p>Where:</p>
+                        <ul>
+                            <li><span class="cyan-text">W</span> = Work done (Joules)</li>
+                            <li><span class="cyan-text">F</span> = Force applied (Newtons)</li>
+                            <li><span class="cyan-text">s</span> = Displacement in direction of force (meters)</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Cases Section -->
+            <section id="work-cases">
+                <h2 class="topic-header"><i class="fas fa-table"></i> Work Cases & Formula</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-project-diagram"></i> General Formula</h3>
+                    <div class="card-content">
+                        <div class="equation">
+                            W = F × s × cosθ
+                        </div>
+                        <p>Where <span class="math">θ</span> = Angle between Force and Displacement</p>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Case</th>
+                                    <th>Angle (θ)</th>
+                                    <th>cosθ</th>
+                                    <th>Work Done</th>
+                                    <th>Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Force & Displacement same direction</span></td>
+                                    <td>0°</td>
+                                    <td>1</td>
+                                    <td>W = F × s</td>
+                                    <td><span class="cyan-text">Positive Work</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Force perpendicular to Displacement</span></td>
+                                    <td>90°</td>
+                                    <td>0</td>
+                                    <td>W = 0</td>
+                                    <td><span class="yellow-text">Zero Work</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Force opposite to Displacement</span></td>
+                                    <td>180°</td>
+                                    <td>-1</td>
+                                    <td>W = -F × s</td>
+                                    <td><span class="pink-text">Negative Work</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Examples Section -->
+            <section id="work-examples">
+                <h2 class="topic-header"><i class="fas fa-tasks"></i> Work Examples</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-question"></i> Activity Analysis</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Look at the activities listed below. Reason out whether or not work is done:</strong>
+                            <div class="answer">
+                                <p><span class="cyan-text">(i) Suma swimming in a pond:</span> WORK DONE - Force applied causes displacement</p>
+                                <p><span class="cyan-text">(ii) Donkey carrying load:</span> NO WORK - Force vertical, displacement horizontal (90° angle)</p>
+                                <p><span class="cyan-text">(iii) Windmill filling water:</span> WORK DONE - Force lifts water (displacement in force direction)</p>
+                                <p><span class="cyan-text">(iv) Plant photosynthesis:</span> NO WORK - Chemical process, no mechanical displacement</p>
+                                <p><span class="cyan-text">(v) Engine pulling train:</span> WORK DONE - Force causes displacement</p>
+                                <p><span class="cyan-text">(vi) Food grains drying:</span> NO WORK - Heat process, no mechanical displacement</p>
+                                <p><span class="cyan-text">(vii) Sailboat moving:</span> WORK DONE - Wind force causes displacement</p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Work done by force of gravity on satellite moving round Earth?</strong>
+                            <div class="answer">
+                                <p><span class="cyan-text">ZERO</span> - Gravity force (centripetal) is perpendicular to satellite's displacement (tangential).</p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Porter lifts 15 kg luggage to 1.5 m height. Calculate work done.</strong>
+                            <div class="answer">
+                                <p>F = mg = 15 × 9.8 = 147 N</p>
+                                <p>W = F × s = 147 × 1.5 = <span class="neon-text">220.5 J</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Units Section -->
+            <section id="work-units">
+                <h2 class="topic-header"><i class="fas fa-ruler"></i> Work Units</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-balance-scale"></i> Units of Work</h3>
+                    <div class="card-content">
+                        <div class="equation">
+                            W = F × s = N·m = Joule (J)
+                        </div>
+                        
+                        <div class="definition">
+                            <p><strong>1 Joule:</strong> Amount of work done when a force of 1 Newton displaces an object by 1 meter in the direction of the force.</p>
+                        </div>
+                        
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">SI Unit</h4>
+                                <p>Joule (J)</p>
+                                <p>1 J = 1 N·m</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">CGS Unit</h4>
+                                <p>erg</p>
+                                <p>1 erg = 1 dyne·cm</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">Relation</h4>
+                                <p>1 J = 10⁷ erg</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Energy Section -->
+            <section id="energy">
+                <h2 class="topic-header"><i class="fas fa-battery-full"></i> Energy</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bolt"></i> Definition & Forms</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Energy is defined as the ability to do work. Its unit is the same as that of work. Energy is a scalar quantity."</em></p>
+                        </div>
+                        
+                        <p><span class="neon-text">SI unit of energy:</span> Joule (J) = N·m = kg·m²/s²</p>
+                        
+                        <div class="highlight">
+                            <strong>Forms of Energy:</strong>
+                            <div class="diagram-container">
+                                <div class="diagram-box">
+                                    <h4 class="diagram-title">Kinetic</h4>
+                                    <p>Due to motion</p>
+                                </div>
+                                <div class="diagram-box">
+                                    <h4 class="diagram-title">Potential</h4>
+                                    <p>Due to position/height</p>
+                                </div>
+                                <div class="diagram-box">
+                                    <h4 class="diagram-title">Chemical</h4>
+                                    <p>Stored in substances</p>
+                                </div>
+                            </div>
+                            <div class="diagram-container">
+                                <div class="diagram-box">
+                                    <h4 class="diagram-title">Heat</h4>
+                                    <p>From hot objects</p>
+                                </div>
+                                <div class="diagram-box">
+                                    <h4 class="diagram-title">Electrical</h4>
+                                    <p>From electric current</p>
+                                </div>
+                                <div class="diagram-box">
+                                    <h4 class="diagram-title">Nuclear</h4>
+                                    <p>From atomic nuclei</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Kinetic Energy Section -->
+            <section id="kinetic-energy">
+                <h2 class="topic-header"><i class="fas fa-running"></i> Kinetic Energy</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-tachometer-alt"></i> Definition & Formula</h3>
+                    <div class="card-content">
+                        <p>Kinetic energy is the energy an object has due to its motion.</p>
+                        
+                        <div class="equation">
+                            KE = ½ × m × v²
+                        </div>
+                        
+                        <p>Where:</p>
+                        <ul>
+                            <li><span class="cyan-text">KE</span> = Kinetic Energy (Joules)</li>
+                            <li><span class="cyan-text">m</span> = Mass (kg)</li>
+                            <li><span class="cyan-text">v</span> = Velocity (m/s)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-calculator"></i> Work-Energy Theorem</h3>
+                    <div class="card-content">
+                        <div class="equation">
+                            W = ΔKE = KE_final - KE_initial
+                        </div>
+                        
+                        <p><em>"The total work done by forces acting on a particle equals the change in its kinetic energy."</em></p>
+                        
+                        <div class="question">
+                            <strong>Q: Bullet mass 0.02 kg fired at 400 m/s. Calculate KE.</strong>
+                            <div class="answer">
+                                <p>KE = ½ × 0.02 × (400)²</p>
+                                <p>KE = 0.01 × 160000 = <span class="neon-text">1600 J</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Car (1000 kg) at 30 m/s stops in 50 m. Work by brakes?</strong>
+                            <div class="answer">
+                                <p>Initial KE = ½ × 1000 × 30² = 450,000 J</p>
+                                <p>Final KE = 0</p>
+                                <p>Work = ΔKE = 0 - 450,000 = <span class="pink-text">-450,000 J</span> (negative - braking)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Potential Energy Section -->
+            <section id="potential-energy">
+                <h2 class="topic-header"><i class="fas fa-mountain"></i> Potential Energy</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-weight-hanging"></i> Gravitational PE</h3>
+                    <div class="card-content">
+                        <p>Potential energy due to height/position above ground.</p>
+                        
+                        <div class="equation">
+                            PE = m × g × h
+                        </div>
+                        
+                        <p>Where:</p>
+                        <ul>
+                            <li><span class="cyan-text">PE</span> = Potential Energy (J)</li>
+                            <li><span class="cyan-text">m</span> = Mass (kg)</li>
+                            <li><span class="cyan-text">g</span> = Gravity (9.8 m/s²)</li>
+                            <li><span class="cyan-text">h</span> = Height (m)</li>
+                        </ul>
+                        
+                        <div class="definition">
+                            <p><strong>Elastic Potential Energy:</strong> Stored in stretched/compressed objects (springs, rubber bands, bows).</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-question"></i> PE Examples & Questions</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q: Object mass 10 kg raised to 6 m. Calculate PE. (g=9.8)</strong>
+                            <div class="answer">
+                                <p>PE = mgh = 10 × 9.8 × 6 = <span class="neon-text">588 J</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: 200 kg bag raised to what height for PE=9800 J? (g=9.8)</strong>
+                            <div class="answer">
+                                <p>h = PE/(mg) = 9800/(200×9.8) = 9800/1960 = <span class="neon-text">5 m</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Ball (15 kg) thrown up to 5 m. Work by gravity?</strong>
+                            <div class="answer">
+                                <p>Work = ΔPE = mgΔh = 15×9.8×5 = <span class="neon-text">735 J</span></p>
+                                <p>Or using energy: PE at top = 735 J, at bottom = 0, work = 735 J</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conservation of Energy Section -->
+            <section id="conservation">
+                <h2 class="topic-header"><i class="fas fa-recycle"></i> Conservation of Energy</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-infinity"></i> Law of Conservation</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Energy cannot be created or destroyed. It can only be transformed from one form to another. Total energy of an isolated system remains constant."</em></p>
+                        </div>
+                        
+                        <div class="equation">
+                            Total Energy = KE + PE = Constant
+                        </div>
+                        
+                        <div class="diagram-container">
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">At Top</h4>
+                                <p>PE = mgh</p>
+                                <p>KE = 0</p>
+                                <p>Total = mgh</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">During Fall</h4>
+                                <p>PE decreases</p>
+                                <p>KE increases</p>
+                                <p>Total = mgh</p>
+                            </div>
+                            <div class="diagram-box">
+                                <h4 class="diagram-title">At Bottom</h4>
+                                <p>PE = 0</p>
+                                <p>KE = ½mv² = mgh</p>
+                                <p>Total = mgh</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-exchange-alt"></i> Energy Conversion Examples</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Device/Process</th>
+                                    <th>Energy Conversion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Torch</span></td>
+                                    <td>Chemical → Electrical → Light & Heat</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Pendulum</span></td>
+                                    <td>KE ↔ PE (constant total)</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Hydroelectric Plant</span></td>
+                                    <td>Potential → Kinetic → Mechanical → Electrical</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Electric Bulb</span></td>
+                                    <td>Electrical → Light & Heat</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Burning Fuel</span></td>
+                                    <td>Chemical → Heat & Light</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Electric Heater</span></td>
+                                    <td>Electrical → Thermal</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="question">
+                            <strong>Q: Stone (2 kg) released from 100 m. Find KE, PE, total at halfway.</strong>
+                            <div class="answer">
+                                <p>At halfway: h = 50 m</p>
+                                <p>PE = mgh = 2×9.8×50 = <span class="cyan-text">980 J</span></p>
+                                <p>Total energy = initial PE = 2×9.8×100 = 1960 J</p>
+                                <p>KE = Total - PE = 1960 - 980 = <span class="cyan-text">980 J</span></p>
+                                <p>Total energy = <span class="neon-text">1960 J</span> (conserved)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Power Section -->
+            <section id="power">
+                <h2 class="topic-header"><i class="fas fa-tachometer-alt"></i> Power</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bolt"></i> Definition & Formula</h3>
+                    <div class="card-content">
+                        <p>Power is the rate of doing work or transferring energy.</p>
+                        
+                        <div class="equation">
+                            P = W / t
+                        </div>
+                        
+                        <p>Where:</p>
+                        <ul>
+                            <li><span class="cyan-text">P</span> = Power (Watts)</li>
+                            <li><span class="cyan-text">W</span> = Work done (Joules)</li>
+                            <li><span class="cyan-text">t</span> = Time taken (seconds)</li>
+                        </ul>
+                        
+                        <div class="definition">
+                            <p><strong>1 Watt:</strong> Power required to do 1 Joule of work per second.</p>
+                            <p>1 W = 1 J/s</p>
+                            <p>1 kW = 1000 W = 1000 J/s</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-calculator"></i> Power Problems</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q: Crane lifts 500 kg to 10 m in 20 s. Calculate power.</strong>
+                            <div class="answer">
+                                <p>Work = mgh = 500×9.8×10 = 49,000 J</p>
+                                <p>Power = Work/time = 49,000/20 = <span class="neon-text">2450 W = 2.45 kW</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Lamp consumes 1000 J in 10 s. What is power?</strong>
+                            <div class="answer">
+                                <p>Power = Energy/time = 1000/10 = <span class="neon-text">100 W</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: Shobhit (70 kg) climbs 20 m in 20 s. Digraj (60 kg) in 10 s. Who's more powerful?</strong>
+                            <div class="answer">
+                                <p>Shobhit: Work = 70×9.8×20 = 13,720 J, Power = 13,720/20 = <span class="cyan-text">686 W</span></p>
+                                <p>Digraj: Work = 60×9.8×20 = 11,760 J, Power = 11,760/10 = <span class="cyan-text">1176 W</span></p>
+                                <p><span class="neon-text">Digraj is more powerful</span> (1176 W > 686 W)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Commercial Units Section -->
+            <section id="commercial-units">
+                <h2 class="topic-header"><i class="fas fa-industry"></i> Commercial Units</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-chart-line"></i> Kilowatt-hour (kWh)</h3>
+                    <div class="card-content">
+                        <p>Joule is too small for practical energy measurement. Commercial unit is kilowatt-hour.</p>
+                        
+                        <div class="equation">
+                            1 kWh = 1000 W × 3600 s = 3.6 × 10⁶ J
+                        </div>
+                        
+                        <div class="definition">
+                            <p><strong>1 unit of electricity</strong> = 1 kWh</p>
+                            <p>Used in households and industries for electricity billing.</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: 60 W bulb used 6 h/day. Energy in 'units' per day?</strong>
+                            <div class="answer">
+                                <p>Energy = Power × time = 60 W × 6 h = 360 Wh = <span class="neon-text">0.36 kWh = 0.36 units</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section id="practice-questions">
+                <h2 class="topic-header"><i class="fas fa-question-circle"></i> Practice Questions</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-pen-fancy"></i> Problem Set</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q1: If both mass and velocity are doubled, new KE compared to original?</strong>
+                            <div class="answer">
+                                <p>KE = ½mv²</p>
+                                <p>New KE = ½(2m)(2v)² = ½(2m)(4v²) = 8 × (½mv²)</p>
+                                <p><span class="neon-text">8 times original KE</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q2: Mass constant, velocity tripled. KE increase?</strong>
+                            <div class="answer">
+                                <p>KE ∝ v²</p>
+                                <p>If v → 3v, then KE → 9×KE</p>
+                                <p><span class="neon-text">9 times increase (800% increase)</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q3: Two balls: A(5 kg, 15 m/s) and B(10 kg, 10 m/s). Which has more KE?</strong>
+                            <div class="answer">
+                                <p>KE_A = ½×5×(15)² = ½×5×225 = 562.5 J</p>
+                                <p>KE_B = ½×10×(10)² = ½×10×100 = 500 J</p>
+                                <p><span class="neon-text">Ball A has more KE (562.5 J > 500 J)</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q4: Scooter:bike mass ratio 2:3, same speed 108 km/h (30 m/s). KE ratio?</strong>
+                            <div class="answer">
+                                <p>KE = ½mv², v same for both</p>
+                                <p>KE ∝ m</p>
+                                <p>KE_scooter : KE_bike = m_scooter : m_bike = 2:3</p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q5: Increase car velocity from 36 km/h (10 m/s) to 72 km/h (20 m/s). Mass=1500 kg. Work required?</strong>
+                            <div class="answer">
+                                <p>Work = ΔKE = ½m(v₂² - v₁²)</p>
+                                <p>= ½×1500×(20² - 10²) = ½×1500×(400-100)</p>
+                                <p>= ½×1500×300 = 225,000 J = <span class="neon-text">225 kJ</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MCQs Section -->
+            <section id="mcq">
+                <h2 class="topic-header"><i class="fas fa-list-ol"></i> Multiple Choice Questions</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-check-circle"></i> MCQs with Answers</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>1. Porter with suitcase climbing steps with uniform speed. Work by 'weight of suitcase'?</strong>
+                            <p>(a) negative (b) positive (c) zero (d) undefined</p>
+                            <div class="answer">
+                                <p><span class="neon-text">(a) negative</span> - Weight acts downward, displacement upward, θ=180°, cos180°=-1</p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>2. Assertion: 10 kg at 6 m has 588 J energy. Reason: Work at height = mgh = energy gained.</strong>
+                            <p>(a) Both true, Reason correct</p>
+                            <p>(b) Both true, Reason not correct</p>
+                            <p>(c) Assertion true, Reason false</p>
+                            <p>(d) Assertion false, Reason true</p>
+                            <div class="answer">
+                                <p>PE = 10×9.8×6 = 588 J ✓</p>
+                                <p>Work done against gravity = mgh = energy stored as PE ✓</p>
+                                <p><span class="neon-text">(a) Both true, Reason is correct explanation</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>3. Mass P = 2×Mass Q, Speed P = ½×Speed Q. KE ratio P:Q?</strong>
+                            <p>(a) 1:2 (b) 2:1 (c) 1:4 (d) 4:1</p>
+                            <div class="answer">
+                                <p>KE_P = ½(2m)(v/2)² = ½×2m×v²/4 = ¼mv²</p>
+                                <p>KE_Q = ½mv²</p>
+                                <p>Ratio = (¼mv²):(½mv²) = 1:2</p>
+                                <p><span class="neon-text">(a) 1:2</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>4. Masses 1×10³ kg and 4×10³ kg have equal momentum. KE ratio?</strong>
+                            <p>a) 2:1 b) 4:1 c) 1:4 d) 1:2</p>
+                            <div class="answer">
+                                <p>p = mv (same for both)</p>
+                                <p>KE = p²/(2m)</p>
+                                <p>KE ∝ 1/m (since p same)</p>
+                                <p>Ratio = (1/1):(1/4) = 4:1</p>
+                                <p><span class="neon-text">(b) 4:1</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>5. Stone falling, PE decreases. What happens to KE?</strong>
+                            <p>a) decreases b) same c) increases d) zero</p>
+                            <div class="answer">
+                                <p>By conservation: PE + KE = constant</p>
+                                <p>If PE decreases, KE must increase</p>
+                                <p><span class="neon-text">(c) increases</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="highlight">
+                <strong>"Want power? First, do the 'work' — even science agrees!" - Sultan Bhaiya</strong>
+                <p style="margin-top: 10px;">Remember: <em>"Energy can neither be created nor destroyed, but your motivation can be recharged!"</em> ⚡✨</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Class 9: Work and Energy  | Neon Interactive</p>
+        <p>Created with <span class="neon-text">HTML, CSS & JavaScript</span></p>
+        <p>Use this interactive page to master Work, Energy & Power concepts!</p>
+        
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top-btn" id="scrollTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Highlight current section in navigation
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Show/hide scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        // Back button functionality
+        const backButton = document.getElementById('backButton');
+        
+        backButton.addEventListener('click', function(e) {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        
+        // Scroll to top button functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            
+            if (document.body.classList.contains('light-theme')) {
+                // Light theme
+                document.body.style.backgroundColor = '#f0f0f0';
+                document.body.style.color = '#333';
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.style.borderColor = '#ff9900';
+                themeToggle.style.color = '#ff9900';
+                themeToggle.style.boxShadow = '0 0 15px rgba(255, 153, 0, 0.5)';
+                
+                // Update card backgrounds
+                document.querySelectorAll('.card').forEach(card => {
+                    card.style.backgroundColor = 'rgba(240, 240, 240, 0.9)';
+                });
+            } else {
+                // Dark theme (default)
+                document.body.style.backgroundColor = '';
+                document.body.style.color = '';
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.style.borderColor = '';
+                themeToggle.style.color = '';
+                themeToggle.style.boxShadow = '';
+                
+                // Reset card backgrounds
+                document.querySelectorAll('.card').forEach(card => {
+                    card.style.backgroundColor = '';
+                });
+            }
+        });
+        
+        // Interactive hover effects to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 10px 30px rgba(255, 247, 0, 0.2)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
+        
+        // Interactive quiz reveal for practice questions
+        document.querySelectorAll('.question').forEach(question => {
+            const answer = question.querySelector('.answer');
+            if (answer) {
+                question.addEventListener('click', function() {
+                    if (answer.style.display === 'none' || answer.style.display === '') {
+                        answer.style.display = 'block';
+                        answer.style.animation = 'fadeIn 0.5s';
+                    } else {
+                        answer.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

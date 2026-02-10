@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.47">
+    <title>Class 9: Improvement in Food Resources | Neon Notes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff00ff;
+            --neon-green: #39ff14;
+            --neon-yellow: #fff700;
+            --neon-orange: #ff8800;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: #111;
+            --text: #f0f0f0;
+            --text-dim: #aaa;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(57, 255, 20, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 136, 0, 0.05) 0%, transparent 20%);
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--darker-bg), #151515);
+            padding: 1.5rem;
+            border-bottom: 2px solid var(--neon-green);
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 80px;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(57, 255, 20, 0.1);
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 0.6rem 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            z-index: 101;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(57, 255, 20, 0.25);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .back-btn i {
+            font-size: 1.1rem;
+        }
+
+        .header-content {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-orange));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--neon-yellow);
+            font-size: 1.2rem;
+            font-style: italic;
+        }
+
+        /* Main Container */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 2rem auto;
+            gap: 2rem;
+            padding: 0 1.5rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            flex: 0 0 280px;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(57, 255, 20, 0.2);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.1);
+            position: sticky;
+            top: 140px;
+            max-height: calc(100vh - 180px);
+            overflow-y: auto;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(57, 255, 20, 0.1);
+            border-radius: 10px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--neon-green);
+            border-radius: 10px;
+        }
+
+        .sidebar h3 {
+            color: var(--neon-orange);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            border-bottom: 1px solid var(--neon-orange);
+            padding-bottom: 0.5rem;
+            text-shadow: 0 0 8px rgba(255, 136, 0, 0.3);
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(57, 255, 20, 0.1);
+            border-left: 3px solid var(--neon-green);
+            color: var(--neon-green);
+            transform: translateX(5px);
+        }
+
+        .nav-links a.active {
+            background-color: rgba(57, 255, 20, 0.15);
+            border-left: 3px solid var(--neon-green);
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        .nav-links i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        /* Content Area */
+        .content {
+            flex: 1;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 136, 0, 0.2);
+            box-shadow: 0 0 20px rgba(255, 136, 0, 0.1);
+        }
+
+        .topic-header {
+            color: var(--neon-green);
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(57, 255, 20, 0.3);
+            border-bottom: 2px solid var(--neon-green);
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .topic-header i {
+            margin-right: 15px;
+        }
+
+        /* Cards */
+        .card {
+            background-color: rgba(20, 20, 30, 0.7);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid var(--neon-orange);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-title {
+            color: var(--neon-green);
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-title i {
+            margin-right: 10px;
+        }
+
+        .card-content {
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .card-content ul, .card-content ol {
+            padding-left: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .card-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: rgba(57, 255, 20, 0.2);
+            color: var(--neon-green);
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        tr:hover {
+            background-color: rgba(57, 255, 20, 0.05);
+        }
+
+        /* Highlight Box */
+        .highlight {
+            background-color: rgba(255, 136, 0, 0.1);
+            border-left: 5px solid var(--neon-orange);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .highlight:before {
+            content: "!";
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--neon-orange);
+            color: black;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Question Box */
+        .question {
+            background-color: rgba(57, 255, 20, 0.1);
+            border: 1px solid var(--neon-green);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .question:before {
+            content: "Q";
+            position: absolute;
+            left: -15px;
+            top: -15px;
+            background-color: var(--neon-green);
+            color: black;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Definition Box */
+        .definition {
+            background-color: rgba(0, 243, 255, 0.1);
+            border-left: 5px solid var(--neon-cyan);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        /* Revolution Box */
+        .revolution-box {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .revolution {
+            background: rgba(255, 136, 0, 0.05);
+            border: 2px solid var(--neon-orange);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            flex: 1;
+            min-width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        .revolution:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 136, 0, 0.2);
+        }
+
+        .revolution-title {
+            color: var(--neon-yellow);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        /* Crop Visual Box */
+        .crop-visual {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .crop-item {
+            background: rgba(255, 136, 0, 0.05);
+            border: 1px solid rgba(255, 136, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .crop-item:hover {
+            background: rgba(255, 136, 0, 0.1);
+            transform: scale(1.05);
+        }
+
+        .crop-name {
+            color: var(--neon-yellow);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(57, 255, 20, 0.3);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .neon-text {
+            color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+            font-weight: bold;
+        }
+
+        .orange-text {
+            color: var(--neon-orange);
+            text-shadow: 0 0 5px var(--neon-orange);
+        }
+
+        .yellow-text {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 5px var(--neon-yellow);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-pink);
+            color: var(--neon-pink);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.8);
+            background-color: rgba(255, 0, 255, 0.1);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--card-bg);
+            border: 2px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                position: static;
+                width: 100%;
+                top: 0;
+            }
+            
+            .topic-header {
+                font-size: 1.8rem;
+            }
+            
+            .back-btn {
+                position: relative;
+                left: 0;
+                top: 0;
+                transform: none;
+                margin-bottom: 1rem;
+                align-self: flex-start;
+            }
+            
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                bottom: 10px;
+                right: 10px;
+            }
+            
+            .scroll-top-btn {
+                bottom: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .card {
+                padding: 1.2rem;
+            }
+            
+            .back-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .scroll-top-btn,
+            .theme-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
+            }
+            
+            .crop-visual {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Back Button -->
+    <header>
+        <a href="biology.html" class="back-btn" id="backButton">
+            <i class="fas fa-arrow-left"></i> Back
+        </a>
+        
+        <div class="header-content">
+            <h1 class="header-title"><i class="fas fa-seedling"></i> Improvement in Food Resources</h1>
+            <p class="subtitle">Class 9 Biology |   Neon Interactive Edition</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <h3><i class="fas fa-stream"></i> Topics</h3>
+            <ul class="nav-links">
+                <li><a href="#introduction" class="active"><i class="fas fa-info-circle"></i> Introduction</a></li>
+                <li><a href="#crop-types"><i class="fas fa-leaf"></i> Types of Crops</a></li>
+                <li><a href="#crop-seasons"><i class="fas fa-calendar-alt"></i> Crop Seasons</a></li>
+                <li><a href="#crop-improvement"><i class="fas fa-chart-line"></i> Crop Improvement</a></li>
+                <li><a href="#nutrient-management"><i class="fas fa-apple-alt"></i> Nutrient Management</a></li>
+                <li><a href="#manure-fertilizers"><i class="fas fa-recycle"></i> Manure vs Fertilizers</a></li>
+                <li><a href="#cropping-patterns"><i class="fas fa-th-large"></i> Cropping Patterns</a></li>
+                <li><a href="#irrigation"><i class="fas fa-tint"></i> Irrigation Methods</a></li>
+                <li><a href="#crop-protection"><i class="fas fa-shield-alt"></i> Crop Protection</a></li>
+                <li><a href="#animal-husbandry"><i class="fas fa-paw"></i> Animal Husbandry</a></li>
+                <li><a href="#poultry-farming"><i class="fas fa-egg"></i> Poultry Farming</a></li>
+                <li><a href="#fish-production"><i class="fas fa-fish"></i> Fish Production</a></li>
+                <li><a href="#bee-keeping"><i class="fas fa-bee"></i> Bee Keeping</a></li>
+                <li><a href="#practice-questions"><i class="fas fa-question-circle"></i> Practice Questions</a></li>
+                <li><a href="#grandmaster"><i class="fas fa-crown"></i> Grandmaster Questions</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- Introduction Section -->
+            <section id="introduction">
+                <h2 class="topic-header"><i class="fas fa-info-circle"></i> Introduction</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-quote-left"></i> Food Resources</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"All living organisms need food for health, growth and development. Food provides nutrients like carbohydrates, fats, protein, vitamins and minerals."</em></p>
+                        </div>
+                        
+                        <div class="revolution-box">
+                            <div class="revolution">
+                                <h4 class="revolution-title"><i class="fas fa-tractor"></i> Green Revolution</h4>
+                                <p>Program launched to boost food production using modern technology, irrigation, and improved seeds.</p>
+                            </div>
+                            <div class="revolution">
+                                <h4 class="revolution-title"><i class="fas fa-wine-bottle"></i> White Revolution</h4>
+                                <p>Dairy development programs that boosted milk production (Operation Flood).</p>
+                            </div>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Why improvement in food resources?</strong>
+                            <p>India's population exceeds one billion and is growing, needing over 250 million tonnes of grain yearly. With limited cultivable land, boosting production efficiency in crops and livestock is essential.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Types of Crops Section -->
+            <section id="crop-types">
+                <h2 class="topic-header"><i class="fas fa-leaf"></i> Types of Crops</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Major Crop Categories</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Crop Type</th>
+                                    <th>Examples</th>
+                                    <th>Nutritional Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Cereals</span></td>
+                                    <td>Wheat, rice, maize, millets, sorghum</td>
+                                    <td>Carbohydrates</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Pulses</span></td>
+                                    <td>Gram, black gram, green gram, pigeon pea, lentil</td>
+                                    <td>Proteins</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Oilseeds</span></td>
+                                    <td>Soybean, groundnut, sesame, castor, mustard, sunflower</td>
+                                    <td>Fats</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Vegetables, Spices & Fruits</span></td>
+                                    <td>Carrot, Cinnamon, orange, spinach</td>
+                                    <td>Minerals, vitamins, carbs, fats, proteins</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Fodder crops</span></td>
+                                    <td>Berseem, oats, sudan grass</td>
+                                    <td>Food for Livestock</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="crop-visual">
+                            <div class="crop-item">
+                                <div class="crop-name">Wheat</div>
+                                <i class="fas fa-bread-slice fa-2x yellow-text"></i>
+                                <div>Cereal</div>
+                            </div>
+                            <div class="crop-item">
+                                <div class="crop-name">Gram</div>
+                                <i class="fas fa-seedling fa-2x orange-text"></i>
+                                <div>Pulse</div>
+                            </div>
+                            <div class="crop-item">
+                                <div class="crop-name">Sunflower</div>
+                                <i class="fas fa-sun fa-2x yellow-text"></i>
+                                <div>Oilseed</div>
+                            </div>
+                            <div class="crop-item">
+                                <div class="crop-name">Spinach</div>
+                                <i class="fas fa-leaf fa-2x green-text"></i>
+                                <div>Vegetable</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Crop Seasons Section -->
+            <section id="crop-seasons">
+                <h2 class="topic-header"><i class="fas fa-calendar-alt"></i> Crop Seasons</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Seasonal Classification</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Season Type</th>
+                                    <th>Duration</th>
+                                    <th>Major Crops</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Kharif Crops</span></td>
+                                    <td>Rainy season (June to October)</td>
+                                    <td>Paddy, soybean, pigeon pea, maize, cotton, green gram</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Rabi Crops</span></td>
+                                    <td>Winter season (November to April)</td>
+                                    <td>Wheat, gram, peas, mustard, linseed</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Zaid Crops</span></td>
+                                    <td>Summer season (March to June)</td>
+                                    <td>Watermelon, muskmelon, cucumber, pumpkin, bitter gourd</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="question">
+                            <strong>DIRECT QUESTIONS FROM THIS CHAPTER!!</strong>
+                            <p>a. What is the duration of Rabi season? Name any two Rabi crops.</p>
+                            <p>b. What is the duration of kharif season? Name any two kharif crops.</p>
+                            <p><strong>Answer:</strong></p>
+                            <p>a. The Rabi season lasts from November to April. Two Rabi crops are wheat and gram.</p>
+                            <p>b. The Kharif season lasts from June to October. Two Kharif crops are rice and maize.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Crop Improvement Section -->
+            <section id="crop-improvement">
+                <h2 class="topic-header"><i class="fas fa-chart-line"></i> Crop Improvement Approaches</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-dna"></i> Hybridization</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Process of crossing between two or more genetically dissimilar plants to produce a new variety with good properties of both crops."</em></p>
+                        </div>
+                        
+                        <ul>
+                            <li><span class="neon-text">Intervarietal:</span> Between two varieties of a plant</li>
+                            <li><span class="neon-text">Interspecific:</span> Between two species belonging to same genus</li>
+                            <li><span class="neon-text">Inter Generic:</span> Between species of different genus</li>
+                        </ul>
+                        
+                        <div class="highlight">
+                            <strong>Genetically Modified Crops (GMC):</strong>
+                            <p>A gene that provides desirable characteristics is introduced, resulting in genetically modified crops.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-seedling"></i> Good and Healthy Seeds</h3>
+                    <div class="card-content">
+                        <ul>
+                            <li><span class="neon-text">Higher Yield:</span> Increase productivity per acre</li>
+                            <li><span class="neon-text">Improved Quality:</span> Better quality crop products</li>
+                            <li><span class="neon-text">Biotic & Abiotic Resistance:</span> Resistance to diseases, pests, drought, etc.</li>
+                            <li><span class="neon-text">Wider Adaptability:</span> Can grow in different conditions</li>
+                            <li><span class="neon-text">Desired Agronomic Traits:</span> Ideal height, branching, leaves for high production</li>
+                        </ul>
+                        
+                        <div class="question">
+                            <strong>Q: What is the name given to crops obtained by introducing a gene that provides the desired characteristic?</strong>
+                            <p><em>Answer: Genetically modified crops</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Nutrient Management Section -->
+            <section id="nutrient-management">
+                <h2 class="topic-header"><i class="fas fa-apple-alt"></i> Nutrient Management</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Sources of Plant Nutrients</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Source</th>
+                                    <th>Nutrients Provided</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Air</span></td>
+                                    <td>Carbon, Oxygen</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Water</span></td>
+                                    <td>Hydrogen, Oxygen</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Soil</span></td>
+                                    <td>
+                                        <strong>Macronutrients:</strong> N, P, K, Ca, Mg, S<br>
+                                        <strong>Micronutrients:</strong> Fe, Mn, B, Zn, Cu, Mo, Cl
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="question">
+                            <strong>Q: What are macro-nutrients and why are they called macro-nutrients?</strong>
+                            <p><em>Answer: Macro-nutrients are the essential elements which are utilised by plants in large quantities. Since they are required in large quantities, they are known as macro-nutrients. The six macro-nutrients required by plants are nitrogen, phosphorus, potassium, calcium, magnesium, and sulfur.</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Manure vs Fertilizers Section -->
+            <section id="manure-fertilizers">
+                <h2 class="topic-header"><i class="fas fa-recycle"></i> Manure vs Fertilizers</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-balance-scale"></i> Comparison Table</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Manure</th>
+                                    <th>Fertilizers</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Organic substances</td>
+                                    <td>Inorganic substances</td>
+                                </tr>
+                                <tr>
+                                    <td>Made from natural substances (decomposition)</td>
+                                    <td>Made of chemical substances</td>
+                                </tr>
+                                <tr>
+                                    <td>Less amount of nutrients</td>
+                                    <td>Large amount of nutrients</td>
+                                </tr>
+                                <tr>
+                                    <td>Cheap, prepared in rural homes/fields</td>
+                                    <td>Costly, prepared in factories</td>
+                                </tr>
+                                <tr>
+                                    <td>Slowly absorbed (insoluble in water)</td>
+                                    <td>Easily absorbed (soluble in water)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="highlight">
+                            <strong>Organic Farming:</strong>
+                            <p>Farming practice with no artificial chemicals, fertilizers, or pesticides. Relies completely on organic matter like manure, bioagents, biofertilizers, and biopesticides (Neem leaves, turmeric).</p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q: How is the use of manure beneficial for our environment?</strong>
+                            <p><em>Answer: The use of manure is beneficial as: 1) Helps recycle biological wastes, 2) Protects environment from chemical damage, 3) Adds organic matter improving soil fertility.</em></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Cropping Patterns Section -->
+            <section id="cropping-patterns">
+                <h2 class="topic-header"><i class="fas fa-th-large"></i> Cropping Patterns</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Types of Cropping Patterns</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Pattern</th>
+                                    <th>Definition</th>
+                                    <th>Examples</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Mixed Cropping</span></td>
+                                    <td>Growing two or more crops together on same land</td>
+                                    <td>Wheat + Gram, Groundnut + Sunflower</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Intercropping</span></td>
+                                    <td>Two or more crops grown in definite pattern (few rows each)</td>
+                                    <td>Soybean + Maize, Bajra + Cowpea</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Crop Rotation</span></td>
+                                    <td>Growing different crops one after another on same field</td>
+                                    <td>Beans → Tomatoes → Corn → Beans</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="question">
+                            <strong>Q: What is the process of growing two or more crops in a definite pattern?</strong>
+                            <p><em>I. Crop rotation II. Inter-cropping III. Mixed cropping IV. Organic cropping</em></p>
+                            <p><strong>Answer: II. Inter-cropping</strong></p>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Advantages:</strong>
+                            <p><span class="neon-text">Intercropping:</span> Maximizes nutrient use, maintains soil fertility, controls pests naturally.</p>
+                            <p><span class="neon-text">Crop Rotation:</span> Preserves soil fertility, reduces weeds/pests, reduces chemical fertilizer use, increases yield.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Irrigation Methods Section -->
+            <section id="irrigation">
+                <h2 class="topic-header"><i class="fas fa-tint"></i> Irrigation Methods</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-water"></i> Types of Irrigation Systems</h3>
+                    <div class="card-content">
+                        <div class="crop-visual">
+                            <div class="crop-item">
+                                <div class="crop-name">Dug Wells</div>
+                                <i class="fas fa-water fa-2x cyan-text"></i>
+                                <div>Traditional wells</div>
+                            </div>
+                            <div class="crop-item">
+                                <div class="crop-name">Tube Wells</div>
+                                <i class="fas fa-oil-well fa-2x orange-text"></i>
+                                <div>Deep bore wells</div>
+                            </div>
+                            <div class="crop-item">
+                                <div class="crop-name">Canals</div>
+                                <i class="fas fa-water fa-2x blue-text"></i>
+                                <div>Channel system</div>
+                            </div>
+                            <div class="crop-item">
+                                <div class="crop-name">Sprinkler</div>
+                                <i class="fas fa-shower fa-2x green-text"></i>
+                                <div>Spray irrigation</div>
+                            </div>
+                            <div class="crop-item">
+                                <div class="crop-name">Drip Irrigation</div>
+                                <i class="fas fa-tint fa-2x yellow-text"></i>
+                                <div>Water conservation</div>
+                            </div>
+                            <div class="crop-item">
+                                <div class="crop-name">Rainwater Harvesting</div>
+                                <i class="fas fa-cloud-rain fa-2x cyan-text"></i>
+                                <div>Water storage</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Crop Protection Section -->
+            <section id="crop-protection">
+                <h2 class="topic-header"><i class="fas fa-shield-alt"></i> Crop Protection</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-bug"></i> Pest Control</h3>
+                    <div class="card-content">
+                        <p><strong>Pest:</strong> Any destructive organism which can destroy or harm crops</p>
+                        
+                        <ul>
+                            <li><span class="neon-text">Weeds:</span> Unwanted plants (e.g., Xanthium)</li>
+                            <li><span class="neon-text">Insects:</span> Cut roots/stems/leaves, suck cell sap</li>
+                            <li><span class="neon-text">Pathogens:</span> Bacteria, fungi, viruses causing diseases</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-warehouse"></i> Storage of Grains</h3>
+                    <div class="card-content">
+                        <div class="highlight">
+                            <strong>Storage Losses:</strong>
+                            <ul>
+                                <li><span class="neon-text">Biotic factors:</span> Insects, rodents, fungi, mites, bacteria</li>
+                                <li><span class="neon-text">Abiotic factors:</span> Moisture, unsuitable temperatures</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Preventive Measures:</strong>
+                            <ul>
+                                <li>Thorough cleaning before storage</li>
+                                <li>Drying in sunlight then shade</li>
+                                <li>Fumigation to kill pests</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Animal Husbandry Section -->
+            <section id="animal-husbandry">
+                <h2 class="topic-header"><i class="fas fa-paw"></i> Animal Husbandry</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-info-circle"></i> Introduction</h3>
+                    <div class="card-content">
+                        <div class="definition">
+                            <p><em>"Scientific management of domestic animals in an efficient manner to obtain food and other useful products."</em></p>
+                        </div>
+                        
+                        <div class="crop-visual">
+                            <div class="crop-item">
+                                <div class="crop-name">Cattle Farming</div>
+                                <i class="fas fa-cow fa-2x brown-text"></i>
+                            </div>
+                            <div class="crop-item">
+                                <div class="crop-name">Poultry Farming</div>
+                                <i class="fas fa-egg fa-2x yellow-text"></i>
+                            </div>
+                            <div class="crop-item">
+                                <div class="crop-name">Fish Production</div>
+                                <i class="fas fa-fish fa-2x cyan-text"></i>
+                            </div>
+                            <div class="crop-item">
+                                <div class="crop-name">Bee Keeping</div>
+                                <i class="fas fa-bee fa-2x yellow-text"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-cow"></i> Cattle Farming</h3>
+                    <div class="card-content">
+                        <p><strong>Purpose:</strong> Milk production, ploughing fields, transportation</p>
+                        
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Examples</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Foreign (Exotic)</span></td>
+                                    <td>Jersey, Brown Swiss, Holstein-Friesian</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Indigenous (Local)</span></td>
+                                    <td>Red Sindhi, Sahiwal</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="highlight">
+                            <strong>Key Terms:</strong>
+                            <ul>
+                                <li><span class="neon-text">Milch Animals:</span> Milk producing (female cattle)</li>
+                                <li><span class="neon-text">Draught Animals:</span> Used for agricultural work</li>
+                                <li><span class="neon-text">Lactation Period:</span> Milk production period between births</li>
+                                <li><span class="neon-text">Cross Breeding:</span> Foreign × Local breeds for better qualities</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Poultry Farming Section -->
+            <section id="poultry-farming">
+                <h2 class="topic-header"><i class="fas fa-egg"></i> Poultry Farming</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-table"></i> Layers vs Broilers</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Layers</th>
+                                    <th>Broilers</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Purpose</span></td>
+                                    <td>Egg production</td>
+                                    <td>Meat production</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Duration</span></td>
+                                    <td>20+ weeks (sexual maturity)</td>
+                                    <td>6-8 weeks</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Food Requirement</span></td>
+                                    <td>Restricted, calculated feed</td>
+                                    <td>Protein-rich with Vitamins A & K</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Special Features</span></td>
+                                    <td>More large-sized eggs</td>
+                                    <td>Fast growth, low mortality</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="highlight">
+                            <strong>Breed Types:</strong>
+                            <p><span class="neon-text">Indigenous:</span> Aseel, Basara, Brahma, Kadaknath</p>
+                            <p><span class="neon-text">Exotic:</span> White Leghorn, Black Minorcha, Rhode Island Red</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fish Production Section -->
+            <section id="fish-production">
+                <h2 class="topic-header"><i class="fas fa-fish"></i> Fish Production</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-water"></i> Types of Fishing</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Examples</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Capture Fishing</span></td>
+                                    <td>Naturally living fishes captured</td>
+                                    <td>Marine fishing</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Culture Fishing (Aquaculture)</span></td>
+                                    <td>Fishes cultivated in confined areas</td>
+                                    <td>Fish farming</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Mariculture</span></td>
+                                    <td>Aquaculture in oceans</td>
+                                    <td>Pearl farming</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="highlight">
+                            <strong>Composite Fish Culture (Polyculture):</strong>
+                            <ul>
+                                <li><span class="neon-text">Surface Feeders:</span> Catla, Silver Carp</li>
+                                <li><span class="neon-text">Column Feeders:</span> Rohu, Grass Carp</li>
+                                <li><span class="neon-text">Bottom Feeders:</span> Mrigal, Common Carp</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Problems in Fishing:</strong>
+                            <p>1. Seasonal breeding (monsoon) - solved by hormonal stimulation</p>
+                            <p>2. Overfishing - threatens marine ecosystems</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bee Keeping Section -->
+            <section id="bee-keeping">
+                <h2 class="topic-header"><i class="fas fa-bee"></i> Bee Keeping (Apiculture)</h2>
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-info-circle"></i> Bee Varieties</h3>
+                    <div class="card-content">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Varieties</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="neon-text">Indian Varieties</span></td>
+                                    <td>Apis cerana indica (Indian bee), dorsata (rock bee), florea (little bee)</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="neon-text">Italian Variety</span></td>
+                                    <td>Apis mellifera (commercial large scale)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="highlight">
+                            <strong>Advantages of Apis mellifera:</strong>
+                            <ul>
+                                <li>High honey collection capacity</li>
+                                <li>Fast reproduction</li>
+                                <li>Less stinging</li>
+                                <li>Stays in hive for long periods</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="highlight">
+                            <strong>Uses of Honey:</strong>
+                            <ul>
+                                <li>Medicine and sweetener</li>
+                                <li>Source of energy</li>
+                                <li>Rich in nutrients</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice Questions Section -->
+            <section id="practice-questions">
+                <h2 class="topic-header"><i class="fas fa-question-circle"></i> Practice Questions</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-tasks"></i> Short Answer Questions</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>Q1: If there is low rainfall in a village throughout the year. What measures will you suggest to the farmers for better cropping?</strong>
+                            <p><strong>Answer:</strong></p>
+                            <ol>
+                                <li>Soil moisture conservation using humus and organic manure</li>
+                                <li>Crop rotation and intercropping with varying water needs</li>
+                                <li>Efficient irrigation systems (drip/sprinkler)</li>
+                                <li>Drought resistant crops (millet, sorghum)</li>
+                                <li>Rainwater harvesting and storage</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>Q2: Chintulal is an organic farmer looking to improve his soil fertility. He wants to know whether he should use organic manure or fertilizers. What would you recommend, and why?</strong>
+                            <p><strong>Answer: Organic manure because:</strong></p>
+                            <ol>
+                                <li>Improves soil fertility and structure without changing pH</li>
+                                <li>Environmentally friendly (recycles waste)</li>
+                                <li>No adverse effects even in large quantities</li>
+                                <li>Cost-effective with long-term benefits</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Grandmaster Questions Section -->
+            <section id="grandmaster">
+                <h2 class="topic-header"><i class="fas fa-crown"></i> Grandmaster Questions</h2>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-star"></i> Previous Year Questions</h3>
+                    <div class="card-content">
+                        <div class="question">
+                            <strong>1. White revolution was done for:</strong>
+                            <p>A. Cotton B. Milk C. Eggs D. Oil</p>
+                            <p><strong>Answer: B. Milk</strong></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>2. Desirable agronomic characteristics for fodder crop?</strong>
+                            <p>A. Tallness B. Profuse branching C. Dwarfness D. Both a and b</p>
+                            <p><strong>Answer: D. Both a and b</strong></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>3. Which of the following is a biotic stress in plants?</strong>
+                            <p>A. Flood B. Ultraviolet rays C. Bacterial attack D. Drought</p>
+                            <p><strong>Answer: C. Bacterial attack</strong></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>4. Which is a micronutrient?</strong>
+                            <p>A. Nitrogen B. Calcium C. Zinc D. Phosphorus</p>
+                            <p><strong>Answer: C. Zinc</strong></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>5. Broiler is used for ______ production</strong>
+                            <p>A. Milk B. Meat C. Egg D. All of these</p>
+                            <p><strong>Answer: B. Meat</strong></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>6. Which one of the following species of honey bee is an Italian species?</strong>
+                            <p>A. Apis dorsata B. Apis florae C. Apis cerana indica D. Apis mellifera</p>
+                            <p><strong>Answer: D. Apis mellifera</strong></p>
+                        </div>
+                        
+                        <div class="question">
+                            <strong>7. Poultry farming is undertaken to raise following:</strong>
+                            <p>i. Egg production ii. Feather production iii. Chicken meat iv. Milk production</p>
+                            <p>A. i and iii B. i and ii C. ii and iii D. iii and iv</p>
+                            <p><strong>Answer: A. i and iii</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="highlight">
+                <strong>"Cultivate ambition, harvest excellence." - Improvement in Food Resources</strong>
+                <p style="margin-top: 10px;">Keep studying like Sultan Bhaiya says! Remember: <em>"Sustainable farming today ensures food security tomorrow!"</em> 🌱✨</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Class 9: Improvement in Food Resources | Neon Interactive Edition</p>
+        <p>Created with <span class="neon-text">HTML, CSS & JavaScript</span></p>
+        <p>Use this interactive page to study effectively! All notes organized with neon theme for better retention.</p>
+        <p>- Interactive Edition by Mohammad Sultan</p>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top-btn" id="scrollTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Highlight current section in navigation
+        window.addEventListener('scroll', function() {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Show/hide scroll to top button
+            const scrollTopBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+        });
+        
+        // Back button functionality
+        const backButton = document.getElementById('backButton');
+        
+        backButton.addEventListener('click', function(e) {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        });
+        
+        // Scroll to top button functionality
+        const scrollTopBtn = document.getElementById('scrollTopBtn');
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-theme');
+            
+            if (document.body.classList.contains('light-theme')) {
+                // Light theme
+                document.body.style.backgroundColor = '#f0f0f0';
+                document.body.style.color = '#333';
+                themeIcon.className = 'fas fa-sun';
+                themeToggle.style.borderColor = '#ff9900';
+                themeToggle.style.color = '#ff9900';
+                themeToggle.style.boxShadow = '0 0 15px rgba(255, 153, 0, 0.5)';
+            } else {
+                // Dark theme (default)
+                document.body.style.backgroundColor = '';
+                document.body.style.color = '';
+                themeIcon.className = 'fas fa-moon';
+                themeToggle.style.borderColor = '';
+                themeToggle.style.color = '';
+                themeToggle.style.boxShadow = '';
+            }
+        });
+        
+        // Add interactive hover effects to cards
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 10px 30px rgba(57, 255, 20, 0.2)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.boxShadow = '';
+            });
+        });
+        
+        // Interactive quiz reveal for practice questions
+        document.querySelectorAll('.question').forEach(question => {
+            const answer = question.querySelector('p:last-child');
+            if (answer && answer.innerHTML.includes('Answer:')) {
+                answer.style.display = 'none';
+                question.style.cursor = 'pointer';
+                
+                question.addEventListener('click', function() {
+                    if (answer.style.display === 'none') {
+                        answer.style.display = 'block';
+                        answer.style.animation = 'fadeIn 0.5s';
+                    } else {
+                        answer.style.display = 'none';
+                    }
+                });
+            }
+        });
+        
+        // Add fadeIn animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .green-text { color: #39ff14; }
+            .orange-text { color: #ff8800; }
+            .yellow-text { color: #fff700; }
+            .cyan-text { color: #00f3ff; }
+            .blue-text { color: #0088ff; }
+            .brown-text { color: #8B4513; }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
